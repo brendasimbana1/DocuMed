@@ -17,11 +17,13 @@ public class Paciente {
 	private List<String> ant_personales;
 	private List<String> ant_familiares;
 	private List<String> ant_ginec_obs;
+	private List<Registros> registro;
+
 	
 	
 	public Paciente(String ci, String nombres, String apellidos, String ocupacion, String profesion,
 			Date fecha_nacimiento, Date fecha_actual, String[] telefonos, char genero, String lugar_nacimiento,
-			List<String> ant_personales, List<String> ant_familiares, List<String> ant_ginec_obs) {
+			List<String> ant_personales, List<String> ant_familiares, List<String> ant_ginec_obs, List<Registros> registros) {
 		super();
 		this.ci = ci;
 		this.nombres = nombres;
@@ -36,6 +38,7 @@ public class Paciente {
 		this.ant_personales = ant_personales;
 		this.ant_familiares = ant_familiares;
 		this.ant_ginec_obs = ant_ginec_obs;
+		this.registro = registros;
 	}
 	
 	public String getCi() {
@@ -115,6 +118,16 @@ public class Paciente {
 	}
 	public void setAnt_ginec_obs(List<String> ant_ginec_obs) {
 		this.ant_ginec_obs = ant_ginec_obs;
+	}
+	
+	public List<Registros> getRegistro() 
+	{
+		return registro;
+	}
+
+	public void setRegistro(List<Registros> registro) 
+	{
+		this.registro = registro;
 	}
 	
 }
