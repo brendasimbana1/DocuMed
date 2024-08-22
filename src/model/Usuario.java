@@ -2,13 +2,25 @@ package model;
 
 public class Usuario {
 	
+	private int id;
 	private String nombre;
 	private String contrasenia;
 	
-	public Usuario(String nombre, String contrasenia) {
+	public Usuario(int id, String nombre, String contrasenia) {
 		super();
+		this.id = id;
 		this.nombre = nombre;
 		this.contrasenia = contrasenia;
+	}
+
+	public int getId() 
+	{
+		return id;
+	}
+
+	public void setId(int id) 
+	{
+		this.id = id;
 	}
 
 	public String getNombre() 
