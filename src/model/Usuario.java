@@ -3,46 +3,42 @@ package model;
 public class Usuario {
 	
 	private int id;
-	private String nombre;
-	private String contrasenia;
+	private String username;
+	private String password;
 	
-	public Usuario(int id, String nombre, String contrasenia) {
+	public Usuario() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Usuario(int id, String username, String password) {
 		super();
 		this.id = id;
-		this.nombre = nombre;
-		this.contrasenia = contrasenia;
+		this.username = username;
+		this.password = password;
 	}
-
-	public int getId() 
-	{
+	public int getId() {
 		return id;
 	}
-
-	public void setId(int id) 
-	{
+	public void setId(int id) {
 		this.id = id;
 	}
-
-	public String getNombre() 
-	{
-		return nombre;
+	public String getUsername() {
+		return username;
 	}
-
-	public void setNombre(String nombre) 
-	{
-		this.nombre = nombre;
+	public void setUsername(String username) {
+		this.username = username;
 	}
-
-	public String getContrasenia() 
-	{
-		return contrasenia;
+	public String getPassword() {
+		return password;
 	}
-
-	public void setContrasenia(String contrasenia) 
-	{
-		this.contrasenia = contrasenia;
+	public void setPassword(String password) {
+		this.password = password;
 	}
-	
+	@Override
+	public String toString() {
+		return "[id=" + id + ", username=" + username + ", password=" + password + "]";
+	}
 	
 	
 	

@@ -14,7 +14,7 @@ public class UsuarioDAO {
 	public List<Usuario> getUsers()
 	{
 		List<Usuario> users = new ArrayList<Usuario>();
-		query = "SELECT * FROM usuarios";
+		query = "SELECT * FROM usuarios;";
 		ResultSet rs;
 		rs = dbConn.executeQuery(query);
 		try 
@@ -54,8 +54,8 @@ public class UsuarioDAO {
 	public boolean addUser(Usuario user)
 	{
 		query = String.format("INSERT INTO usuarios VALUES('%s', '%s')",
-				user.getNombre(),
-				user.getContrasenia());
+				user.getUsername(),
+				user.getPassword());
 		boolean result = dbConn.executeUpdate(query);
 		return result;
 	}
@@ -63,7 +63,7 @@ public class UsuarioDAO {
 	public boolean editPswById(Usuario user)
 	{
 		query = String.format("UPDATE usuarios SET password = '%s' WHERE id = %d;",
-				user.getContrasenia(),
+				user.getPassword(),
 				user.getId());
 		boolean result = dbConn.executeUpdate(query);
 		return result;

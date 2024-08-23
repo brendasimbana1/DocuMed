@@ -17,6 +17,7 @@
 	public class View_Login extends JFrame {
 	
 		private static final long serialVersionUID = 1L;
+		public static final String JOptionPane = null;
 		private JPanel contentPane;
 		public JTextField textField;
 		public JPasswordField passwordField;
