@@ -11,8 +11,8 @@
 	import java.awt.Font;
 	import javax.swing.SwingConstants;
 	import javax.swing.JButton;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+
+	import controller.Logic_View_Login;
 	
 	public class View_Login extends JFrame {
 	
@@ -21,6 +21,7 @@ import java.awt.event.KeyEvent;
 		public JTextField textField;
 		public JPasswordField passwordField;
 		public JButton btnLogin;
+		private Logic_View_Login lvl;
 	
 		/**
 		 * Launch the application.
@@ -82,5 +83,6 @@ import java.awt.event.KeyEvent;
 			btnLogin.setBounds(134, 175, 166, 42);
 			panel.add(btnLogin);
 			setLocationRelativeTo(null);	//esta línea es la encargada de centrar la ventana
+			this.lvl = new Logic_View_Login(this);
 		}
 	}
