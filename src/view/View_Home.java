@@ -7,6 +7,9 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import java.time.LocalDateTime;
@@ -14,7 +17,7 @@ import java.time.format.DateTimeFormatter;
 
 public class View_Home{
 
-	private JFrame frame;
+	public JFrame frame;
 	LocalDateTime ahora = LocalDateTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd LLLL yyyy HH:mm:ss");
     String fechaActual = ahora.format(formatter);
@@ -54,7 +57,14 @@ public class View_Home{
 		frame = new JFrame();
 		frame.getContentPane().setBackground(Color.WHITE);
 		frame.setBounds(100, 100, 802, 500);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				View_Login vm = new View_Login();
+				vm.setVisible(true);
+			}
+		});
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
 		frame.setTitle("Home");
