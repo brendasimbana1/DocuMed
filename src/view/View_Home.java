@@ -58,6 +58,7 @@ public class View_Home{
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
 		frame.setTitle("Home");
+		frame.setLocationRelativeTo(null);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(0, 82, 164));
@@ -166,5 +167,6 @@ public class View_Home{
 		lblNewLabel_6_1_2_1.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 13));
 		lblNewLabel_6_1_2_1.setBounds(168, 262, 375, 105);
 		frame.getContentPane().add(lblNewLabel_6_1_2_1);
+		
 	}
 }
