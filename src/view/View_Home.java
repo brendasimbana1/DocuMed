@@ -19,6 +19,10 @@ import java.time.format.DateTimeFormatter;
 public class View_Home {
 
     public JFrame frame;
+    public JButton btnNuevoPaciente;
+    public JButton btnNuevoRegistro;
+    public JButton btnPrincipal;
+    
     LocalDateTime ahora = LocalDateTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd LLLL yyyy HH:mm:ss");
     String fechaActual = ahora.format(formatter);
@@ -77,7 +81,7 @@ public class View_Home {
         frame.getContentPane().add(panel);
         panel.setLayout(null);
 
-        JButton btnNuevoPaciente = new JButton("Nuevo Paciente");
+        btnNuevoPaciente = new JButton("Nuevo Paciente");
         btnNuevoPaciente.setHorizontalAlignment(SwingConstants.CENTER);
         btnNuevoPaciente.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
         btnNuevoPaciente.setForeground(Color.WHITE);
@@ -87,7 +91,7 @@ public class View_Home {
         btnNuevoPaciente.setBounds(46, 250, 138, 43);
         panel.add(btnNuevoPaciente);
 
-        JButton btnNuevoRegistro = new JButton("Nuevo Registro");
+        btnNuevoRegistro = new JButton("Nuevo Registro");
         btnNuevoRegistro.setHorizontalAlignment(SwingConstants.CENTER);
         btnNuevoRegistro.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
         btnNuevoRegistro.setForeground(Color.WHITE);
@@ -131,7 +135,7 @@ public class View_Home {
         lblNewLabel_6.setBounds(0, 59, 163, 42);
         panel.add(lblNewLabel_6);
         
-        JButton btnPrincipal = new JButton("Principal");
+        btnPrincipal = new JButton("Principal");
         btnPrincipal.setHorizontalAlignment(SwingConstants.CENTER);
         btnPrincipal.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
         btnPrincipal.setForeground(Color.WHITE);
