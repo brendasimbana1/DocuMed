@@ -7,8 +7,7 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JButton;  // Importación de JButton
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.SwingConstants;
@@ -147,7 +146,7 @@ public class View_Home {
 
         JPanel panel_1 = new JPanel();
         panel_1.setBackground(new Color(0, 128, 255));
-        panel_1.setBounds(183, 46, 605, 116);
+        panel_1.setBounds(162, 46, 626, 116);
         frame.getContentPane().add(panel_1);
         panel_1.setLayout(null);
         

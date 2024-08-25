@@ -6,6 +6,7 @@ import java.util.List;
 public class Registros {
 	private Date fechas_atencion;
 	private List<String> diagnostico;
+	private String ci;
 	private double peso;
 	private double altura;
 	private double temperatura;
@@ -15,7 +16,8 @@ public class Registros {
 	private String responsable; //médico que trata al paciente
 	
 	public Registros(Date fechas_atencion, List<String> diagnostico, double peso, double altura, double temperatura,
-			String presion_arterial, List<String> evolucion, List<String> indicaciones, String responsable) 
+			String presion_arterial, List<String> evolucion, List<String> indicaciones, String responsable, 
+			String ci) 
 	{
 		super();
 		this.fechas_atencion = fechas_atencion;
@@ -27,6 +29,7 @@ public class Registros {
 		this.evolucion = evolucion;
 		this.indicaciones = indicaciones;
 		this.responsable = responsable;
+		this.ci=ci;
 	}
 
 	public Date getFechas_atencion() 
@@ -119,13 +122,12 @@ public class Registros {
 		this.responsable = responsable;
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
+	public String getCi() {
+		return ci;
+	}
+
+	public void setCi(String ci) {
+		this.ci = ci;
+	}
 	
 }
