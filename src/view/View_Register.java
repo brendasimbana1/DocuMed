@@ -33,8 +33,6 @@ public class View_Register extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-<<<<<<< HEAD
-	JDateChooser dateChooser;
 	public JTextField txt_ci;
 	public JTextField txt_presion;
 	public JTextField txt_responsable;
@@ -42,10 +40,8 @@ public class View_Register extends JFrame {
 	public JButton btnNuevoRegistro;
 	public JButton btnNuevoPaciente;
 	private Logic_View_Register lvr;
-=======
 	public JDateChooser dateChooser;
-	public JTextField txt_ci;
-	public JTextField txt_presion;
+
 	public JTextArea textArea_diagnostico;
 	public JSpinner spn_peso;
 	public JSpinner spn_altura;
@@ -53,8 +49,6 @@ public class View_Register extends JFrame {
 	public JTextArea textArea_evolucion;
 	public JTextArea textArea_indicaciones;
 	public JButton btn_registro_visita;
-	public JTextField txt_responsable;
->>>>>>> cdc3fa160ff8718fc0d7b20917d3008181ace9aa
 
 	/**
 	 * Launch the application.
@@ -318,29 +312,13 @@ public class View_Register extends JFrame {
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
 
-<<<<<<< HEAD
 
-
-		JLabel lblNewLabel_6_1 = new JLabel("Consultorios Médicos");
-		lblNewLabel_6_1.setBounds(10, 11, 215, 46);
-		panel_2.add(lblNewLabel_6_1);
-		lblNewLabel_6_1.setForeground(Color.BLACK);
-		lblNewLabel_6_1.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 13));
-		jbSeleccFecha.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Fecha();
-			}
-		});
-		lvr = new Logic_View_Register(this);
-=======
 		JLabel lblNewLabel_11 = new JLabel("Registro Visita Médica");
 		lblNewLabel_11.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_11.setBounds(10, 21, 585, 25);
 		panel_2.add(lblNewLabel_11);
 		lblNewLabel_11.setForeground(new Color(255, 255, 255));
 		lblNewLabel_11.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 16));
->>>>>>> cdc3fa160ff8718fc0d7b20917d3008181ace9aa
 	}
 
 	public void Fecha() {
