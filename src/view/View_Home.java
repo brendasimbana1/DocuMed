@@ -143,7 +143,7 @@ public class View_Home {
 
         JPanel panel_1 = new JPanel();
         panel_1.setBackground(new Color(0, 128, 255));
-        panel_1.setBounds(183, 46, 605, 116);
+        panel_1.setBounds(162, 46, 626, 116);
         frame.getContentPane().add(panel_1);
         panel_1.setLayout(null);
         
