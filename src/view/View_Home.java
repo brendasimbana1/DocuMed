@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.JLabel;
-import javax.swing.JButton;  // Importación de JButton
+import javax.swing.JButton;  //Importación de JButton
 import java.awt.Font;
 
 import java.awt.event.WindowAdapter;
@@ -15,12 +15,15 @@ import javax.swing.ImageIcon;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import controller.Logic_View_Home;
+
 public class View_Home {
 
     public JFrame frame;
     public JButton btnNuevoPaciente;
     public JButton btnNuevoRegistro;
     public JButton btnPrincipal;
+    private Logic_View_Home lvh;
     
     LocalDateTime ahora = LocalDateTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd LLLL yyyy HH:mm:ss");
@@ -190,5 +193,7 @@ public class View_Home {
 		lblNewLabel_6_1_2_1.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 13));
 		lblNewLabel_6_1_2_1.setBounds(194, 262, 375, 105);
 		frame.getContentPane().add(lblNewLabel_6_1_2_1);
+		
+		lvh = new Logic_View_Home(this);
     }
 }

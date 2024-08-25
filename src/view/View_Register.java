@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -19,6 +21,9 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import com.toedter.calendar.JDateChooser;
+
+import controller.Logic_View_Register;
+
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JSpinner;
@@ -28,9 +33,13 @@ public class View_Register extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	JDateChooser dateChooser;
-	private JTextField txt_ci;
-	private JTextField txt_presion;
-	private JTextField txt_responsable;
+	public JTextField txt_ci;
+	public JTextField txt_presion;
+	public JTextField txt_responsable;
+	public JButton btnPrincipal;
+	public JButton btnNuevoRegistro;
+	public JButton btnNuevoPaciente;
+	private Logic_View_Register lvr;
 
 	/**
 	 * Launch the application.
@@ -52,11 +61,19 @@ public class View_Register extends JFrame {
 	 * Create the frame.
 	 */
 	public View_Register() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 802, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setResizable(false);
+		setTitle("Registro de Pacientes");
+		addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                View_Login vm = new View_Login();
+                vm.setVisible(true);
+            }
+        });
 		setLocationRelativeTo(null);
 
 
@@ -69,7 +86,7 @@ public class View_Register extends JFrame {
 		getContentPane().add(panel);
 		panel.setLayout(null);
 
-		JButton btnNuevoPaciente = new JButton("Nuevo Paciente");
+		btnNuevoPaciente = new JButton("Nuevo Paciente");
 		btnNuevoPaciente.setHorizontalAlignment(SwingConstants.CENTER);
 		btnNuevoPaciente.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
 		btnNuevoPaciente.setForeground(Color.WHITE);
@@ -79,7 +96,7 @@ public class View_Register extends JFrame {
 		btnNuevoPaciente.setBounds(46, 250, 138, 43);
 		panel.add(btnNuevoPaciente);
 
-		JButton btnNuevoRegistro = new JButton("Nuevo Registro");
+		btnNuevoRegistro = new JButton("Nuevo Registro");
 		btnNuevoRegistro.setHorizontalAlignment(SwingConstants.CENTER);
 		btnNuevoRegistro.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
 		btnNuevoRegistro.setForeground(Color.WHITE);
@@ -123,7 +140,7 @@ public class View_Register extends JFrame {
 		lblNewLabel_6.setBounds(0, 59, 163, 42);
 		panel.add(lblNewLabel_6);
 
-		JButton btnPrincipal = new JButton("Principal");
+		btnPrincipal = new JButton("Principal");
 		btnPrincipal.setHorizontalAlignment(SwingConstants.CENTER);
 		btnPrincipal.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
 		btnPrincipal.setForeground(Color.WHITE);
@@ -281,6 +298,7 @@ public class View_Register extends JFrame {
 				Fecha();
 			}
 		});
+		lvr = new Logic_View_Register(this);
 	}
 
 	public void Fecha() {
