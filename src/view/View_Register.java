@@ -319,6 +319,8 @@ public class View_Register extends JFrame {
 		panel_2.add(lblNewLabel_11);
 		lblNewLabel_11.setForeground(new Color(255, 255, 255));
 		lblNewLabel_11.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 16));
+		
+		lvr = new Logic_View_Register(this);
 	}
 
 	public void Fecha() {

@@ -24,6 +24,9 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import com.toedter.calendar.JDateChooser;
+
+import controller.Logic_View_Patient;
+
 import javax.swing.JComboBox;
 
 public class View_Patient extends JFrame {
@@ -41,6 +44,11 @@ public class View_Patient extends JFrame {
 	private JTextField txt_apellidos;
 	private JTextField txt_ocupacion;
 	private JTextField textField;
+	public JButton btnPrincipal;
+	public JButton btnNuevoRegistro;
+	public JButton btnNuevoPaciente;
+	
+	private Logic_View_Patient lvp;
 
 	/**
 	 * Launch the application.
@@ -62,9 +70,10 @@ public class View_Patient extends JFrame {
 	 * Create the frame.
 	 */
 	public View_Patient() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 802, 500);
 		contentPane = new JPanel();
+		setTitle("Registro de Pacientes");
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setResizable(false);
 		setLocationRelativeTo(null);
@@ -79,7 +88,7 @@ public class View_Patient extends JFrame {
 		getContentPane().add(panel);
 		panel.setLayout(null);
 
-		JButton btnNuevoPaciente = new JButton("Nuevo Paciente");
+		btnNuevoPaciente = new JButton("Nuevo Paciente");
 		btnNuevoPaciente.setHorizontalAlignment(SwingConstants.CENTER);
 		btnNuevoPaciente.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
 		btnNuevoPaciente.setForeground(Color.WHITE);
@@ -89,7 +98,7 @@ public class View_Patient extends JFrame {
 		btnNuevoPaciente.setBounds(46, 250, 138, 43);
 		panel.add(btnNuevoPaciente);
 
-		JButton btnNuevoRegistro = new JButton("Nuevo Registro");
+		btnNuevoRegistro = new JButton("Nuevo Registro");
 		btnNuevoRegistro.setHorizontalAlignment(SwingConstants.CENTER);
 		btnNuevoRegistro.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
 		btnNuevoRegistro.setForeground(Color.WHITE);
@@ -133,7 +142,7 @@ public class View_Patient extends JFrame {
 		lblNewLabel_6.setBounds(0, 59, 163, 42);
 		panel.add(lblNewLabel_6);
 
-		JButton btnPrincipal = new JButton("Principal");
+		btnPrincipal = new JButton("Principal");
 		btnPrincipal.setHorizontalAlignment(SwingConstants.CENTER);
 		btnPrincipal.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
 		btnPrincipal.setForeground(Color.WHITE);
@@ -335,6 +344,7 @@ public class View_Patient extends JFrame {
 		fecha_label_6_1.setBounds(337, 173, 237, 36);
 		panel_1.add(fecha_label_6_1);
 		
+		lvp = new Logic_View_Patient(this);
 		
 	}
 

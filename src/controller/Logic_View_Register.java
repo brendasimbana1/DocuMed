@@ -4,12 +4,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import view.View_Home;
+import view.View_Patient;
 import view.View_Register;
 
 public class Logic_View_Register implements ActionListener{
 	
 	private View_Register vr;
 	private View_Home vh;
+	private View_Patient vp;
+
 	
 	public Logic_View_Register(View_Register vr) 
 	{
@@ -27,6 +30,12 @@ public class Logic_View_Register implements ActionListener{
 			vh = new View_Home();
 			vr.dispose();
 			vh.frame.setVisible(true);
+		}
+		else if (e.getSource() == vr.btnNuevoPaciente)
+		{	
+			vp = new View_Patient();
+			vp.setVisible(true);
+			vr.dispose();
 		}
 	}
 
