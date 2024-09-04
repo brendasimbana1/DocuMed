@@ -38,17 +38,20 @@ public class View_Patient extends JFrame {
 	public JTextArea textArea_ant_personales;
 	public JTextArea textArea_ant_familiares;
 	public JTextArea textArea_ant_gineco_obs;
-	public JTextArea textArea_genero;
-	public JButton btn_registro_visita;
-	private JTextField txt_nombres;
-	private JTextField txt_apellidos;
-	private JTextField txt_ocupacion;
-	private JTextField textField;
+	public JTextArea textArea_telefono;
+	public JButton btn_registro_paciente;
+	public JTextField txt_nombres;
+	public JTextField txt_apellidos;
+	public JTextField txt_ocupacion;
+	public JTextField txt_profesion;
 	public JButton btnPrincipal;
 	public JButton btnNuevoRegistro;
 	public JButton btnNuevoPaciente;
 	
 	private Logic_View_Patient lvp;
+	public JDateChooser date_actual;
+	public JTextField txt_lugar;
+	public JComboBox<Character> cmb_genero;
 
 	/**
 	 * Launch the application.
@@ -71,7 +74,7 @@ public class View_Patient extends JFrame {
 	 */
 	public View_Patient() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 802, 500);
+		setBounds(100, 100, 1000, 600);
 		contentPane = new JPanel();
 		setTitle("Registro de Pacientes");
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -84,7 +87,7 @@ public class View_Patient extends JFrame {
 		//Barra de navegación
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(0, 82, 164));
-		panel.setBounds(0, 0, 184, 463);
+		panel.setBounds(0, 0, 184, 600);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 
@@ -127,7 +130,7 @@ public class View_Patient extends JFrame {
 
 		JLabel lblNewLabel_4 = new JLabel("");
 		lblNewLabel_4.setIcon(new ImageIcon(View_Home.class.getResource("/resources/cerrar-sesion.png")));
-		lblNewLabel_4.setBounds(10, 396, 49, 35);
+		lblNewLabel_4.setBounds(10, 509, 49, 35);
 		panel.add(lblNewLabel_4);
 
 		JLabel lblNewLabel_5 = new JLabel("");
@@ -155,7 +158,7 @@ public class View_Patient extends JFrame {
 		//Título
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(0, 128, 255));
-		panel_2.setBounds(183, 0, 605, 57);
+		panel_2.setBounds(183, 0, 803, 57);
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
 
@@ -169,14 +172,14 @@ public class View_Patient extends JFrame {
 		//Body
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(255, 255, 255));
-		panel_1.setBounds(183, 57, 605, 402);
+		panel_1.setBounds(183, 57, 803, 506);
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 
 		JLabel fecha_label = new JLabel("Antecedentes personales:");
 		fecha_label.setForeground(Color.BLACK);
 		fecha_label.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
-		fecha_label.setBounds(337, 11, 213, 36);
+		fecha_label.setBounds(500, 11, 213, 36);
 		panel_1.add(fecha_label);
 
 		//Se puede poner la hora con JCalendarDemo, revisar documentación eligir luego 
@@ -185,15 +188,9 @@ public class View_Patient extends JFrame {
 		date_nacimiento.setBounds(161, 213, 124, 25);
 		panel_1.add(date_nacimiento);
 
-		btn_registro_visita = new JButton("Registrar");
-		btn_registro_visita.setBounds(161, 353, 232, 25);
-		panel_1.add(btn_registro_visita);
-		btn_registro_visita.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Fecha();
-			}
-		});
+		btn_registro_paciente = new JButton("Registrar");
+		btn_registro_paciente.setBounds(349, 437, 232, 25);
+		panel_1.add(btn_registro_paciente);
 
 		JLabel fecha_label_1 = new JLabel("C.I.:");
 		fecha_label_1.setForeground(Color.BLACK);
@@ -202,7 +199,7 @@ public class View_Patient extends JFrame {
 		panel_1.add(fecha_label_1);
 
 		txt_ci = new JTextField();
-		txt_ci.setBounds(161, 22, 131, 20);
+		txt_ci.setBounds(161, 22, 203, 20);
 		panel_1.add(txt_ci);
 		txt_ci.setColumns(10);
 
@@ -211,42 +208,42 @@ public class View_Patient extends JFrame {
 		textArea_ant_personales = new JTextArea();
 		textArea_ant_personales.setRows(10);
 		textArea_ant_personales.setForeground(new Color(0, 0, 0));
-		textArea_ant_personales.setBounds(337, 45, 237, 48);
+		textArea_ant_personales.setBounds(500, 45, 237, 48);
 		textArea_ant_personales.setBorder(border);
 		textArea_ant_personales.setLineWrap(true);
 		textArea_ant_personales.setWrapStyleWord(true);
 		panel_1.add(textArea_ant_personales);
 		
 		JScrollPane scrollPane = new JScrollPane(textArea_ant_personales);
-        scrollPane.setBounds(337, 45, 237, 48);
+        scrollPane.setBounds(500, 45, 237, 48);
         
         panel_1.add(scrollPane);
         
         textArea_ant_gineco_obs = new JTextArea();
         textArea_ant_gineco_obs.setRows(10);
         textArea_ant_gineco_obs.setForeground(new Color(0, 0, 0));
-        textArea_ant_gineco_obs.setBounds(337, 210, 237, 48);
+        textArea_ant_gineco_obs.setBounds(500, 250, 237, 48);
         textArea_ant_gineco_obs.setBorder(border);
         textArea_ant_gineco_obs.setLineWrap(true);
         textArea_ant_gineco_obs.setWrapStyleWord(true);
 		panel_1.add(textArea_ant_gineco_obs);
 		
 		JScrollPane scrollPane1 = new JScrollPane(textArea_ant_gineco_obs);
-        scrollPane1.setBounds(337, 210, 237, 48);
+        scrollPane1.setBounds(500, 250, 237, 48);
         
         panel_1.add(scrollPane1);
         
         textArea_ant_familiares = new JTextArea();
         textArea_ant_familiares.setRows(10);
         textArea_ant_familiares.setForeground(new Color(0, 0, 0));
-        textArea_ant_familiares.setBounds(337, 125, 237, 48);
+        textArea_ant_familiares.setBounds(500, 150, 237, 48);
 		textArea_ant_familiares.setBorder(border);
 		textArea_ant_familiares.setLineWrap(true);
 		textArea_ant_familiares.setWrapStyleWord(true);
 		panel_1.add(textArea_ant_familiares);
 		
 		JScrollPane scrollPane2 = new JScrollPane(textArea_ant_familiares);
-        scrollPane2.setBounds(337, 125, 237, 48);
+        scrollPane2.setBounds(500, 150, 237, 48);
         
         panel_1.add(scrollPane2);
 
@@ -280,11 +277,11 @@ public class View_Patient extends JFrame {
 		fecha_label_8.setBounds(27, 274, 138, 36);
 		panel_1.add(fecha_label_8);
 
-		textArea_genero = new JTextArea();
-		textArea_genero.setForeground(Color.BLACK);
-		textArea_genero.setBounds(161, 282, 203, 20);
-		textArea_genero.setBorder(border);
-		panel_1.add(textArea_genero);
+		textArea_telefono = new JTextArea();
+		textArea_telefono.setForeground(Color.BLACK);
+		textArea_telefono.setBounds(161, 283, 203, 20);
+		textArea_telefono.setBorder(border);
+		panel_1.add(textArea_telefono);
 
 		JLabel fecha_label_9 = new JLabel("Género:");
 		fecha_label_9.setForeground(Color.BLACK);
@@ -300,7 +297,7 @@ public class View_Patient extends JFrame {
 		
 		txt_nombres = new JTextField();
 		txt_nombres.setColumns(10);
-		txt_nombres.setBounds(161, 61, 131, 20);
+		txt_nombres.setBounds(161, 61, 203, 20);
 		panel_1.add(txt_nombres);
 		
 		JLabel fecha_label_11 = new JLabel("Apellidos:");
@@ -311,51 +308,51 @@ public class View_Patient extends JFrame {
 		
 		txt_apellidos = new JTextField();
 		txt_apellidos.setColumns(10);
-		txt_apellidos.setBounds(161, 101, 131, 20);
+		txt_apellidos.setBounds(161, 101, 203, 20);
 		panel_1.add(txt_apellidos);
 		
 		txt_ocupacion = new JTextField();
 		txt_ocupacion.setColumns(10);
-		txt_ocupacion.setBounds(161, 142, 131, 20);
+		txt_ocupacion.setBounds(161, 142, 203, 20);
 		panel_1.add(txt_ocupacion);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(161, 179, 131, 20);
-		panel_1.add(textField);
+		txt_profesion = new JTextField();
+		txt_profesion.setColumns(10);
+		txt_profesion.setBounds(161, 179, 203, 20);
+		panel_1.add(txt_profesion);
 		
-		JDateChooser date_actual = new JDateChooser(new Date());
+		date_actual = new JDateChooser(new Date());
 		date_actual.setBounds(161, 250, 124, 25);
 		panel_1.add(date_actual);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(161, 313, 124, 22);
-		panel_1.add(comboBox);
+		cmb_genero = new JComboBox<>();
+		cmb_genero.setBounds(161, 313, 124, 22);
+		panel_1.add(cmb_genero);
 		
 		JLabel fecha_label_6 = new JLabel("Antecedentes familiares:");
 		fecha_label_6.setForeground(Color.BLACK);
 		fecha_label_6.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
-		fecha_label_6.setBounds(337, 95, 213, 36);
+		fecha_label_6.setBounds(500, 114, 213, 36);
 		panel_1.add(fecha_label_6);
 		
 		JLabel fecha_label_6_1 = new JLabel("Antecedentes gineco-obstétricos:");
 		fecha_label_6_1.setForeground(Color.BLACK);
 		fecha_label_6_1.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
-		fecha_label_6_1.setBounds(337, 173, 237, 36);
+		fecha_label_6_1.setBounds(500, 216, 237, 36);
 		panel_1.add(fecha_label_6_1);
+		
+		JLabel fecha_label_9_1 = new JLabel("Lugar Nacimiento:");
+		fecha_label_9_1.setForeground(Color.BLACK);
+		fecha_label_9_1.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
+		fecha_label_9_1.setBounds(27, 346, 138, 36);
+		panel_1.add(fecha_label_9_1);
+		
+		txt_lugar = new JTextField();
+		txt_lugar.setColumns(10);
+		txt_lugar.setBounds(161, 356, 203, 20);
+		panel_1.add(txt_lugar);
 		
 		lvp = new Logic_View_Patient(this);
 		
-	}
-
-	public void Fecha() {
-		Calendar calendario = date_nacimiento.getCalendar();
-		System.out.println("----------- Fecha seleccionada ------------");
-		int dia = calendario.get(Calendar.DATE); 
-		int mes = calendario.get(Calendar.MONTH) + 1;
-		int year = calendario.get(Calendar.YEAR);
-		System.out.println("dia = " + dia);
-		System.out.println("mes = " + mes);
-		System.out.println("año = " + year);
 	}
 }
