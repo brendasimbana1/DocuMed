@@ -12,18 +12,18 @@ public class Paciente {
 	private Date fecha_nacimiento;
 	private Date fecha_actual;
 	private String [] telefonos;
-	private char genero;
+	private Character genero;
 	private String lugar_nacimiento;
-	private List<String> ant_personales;
-	private List<String> ant_familiares;
-	private List<String> ant_ginec_obs;
+	private String ant_personales;
+	private String ant_familiares;
+	private String ant_ginec_obs;
 	private List<Registros> registro;
 
 	
 	
 	public Paciente(String ci, String nombres, String apellidos, String ocupacion, String profesion,
-			Date fecha_nacimiento, Date fecha_actual, String[] telefonos, char genero, String lugar_nacimiento,
-			List<String> ant_personales, List<String> ant_familiares, List<String> ant_ginec_obs, List<Registros> registros) {
+			Date fecha_nacimiento, Date fecha_actual, String[] telefonos, Character genero, String lugar_nacimiento,
+			String ant_personales, String ant_familiares, String ant_ginec_obs, List<Registros> registros) {
 		super();
 		this.ci = ci;
 		this.nombres = nombres;
@@ -41,6 +41,27 @@ public class Paciente {
 		this.registro = registros;
 	}
 	
+	
+	public Paciente(String ci, String nombres, String apellidos, String ocupacion, String profesion,
+			Date fecha_nacimiento, Date fecha_actual, String[] telefonos, char genero, String lugar_nacimiento,
+			String ant_personales, String ant_familiares, String ant_ginec_obs) {
+		super();
+		this.ci = ci;
+		this.nombres = nombres;
+		this.apellidos = apellidos;
+		this.ocupacion = ocupacion;
+		this.profesion = profesion;
+		this.fecha_nacimiento = fecha_nacimiento;
+		this.fecha_actual = fecha_actual;
+		this.telefonos = telefonos;
+		this.genero = genero;
+		this.lugar_nacimiento = lugar_nacimiento;
+		this.ant_personales = ant_personales;
+		this.ant_familiares = ant_familiares;
+		this.ant_ginec_obs = ant_ginec_obs;
+	}
+
+
 	public String getCi() {
 		return ci;
 	}
@@ -101,22 +122,22 @@ public class Paciente {
 	public void setLugar_nacimiento(String lugar_nacimiento) {
 		this.lugar_nacimiento = lugar_nacimiento;
 	}
-	public List<String> getAnt_personales() {
+	public String getAnt_personales() {
 		return ant_personales;
 	}
-	public void setAnt_personales(List<String> ant_personales) {
+	public void setAnt_personales(String ant_personales) {
 		this.ant_personales = ant_personales;
 	}
-	public List<String> getAnt_familiares() {
+	public String getAnt_familiares() {
 		return ant_familiares;
 	}
-	public void setAnt_familiares(List<String> ant_familiares) {
+	public void setAnt_familiares(String ant_familiares) {
 		this.ant_familiares = ant_familiares;
 	}
-	public List<String> getAnt_ginec_obs() {
+	public String getAnt_ginec_obs() {
 		return ant_ginec_obs;
 	}
-	public void setAnt_ginec_obs(List<String> ant_ginec_obs) {
+	public void setAnt_ginec_obs(String ant_ginec_obs) {
 		this.ant_ginec_obs = ant_ginec_obs;
 	}
 	
