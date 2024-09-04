@@ -62,13 +62,13 @@ public class Logic_View_Patient implements ActionListener {
 		{
 			vr = new View_Register();
 			vr.setVisible(true);
-			vh.frame.dispose();
+			vp.dispose();
 		}
-		else if (e.getSource() == vp.btnNuevoPaciente)
+		else if (e.getSource() == vp.btnPrincipal)
 		{	
-			vp = new View_Patient();
-			vp.setVisible(true);
-			vh.frame.dispose();
+			vh = new View_Home();
+			vh.frame.setVisible(true);
+			vp.dispose();
 		}
 		else if (e.getSource() == vp.btn_registro_paciente)
 		{	
