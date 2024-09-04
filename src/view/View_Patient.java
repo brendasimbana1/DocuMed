@@ -215,6 +215,7 @@ public class View_Patient extends JFrame {
 		textArea_ant_personales.setBorder(border);
 		textArea_ant_personales.setLineWrap(true);
 		textArea_ant_personales.setWrapStyleWord(true);
+		textArea_ant_personales.setCaretPosition(0);
 		panel_1.add(textArea_ant_personales);
 		
 		JScrollPane scrollPane = new JScrollPane(textArea_ant_personales);

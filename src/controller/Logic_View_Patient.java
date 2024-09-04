@@ -3,12 +3,14 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import javax.swing.JOptionPane;
 
 import com.toedter.calendar.JDateChooser;
 
 import model.Paciente;
+import model.PacienteDAO;
 import view.View_Home;
 import view.View_Patient;
 import view.View_Register;
@@ -18,7 +20,8 @@ public class Logic_View_Patient implements ActionListener {
 	private View_Register vr;
 	private View_Patient vp;
 	private Paciente p;
-	
+	public final PacienteDAO pdao = new PacienteDAO();
+
 	public Logic_View_Patient(View_Patient vp) 
 	{
 		this.vp = vp;
@@ -28,8 +31,9 @@ public class Logic_View_Patient implements ActionListener {
 		this.vp.cmb_genero.addItem('F');
 		this.vp.cmb_genero.addItem('M');
 		this.vp.cmb_genero.addItem('-');
+		this.vp.cmb_genero.setSelectedItem('-');
 	}
-	
+
 	public boolean validar() {
 		if(!ValidateByER.validateNames(vp.txt_nombres.getText())) {
 			vp.txt_nombres.setText("");
@@ -43,7 +47,7 @@ public class Logic_View_Patient implements ActionListener {
 		}
 		return true;
 	}
-	
+
 	public void vaciar() {
 		vp.txt_nombres.setText("");
 		vp.txt_apellidos.setText("");
@@ -54,6 +58,13 @@ public class Logic_View_Patient implements ActionListener {
 		vp.textArea_ant_familiares.setText("");
 		vp.textArea_ant_gineco_obs.setText("");
 		vp.textArea_ant_personales.setText("");
+		vp.txt_lugar.setText("");
+		Calendar calendar = Calendar.getInstance();
+		java.util.Date utilDate = calendar.getTime();
+        Date sqlDate = new Date(utilDate.getTime());
+		vp.date_nacimiento.setDate(sqlDate);
+		vp.date_actual.setDate(sqlDate);
+		vp.cmb_genero.setSelectedItem('-');
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -74,47 +85,46 @@ public class Logic_View_Patient implements ActionListener {
 		{	
 			if(validar()) {
 				p= new Paciente(
-							vp.txt_ci.getText(),
-							vp.txt_nombres.getText(),
-							vp.txt_apellidos.getText(),
-							vp.txt_ocupacion.getText(),
-							vp.txt_profesion.getText(),
-							Fecha(vp.date_nacimiento),
-							Fecha(vp.date_actual),
-							telefonos(vp.textArea_telefono.getText()),
-							genero(),
-							vp.txt_lugar.getText(),
-							vp.textArea_ant_personales.getText(),
-							vp.textArea_ant_familiares.getText(),
-							vp.textArea_ant_gineco_obs.getText()
+						vp.txt_ci.getText(),
+						vp.txt_nombres.getText(),
+						vp.txt_apellidos.getText(),
+						vp.txt_ocupacion.getText(),
+						vp.txt_profesion.getText(),
+						Fecha(vp.date_nacimiento),
+						Fecha(vp.date_actual),
+						telefonos(vp.textArea_telefono.getText()),
+						genero(),
+						vp.txt_lugar.getText(),
+						vp.textArea_ant_personales.getText(),
+						vp.textArea_ant_familiares.getText(),
+						vp.textArea_ant_gineco_obs.getText()
 						);
-						
+
+				if(pdao.addPatient(p)) {
+					JOptionPane.showMessageDialog(vr, "Paciente agregado");
+					vaciar();
+				}else {
+					JOptionPane.showMessageDialog(vr, "Error al agregar paciente");
+				}
+			}else {
+				JOptionPane.showMessageDialog(vr, "Corrija los campos indicados");
 			}
 		}
 	}
-	
+
 	public Date Fecha(JDateChooser jd) {
-		Calendar calendario = jd.getCalendar();
-		System.out.println("----------- Fecha seleccionada ------------");
-		int dia = calendario.get(Calendar.DATE); 
-		int mes = calendario.get(Calendar.MONTH) + 1;
-		int year = calendario.get(Calendar.YEAR);
-		System.out.println("dia = " + dia);
-		System.out.println("mes = " + mes);
-		System.out.println("año = " + year);
 		java.util.Date utilDate = jd.getDate();
 
 		//Formato para base de datos
 		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 		return sqlDate;
-
 	}
-	
+
 	public String [] telefonos(String text) {
 		String [] telefonos = text.split(",");
 		return telefonos;
 	}
-	
+
 	public Character genero() {
 		Character seleccion = (Character) vp.cmb_genero.getSelectedItem();
 		return seleccion;
