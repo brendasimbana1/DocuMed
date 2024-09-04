@@ -40,10 +40,10 @@ public class View_Patient extends JFrame {
 	public JTextArea textArea_ant_gineco_obs;
 	public JTextArea textArea_genero;
 	public JButton btn_registro_visita;
-	private JTextField txt_nombres;
-	private JTextField txt_apellidos;
-	private JTextField txt_ocupacion;
-	private JTextField textField;
+	public JTextField txt_nombres;
+	public JTextField txt_apellidos;
+	public JTextField txt_ocupacion;
+	public JTextField textField;
 	public JButton btnPrincipal;
 	public JButton btnNuevoRegistro;
 	public JButton btnNuevoPaciente;
@@ -335,7 +335,7 @@ public class View_Patient extends JFrame {
 		JLabel fecha_label_6 = new JLabel("Antecedentes familiares:");
 		fecha_label_6.setForeground(Color.BLACK);
 		fecha_label_6.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
-		fecha_label_6.setBounds(337, 95, 213, 36);
+		fecha_label_6.setBounds(337, 92, 213, 36);
 		panel_1.add(fecha_label_6);
 		
 		JLabel fecha_label_6_1 = new JLabel("Antecedentes gineco-obstétricos:");
