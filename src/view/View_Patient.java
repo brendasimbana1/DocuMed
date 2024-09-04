@@ -167,7 +167,7 @@ public class View_Patient extends JFrame {
 
 		JLabel lblNewLabel_11 = new JLabel("Registro Nuevo Paciente");
 		lblNewLabel_11.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_11.setBounds(10, 21, 585, 25);
+		lblNewLabel_11.setBounds(10, 21, 793, 25);
 		panel_2.add(lblNewLabel_11);
 		lblNewLabel_11.setForeground(new Color(255, 255, 255));
 		lblNewLabel_11.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 16));
@@ -182,7 +182,7 @@ public class View_Patient extends JFrame {
 		JLabel fecha_label = new JLabel("Antecedentes personales:");
 		fecha_label.setForeground(Color.BLACK);
 		fecha_label.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
-		fecha_label.setBounds(500, 11, 213, 36);
+		fecha_label.setBounds(470, 11, 213, 36);
 		panel_1.add(fecha_label);
 
 		//Se puede poner la hora con JCalendarDemo, revisar documentación eligir luego 
@@ -192,7 +192,7 @@ public class View_Patient extends JFrame {
 		panel_1.add(date_nacimiento);
 
 		btn_registro_paciente = new JButton("Registrar");
-		btn_registro_paciente.setBounds(349, 437, 232, 25);
+		btn_registro_paciente.setBounds(293, 439, 232, 25);
 		panel_1.add(btn_registro_paciente);
 
 		JLabel fecha_label_1 = new JLabel("C.I.:");
@@ -211,42 +211,42 @@ public class View_Patient extends JFrame {
 		textArea_ant_personales = new JTextArea();
 		textArea_ant_personales.setRows(10);
 		textArea_ant_personales.setForeground(new Color(0, 0, 0));
-		textArea_ant_personales.setBounds(500, 45, 237, 48);
+		textArea_ant_personales.setBounds(470, 45, 280, 48);
 		textArea_ant_personales.setBorder(border);
 		textArea_ant_personales.setLineWrap(true);
 		textArea_ant_personales.setWrapStyleWord(true);
 		panel_1.add(textArea_ant_personales);
 		
 		JScrollPane scrollPane = new JScrollPane(textArea_ant_personales);
-        scrollPane.setBounds(500, 45, 237, 48);
+        scrollPane.setBounds(470, 45, 280, 48);
         
         panel_1.add(scrollPane);
         
         textArea_ant_gineco_obs = new JTextArea();
         textArea_ant_gineco_obs.setRows(10);
         textArea_ant_gineco_obs.setForeground(new Color(0, 0, 0));
-        textArea_ant_gineco_obs.setBounds(500, 250, 237, 48);
+        textArea_ant_gineco_obs.setBounds(470, 250, 280, 48);
         textArea_ant_gineco_obs.setBorder(border);
         textArea_ant_gineco_obs.setLineWrap(true);
         textArea_ant_gineco_obs.setWrapStyleWord(true);
 		panel_1.add(textArea_ant_gineco_obs);
 		
 		JScrollPane scrollPane1 = new JScrollPane(textArea_ant_gineco_obs);
-        scrollPane1.setBounds(500, 250, 237, 48);
+        scrollPane1.setBounds(470, 250, 280, 48);
         
         panel_1.add(scrollPane1);
         
         textArea_ant_familiares = new JTextArea();
         textArea_ant_familiares.setRows(10);
         textArea_ant_familiares.setForeground(new Color(0, 0, 0));
-        textArea_ant_familiares.setBounds(500, 150, 237, 48);
+        textArea_ant_familiares.setBounds(470, 150, 280, 48);
 		textArea_ant_familiares.setBorder(border);
 		textArea_ant_familiares.setLineWrap(true);
 		textArea_ant_familiares.setWrapStyleWord(true);
 		panel_1.add(textArea_ant_familiares);
 		
 		JScrollPane scrollPane2 = new JScrollPane(textArea_ant_familiares);
-        scrollPane2.setBounds(500, 150, 237, 48);
+        scrollPane2.setBounds(470, 150, 280, 48);
         
         panel_1.add(scrollPane2);
 
@@ -335,14 +335,14 @@ public class View_Patient extends JFrame {
 		JLabel fecha_label_6 = new JLabel("Antecedentes familiares:");
 		fecha_label_6.setForeground(Color.BLACK);
 		fecha_label_6.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
-		fecha_label_6.setBounds(500, 114, 213, 36);
+		fecha_label_6.setBounds(470, 114, 213, 36);
 
 		panel_1.add(fecha_label_6);
 		
 		JLabel fecha_label_6_1 = new JLabel("Antecedentes gineco-obstétricos:");
 		fecha_label_6_1.setForeground(Color.BLACK);
 		fecha_label_6_1.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
-		fecha_label_6_1.setBounds(500, 216, 237, 36);
+		fecha_label_6_1.setBounds(470, 216, 237, 36);
 		panel_1.add(fecha_label_6_1);
 		
 		JLabel fecha_label_9_1 = new JLabel("Lugar Nacimiento:");

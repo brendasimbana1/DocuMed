@@ -42,13 +42,13 @@ public class View_Register extends JFrame {
 	public JTextField txt_ci;
 	public JTextField textField_2;
 	public JButton btn_registro_visita;
-	public JScrollPane textArea_diagnostico;
+	public JTextArea textArea_diagnostico;
+	public JTextArea textArea_evolucion;
+	public JTextArea textArea_indicaciones;
 	public JSpinner spn_peso;
 	public JSpinner spn_altura;
 	public JSpinner spn_temp;
 	public JTextField textField_1;
-	public JScrollPane scrollPane_evolucion;
-	public JScrollPane scrollPane_indicaciones;
 	public JDateChooser dateChooser;
 
 	/**
@@ -266,19 +266,46 @@ public class View_Register extends JFrame {
 		btn_registro_visita.setBounds(283, 431, 232, 25);
 		panel_1.add(btn_registro_visita);
 		
-		scrollPane_indicaciones = new JScrollPane((Component) null);
-		scrollPane_indicaciones.setBounds(147, 379, 230, 25);
-		panel_1.add(scrollPane_indicaciones);
-		
-		scrollPane_evolucion = new JScrollPane((Component) null);
-		scrollPane_evolucion.setBounds(147, 327, 230, 25);
-		panel_1.add(scrollPane_evolucion);
-		
-		textArea_diagnostico = new JScrollPane((Component) null);
-		textArea_diagnostico.setBounds(147, 126, 230, 24);
-		panel_1.add(textArea_diagnostico);
-
 		Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+		
+		textArea_diagnostico = new JTextArea();
+		textArea_diagnostico.setBounds(147, 126, 230, 34);
+		textArea_diagnostico.setRows(10);
+		textArea_diagnostico.setBorder(border);
+		textArea_diagnostico.setLineWrap(true);
+		textArea_diagnostico.setWrapStyleWord(true);
+		panel_1.add(textArea_diagnostico);
+		
+		JScrollPane scrollPane_diagnostico = new JScrollPane(textArea_diagnostico);
+		scrollPane_diagnostico.setBounds(147, 126, 230, 34);
+        
+        panel_1.add(scrollPane_diagnostico);
+
+        textArea_evolucion = new JTextArea();
+        textArea_evolucion.setBounds(147, 326, 230, 34);
+        textArea_evolucion.setRows(10);
+        textArea_evolucion.setBorder(border);
+        textArea_evolucion.setLineWrap(true);
+        textArea_evolucion.setWrapStyleWord(true);
+		panel_1.add(textArea_evolucion);
+		
+		JScrollPane scrollPane_evolucion = new JScrollPane(textArea_evolucion);
+		scrollPane_evolucion.setBounds(147, 326, 230, 34);
+        
+        panel_1.add(scrollPane_evolucion);
+        
+        textArea_indicaciones = new JTextArea();
+        textArea_indicaciones.setBounds(147, 376, 230, 34);
+        textArea_indicaciones.setRows(10);
+        textArea_indicaciones.setBorder(border);
+        textArea_indicaciones.setLineWrap(true);
+        textArea_indicaciones.setWrapStyleWord(true);
+		panel_1.add(textArea_indicaciones);
+		
+		JScrollPane scrollPane_indicaciones = new JScrollPane(textArea_indicaciones);
+		scrollPane_indicaciones.setBounds(147, 376, 230, 34);
+        
+        panel_1.add(scrollPane_indicaciones);
 
 		//Título
 		JPanel panel_2 = new JPanel();
@@ -290,7 +317,7 @@ public class View_Register extends JFrame {
 
 		JLabel lblNewLabel_11 = new JLabel("Registro Visita Médica");
 		lblNewLabel_11.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_11.setBounds(10, 21, 585, 25);
+		lblNewLabel_11.setBounds(10, 21, 791, 25);
 		panel_2.add(lblNewLabel_11);
 		lblNewLabel_11.setForeground(new Color(255, 255, 255));
 		lblNewLabel_11.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 16));
