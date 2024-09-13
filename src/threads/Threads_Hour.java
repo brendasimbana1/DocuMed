@@ -11,7 +11,8 @@ public class Threads_Hour extends Thread{
 	private LocalDateTime ahora;
 	private DateTimeFormatter formatter;
 	private String fechaActual;
-	private boolean run = true;
+	private int c = 0;
+	private volatile boolean run = true;
 	
 	public Threads_Hour(Logic_View_Home lvh)
 	{
@@ -38,6 +39,7 @@ public class Threads_Hour extends Thread{
 				sleep(1000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
+				Thread.currentThread().interrupt(); 	
 				e.printStackTrace();
 			}
 		}

@@ -2,11 +2,10 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import threads.Threads_Hour;
 import view.View_Home;
+import view.View_Login;
 import view.View_Patient;
 import view.View_Register;
 
@@ -17,7 +16,6 @@ public class Logic_View_Home implements ActionListener {
 	private View_Patient vp;
 	private Threads_Hour tr;
 
-	
 	public Logic_View_Home(View_Home vh)
 	{
 		this.vh = vh;
@@ -25,6 +23,18 @@ public class Logic_View_Home implements ActionListener {
 		this.vh.btnNuevoPaciente.addActionListener(this);
 		this.vh.btnNuevoRegistro.addActionListener(this);
 		setFecha();
+		this.vh.frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                tr.detener(); // Stop the thread
+                try {
+                    tr.join(); // Ensure the thread has stopped
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+                vh.frame.dispose();
+            }
+        });
 	}
 	
 	private void setFecha()

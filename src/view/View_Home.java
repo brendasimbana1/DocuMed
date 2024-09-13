@@ -12,8 +12,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import controller.Logic_View_Home;
 
@@ -24,7 +22,7 @@ public class View_Home {
     public JButton btnNuevoRegistro;
     public JButton btnPrincipal;
     public JLabel fecha_label;
-    private Logic_View_Home lvh;
+    public Logic_View_Home lvh;
     
     /**
      * Launch the application.
@@ -63,6 +61,7 @@ public class View_Home {
             public void windowClosing(WindowEvent e) {
                 View_Login vm = new View_Login();
                 vm.setVisible(true);
+                
             }
         });
         frame.getContentPane().setLayout(null);
@@ -188,6 +187,6 @@ public class View_Home {
         panel_1.add(fecha_label);
         
 		lvh = new Logic_View_Home(this);
-
     }
+    
 }
