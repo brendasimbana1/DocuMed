@@ -23,12 +23,9 @@ public class View_Home {
     public JButton btnNuevoPaciente;
     public JButton btnNuevoRegistro;
     public JButton btnPrincipal;
+    public JLabel fecha_label;
     private Logic_View_Home lvh;
     
-    LocalDateTime ahora = LocalDateTime.now();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd LLLL yyyy HH:mm:ss");
-    String fechaActual = ahora.format(formatter);
-
     /**
      * Launch the application.
      */
@@ -49,10 +46,6 @@ public class View_Home {
      * Create the application.
      */
     public View_Home() {
-        if (fechaActual != null && !fechaActual.isEmpty()) {
-            fechaActual = Character.toUpperCase(fechaActual.charAt(0)) + fechaActual.substring(1);
-        }
-        
         initialize();
         
     }
@@ -159,12 +152,6 @@ public class View_Home {
         lblNewLabel_6_1_1.setForeground(Color.BLACK);
         lblNewLabel_6_1_1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 14));
         
-        JLabel fecha_label = new JLabel(fechaActual);
-        fecha_label.setForeground(Color.BLACK);
-        fecha_label.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 18));
-        fecha_label.setBounds(26, 37, 347, 68);
-        panel_1.add(fecha_label);
-        
         JLabel lblNewLabel_6_1 = new JLabel("Consultorios Médicos");
         lblNewLabel_6_1.setForeground(Color.BLACK);
         lblNewLabel_6_1.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 13));
@@ -193,7 +180,14 @@ public class View_Home {
 		lblNewLabel_6_1_2_1.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 13));
 		lblNewLabel_6_1_2_1.setBounds(194, 262, 375, 105);
 		frame.getContentPane().add(lblNewLabel_6_1_2_1);
-		
+				
+		fecha_label = new JLabel();
+        fecha_label.setForeground(Color.BLACK);
+        fecha_label.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 18));
+        fecha_label.setBounds(26, 37, 347, 68);
+        panel_1.add(fecha_label);
+        
 		lvh = new Logic_View_Home(this);
+
     }
 }
