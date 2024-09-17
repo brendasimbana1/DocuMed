@@ -42,9 +42,19 @@ public class Logic_View_Patient implements ActionListener {
 			vp.txt_apellidos.setText("");
 			return false;
 		}else if(!ValidateByER.ValidateCi(vp.txt_ci.getText())){
-			vp.txt_ci.getText();
+			vp.txt_ci.setText("");
+			return false;
+		}else if (!ValidateByER.validatePhone(vp.textArea_telefono.getText())){
+			vp.textArea_telefono.setText("");
+			return false;
+		}else if (!ValidateByER.validateText(vp.txt_ocupacion.getText())) {
+			vp.txt_ocupacion.setText("");
+			return false;
+		}else if (!ValidateByER.validateText(vp.txt_profesion.getText())) {
+			vp.txt_profesion.setText("");
 			return false;
 		}
+
 		return true;
 	}
 
@@ -100,7 +110,7 @@ public class Logic_View_Patient implements ActionListener {
 						vp.textArea_ant_gineco_obs.getText()
 						);
 
-				if(pdao.addPatient(p)) {
+				if(pdao.addPatient(p) && pdao.addAntPersonales(p) && pdao.addAntGinecoObst(p) && pdao.addAntFamiliares(p)) {
 					JOptionPane.showMessageDialog(vr, "Paciente agregado");
 					vaciar();
 				}else {

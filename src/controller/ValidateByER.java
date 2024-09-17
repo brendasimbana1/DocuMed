@@ -25,9 +25,15 @@ public class ValidateByER {
         return ultimoDigito == verificador;
 	}
 	public static boolean validateNames (String name) {
-		return name.matches("^([A-ZÁ-Ú][a-zá-ú]+[ ]?){2,4}$");
+		return name.matches("^([A-ZÁ-Ú][a-zá-ú]+[ ]?){1,4}$");
 	}
 	public static boolean validateEmail(String email) {
 		return email.matches("^[a-zA-Z0-9_.-]+[@][a-z]+(.com)$");
+	}
+	public static boolean validatePhone (String phone) {
+		return phone.matches("^([0-9]+){8,10}$");
+	}
+	public static boolean validateText(String text) {
+		return text.matches("^[A-ZÁ-Úa-zá-ú]+$");
 	}
 }
