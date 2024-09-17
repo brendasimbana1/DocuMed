@@ -23,6 +23,8 @@ public class Logic_View_Register implements ActionListener{
 		this.vr.btnPrincipal.addActionListener(this);
 		this.vr.btnNuevoPaciente.addActionListener(this);
 		this.vr.btn_registro_visita.addActionListener(this);
+		this.vr.panel_info.setVisible(false);
+		this.vr.panel_content.setVisible(false);
 	}
 
 	public int[] getFecha() {

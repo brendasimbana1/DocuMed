@@ -28,6 +28,8 @@ import javax.swing.JTextArea;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import java.awt.Component;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class View_Register extends JFrame {
 
@@ -36,7 +38,6 @@ public class View_Register extends JFrame {
 	public JButton btnPrincipal;
 	public JButton btnNuevoRegistro;
 	public JButton btnNuevoPaciente;
-	private Logic_View_Register lvr;
 	public JTextField txt_ci;
 	public JTextField textField_2;
 	public JButton btn_registro_visita;
@@ -48,6 +49,14 @@ public class View_Register extends JFrame {
 	public JSpinner spn_temp;
 	public JTextField textField_1;
 	public JDateChooser dateChooser;
+	public JButton btn_buscar;
+	public JTextField txt_apellidos;
+	public JTextField txt_nombres;
+	public JTextField txt_edad;
+	public JPanel panel_info;
+	public JPanel panel_content;
+
+	private Logic_View_Register lvr;
 
 	/**
 	 * Launch the application.
@@ -166,144 +175,200 @@ public class View_Register extends JFrame {
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel fecha_label = new JLabel("Fecha atención:");
-		fecha_label.setForeground(Color.BLACK);
-		fecha_label.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
-		fecha_label.setBounds(23, 38, 124, 36);
-		panel_1.add(fecha_label);
-		
-		dateChooser = new JDateChooser((Date) null);
-		dateChooser.setBounds(147, 49, 167, 20);
-		panel_1.add(dateChooser);
-		
 		JLabel fecha_label_1 = new JLabel("C.I.:");
 		fecha_label_1.setForeground(Color.BLACK);
 		fecha_label_1.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
-		fecha_label_1.setBounds(23, 79, 124, 36);
+		fecha_label_1.setBounds(26, 10, 100, 36);
 		panel_1.add(fecha_label_1);
 		
 		txt_ci = new JTextField();
 		txt_ci.setColumns(10);
-		txt_ci.setBounds(147, 89, 167, 20);
+		txt_ci.setBounds(95, 21, 242, 20);
 		panel_1.add(txt_ci);
 		
-		JLabel fecha_label_1_1 = new JLabel("Diagnostico:");
-		fecha_label_1_1.setForeground(Color.BLACK);
-		fecha_label_1_1.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
-		fecha_label_1_1.setBounds(23, 114, 124, 36);
-		panel_1.add(fecha_label_1_1);
+		SpinnerNumberModel model_peso = new SpinnerNumberModel(0.1, 0.1, 200.0, 0.1);
 		
-		JLabel fecha_label_3 = new JLabel("Peso:");
-		fecha_label_3.setForeground(Color.BLACK);
-		fecha_label_3.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
-		fecha_label_3.setBounds(23, 165, 124, 36);
-		panel_1.add(fecha_label_3);
+		SpinnerNumberModel model_altura = new SpinnerNumberModel(1,1,230,1);
 		
-		spn_peso = new JSpinner();
-		spn_peso.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		spn_peso.setBounds(147, 175, 96, 20);
-		panel_1.add(spn_peso);
-		
-		spn_altura = new JSpinner();
-		spn_altura.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		spn_altura.setBounds(147, 212, 96, 20);
-		panel_1.add(spn_altura);
-		
-		JLabel fecha_label_4 = new JLabel("Altura:");
-		fecha_label_4.setForeground(Color.BLACK);
-		fecha_label_4.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
-		fecha_label_4.setBounds(23, 202, 124, 36);
-		panel_1.add(fecha_label_4);
-		
-		JLabel fecha_label_5 = new JLabel("Temperatura:");
-		fecha_label_5.setForeground(Color.BLACK);
-		fecha_label_5.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
-		fecha_label_5.setBounds(23, 243, 138, 36);
-		panel_1.add(fecha_label_5);
-		
-		spn_temp = new JSpinner();
-		spn_temp.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		spn_temp.setBounds(147, 249, 96, 20);
-		panel_1.add(spn_temp);
-		
-		JLabel fecha_label_10 = new JLabel("Responsable:");
-		fecha_label_10.setForeground(Color.BLACK);
-		fecha_label_10.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
-		fecha_label_10.setBounds(398, 165, 138, 36);
-		panel_1.add(fecha_label_10);
-		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(501, 175, 232, 20);
-		panel_1.add(textField_1);
-		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(147, 290, 96, 20);
-		panel_1.add(textField_2);
-		
-		JLabel fecha_label_7 = new JLabel("Presión Arterial:");
-		fecha_label_7.setForeground(Color.BLACK);
-		fecha_label_7.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
-		fecha_label_7.setBounds(23, 280, 138, 36);
-		panel_1.add(fecha_label_7);
-		
-		JLabel fecha_label_8 = new JLabel("Evolución:");
-		fecha_label_8.setForeground(Color.BLACK);
-		fecha_label_8.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
-		fecha_label_8.setBounds(23, 321, 138, 36);
-		panel_1.add(fecha_label_8);
-		
-		JLabel fecha_label_9 = new JLabel("Indicaciones:");
-		fecha_label_9.setForeground(Color.BLACK);
-		fecha_label_9.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
-		fecha_label_9.setBounds(23, 368, 138, 36);
-		panel_1.add(fecha_label_9);
-		
-		btn_registro_visita = new JButton("Registrar");
-		btn_registro_visita.setBounds(283, 431, 232, 25);
-		panel_1.add(btn_registro_visita);
+		SpinnerNumberModel model_temperatura = new SpinnerNumberModel(0.01,0.01,50,0.01);
 		
 		Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
-		
-		textArea_diagnostico = new JTextArea();
-		textArea_diagnostico.setBounds(147, 126, 230, 34);
-		textArea_diagnostico.setRows(10);
-		textArea_diagnostico.setBorder(border);
-		textArea_diagnostico.setLineWrap(true);
-		textArea_diagnostico.setWrapStyleWord(true);
-		panel_1.add(textArea_diagnostico);
-		
-		JScrollPane scrollPane_diagnostico = new JScrollPane(textArea_diagnostico);
-		scrollPane_diagnostico.setBounds(147, 126, 230, 34);
         
-        panel_1.add(scrollPane_diagnostico);
-
-        textArea_evolucion = new JTextArea();
-        textArea_evolucion.setBounds(147, 326, 230, 34);
-        textArea_evolucion.setRows(10);
-        textArea_evolucion.setBorder(border);
-        textArea_evolucion.setLineWrap(true);
-        textArea_evolucion.setWrapStyleWord(true);
-		panel_1.add(textArea_evolucion);
-		
-		JScrollPane scrollPane_evolucion = new JScrollPane(textArea_evolucion);
-		scrollPane_evolucion.setBounds(147, 326, 230, 34);
+        btn_buscar = new JButton("Buscar");
+        btn_buscar.addActionListener(new ActionListener() {
+        		public void actionPerformed(ActionEvent e) {
+        	}
+        });
+        btn_buscar.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        btn_buscar.setBounds(252, 51, 85, 21);
+        panel_1.add(btn_buscar);
         
-        panel_1.add(scrollPane_evolucion);
+        panel_info = new JPanel();
+        panel_info.setBackground(new Color(255, 255, 255));
+        panel_info.setBounds(541, 21, 232, 128);
+        panel_1.add(panel_info);
+        panel_info.setLayout(null);
         
-        textArea_indicaciones = new JTextArea();
-        textArea_indicaciones.setBounds(147, 376, 230, 34);
-        textArea_indicaciones.setRows(10);
-        textArea_indicaciones.setBorder(border);
-        textArea_indicaciones.setLineWrap(true);
-        textArea_indicaciones.setWrapStyleWord(true);
-		panel_1.add(textArea_indicaciones);
-		
-		JScrollPane scrollPane_indicaciones = new JScrollPane(textArea_indicaciones);
-		scrollPane_indicaciones.setBounds(147, 376, 230, 34);
+        JLabel lblNewLabel = new JLabel("Nombres:");
+        lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
+        lblNewLabel.setBounds(10, 10, 62, 13);
+        panel_info.add(lblNewLabel);
         
-        panel_1.add(scrollPane_indicaciones);
+        txt_nombres = new JTextField();
+        txt_nombres.setBounds(10, 28, 212, 19);
+        panel_info.add(txt_nombres);
+        txt_nombres.setColumns(10);
+        
+        JLabel lblApellidos = new JLabel("Apellidos:");
+        lblApellidos.setFont(new Font("Tahoma", Font.BOLD, 13));
+        lblApellidos.setBounds(10, 50, 93, 13);
+        panel_info.add(lblApellidos);
+        
+        txt_apellidos = new JTextField();
+        txt_apellidos.setColumns(10);
+        txt_apellidos.setBounds(10, 68, 212, 19);
+        panel_info.add(txt_apellidos);
+        
+        JLabel lblEdad = new JLabel("Edad:");
+        lblEdad.setFont(new Font("Tahoma", Font.BOLD, 13));
+        lblEdad.setBounds(10, 97, 48, 13);
+        panel_info.add(lblEdad);
+        
+        txt_edad = new JTextField();
+        txt_edad.setColumns(10);
+        txt_edad.setBounds(51, 95, 87, 19);
+        panel_info.add(txt_edad);
+        
+        panel_content = new JPanel();
+        panel_content.setBackground(new Color(255, 255, 255));
+        panel_content.setBounds(0, 162, 801, 342);
+        panel_1.add(panel_content);
+        panel_content.setLayout(null);
+        
+        JLabel fecha_label = new JLabel("Fecha atención:");
+        fecha_label.setBounds(24, 10, 124, 36);
+        panel_content.add(fecha_label);
+        fecha_label.setForeground(Color.BLACK);
+        fecha_label.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
+        
+        dateChooser = new JDateChooser((Date) null);
+        dateChooser.setBounds(144, 20, 167, 20);
+        panel_content.add(dateChooser);
+        
+        JLabel fecha_label_3 = new JLabel("Peso (kg):");
+        fecha_label_3.setBounds(10, 50, 124, 36);
+        panel_content.add(fecha_label_3);
+        fecha_label_3.setHorizontalAlignment(SwingConstants.CENTER);
+        fecha_label_3.setForeground(Color.BLACK);
+        fecha_label_3.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
+        
+        JLabel fecha_label_4 = new JLabel("Altura (cm):");
+        fecha_label_4.setBounds(134, 50, 124, 36);
+        panel_content.add(fecha_label_4);
+        fecha_label_4.setHorizontalAlignment(SwingConstants.CENTER);
+        fecha_label_4.setForeground(Color.BLACK);
+        fecha_label_4.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
+        
+        JLabel fecha_label_5 = new JLabel("Temperatura (°C):");
+        fecha_label_5.setBounds(257, 50, 138, 36);
+        panel_content.add(fecha_label_5);
+        fecha_label_5.setHorizontalAlignment(SwingConstants.CENTER);
+        fecha_label_5.setForeground(Color.BLACK);
+        fecha_label_5.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
+        
+        JLabel fecha_label_7 = new JLabel("Presión Arterial:");
+        fecha_label_7.setBounds(395, 50, 138, 36);
+        panel_content.add(fecha_label_7);
+        fecha_label_7.setHorizontalAlignment(SwingConstants.CENTER);
+        fecha_label_7.setForeground(Color.BLACK);
+        fecha_label_7.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
+        
+        textField_2 = new JTextField();
+        textField_2.setBounds(418, 87, 96, 20);
+        panel_content.add(textField_2);
+        textField_2.setColumns(10);
+        spn_temp = new JSpinner(model_temperatura);
+        spn_temp.setBounds(280, 86, 96, 20);
+        panel_content.add(spn_temp);
+        spn_temp.setFont(new Font("Tahoma", Font.PLAIN, 11));
+        spn_altura = new JSpinner(model_altura);
+        spn_altura.setBounds(144, 86, 96, 20);
+        panel_content.add(spn_altura);
+        spn_altura.setFont(new Font("Tahoma", Font.PLAIN, 11));
+        spn_peso = new JSpinner(model_peso);
+        spn_peso.setBounds(20, 86, 96, 20);
+        panel_content.add(spn_peso);
+        spn_peso.setFont(new Font("Tahoma", Font.PLAIN, 11));
+        
+        JLabel fecha_label_1_1 = new JLabel("Diagnostico:");
+        fecha_label_1_1.setBounds(24, 116, 124, 36);
+        panel_content.add(fecha_label_1_1);
+        fecha_label_1_1.setForeground(Color.BLACK);
+        fecha_label_1_1.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
+        
+        JLabel fecha_label_8 = new JLabel("Evolución:");
+        fecha_label_8.setBounds(24, 162, 138, 36);
+        panel_content.add(fecha_label_8);
+        fecha_label_8.setForeground(Color.BLACK);
+        fecha_label_8.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
+        
+        JLabel fecha_label_9 = new JLabel("Indicaciones:");
+        fecha_label_9.setBounds(24, 209, 138, 36);
+        panel_content.add(fecha_label_9);
+        fecha_label_9.setForeground(Color.BLACK);
+        fecha_label_9.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
+        
+        JLabel fecha_label_10 = new JLabel("Responsable:");
+        fecha_label_10.setBounds(409, 209, 138, 36);
+        panel_content.add(fecha_label_10);
+        fecha_label_10.setForeground(Color.BLACK);
+        fecha_label_10.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
+        
+        textArea_diagnostico = new JTextArea();
+        textArea_diagnostico.setBounds(10, 128, 230, 34);
+        textArea_diagnostico.setRows(10);
+        textArea_diagnostico.setBorder(border);
+        textArea_diagnostico.setLineWrap(true);
+        textArea_diagnostico.setWrapStyleWord(true);
+        panel_1.add(textArea_diagnostico);
+        
+        JScrollPane scrollPane_diagnostico = new JScrollPane(textArea_diagnostico);
+        scrollPane_diagnostico.setBounds(144, 116, 230, 34);
+        panel_content.add(scrollPane_diagnostico);
+        
+                textArea_evolucion = new JTextArea();
+                textArea_evolucion.setBounds(147, 326, 230, 34);
+                textArea_evolucion.setRows(10);
+                textArea_evolucion.setBorder(border);
+                textArea_evolucion.setLineWrap(true);
+                textArea_evolucion.setWrapStyleWord(true);
+                panel_1.add(textArea_evolucion);
+                
+                JScrollPane scrollPane_evolucion = new JScrollPane(textArea_evolucion);
+                scrollPane_evolucion.setBounds(146, 162, 230, 34);
+                panel_content.add(scrollPane_evolucion);
+                
+                textArea_indicaciones = new JTextArea();
+                textArea_indicaciones.setBounds(147, 376, 230, 34);
+                textArea_indicaciones.setRows(10);
+                textArea_indicaciones.setBorder(border);
+                textArea_indicaciones.setLineWrap(true);
+                textArea_indicaciones.setWrapStyleWord(true);
+                panel_1.add(textArea_indicaciones);
+                
+                JScrollPane scrollPane_indicaciones = new JScrollPane(textArea_indicaciones);
+                scrollPane_indicaciones.setBounds(146, 208, 230, 34);
+                panel_content.add(scrollPane_indicaciones);
+                
+                textField_1 = new JTextField();
+                textField_1.setBounds(527, 220, 232, 20);
+                panel_content.add(textField_1);
+                textField_1.setColumns(10);
+                
+                btn_registro_visita = new JButton("Registrar");
+                btn_registro_visita.setBounds(282, 270, 232, 25);
+                panel_content.add(btn_registro_visita);
+                btn_registro_visita.setFont(new Font("Tahoma", Font.PLAIN, 13));
 
 		//Título
 		JPanel panel_2 = new JPanel();
@@ -315,7 +380,7 @@ public class View_Register extends JFrame {
 
 		JLabel lblNewLabel_11 = new JLabel("Registro Visita Médica");
 		lblNewLabel_11.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_11.setBounds(10, 21, 791, 25);
+		lblNewLabel_11.setBounds(0, 22, 801, 25);
 		panel_2.add(lblNewLabel_11);
 		lblNewLabel_11.setForeground(new Color(255, 255, 255));
 		lblNewLabel_11.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 16));
