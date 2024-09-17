@@ -25,7 +25,7 @@ public class Logic_View_Login implements ActionListener {
 
 	public Logic_View_Login(View_Login vl)
 	{
-		this.vl = vl;
+		this.vl = vl;		
 		this.vl.btnLogin.addActionListener(this);
 		this.users = this.userDao.getUsers();
 		this.vl.passwordField.addKeyListener(new KeyListener() {

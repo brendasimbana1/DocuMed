@@ -1,22 +1,22 @@
-package model;
+	package model;
 
 import java.util.Date;
 import java.util.List;
 
 public class Registros {
 	private Date fechas_atencion;
-	private List<String> diagnostico;
+	private String diagnostico;
 	private String ci;
 	private double peso;
 	private double altura;
 	private double temperatura;
 	private String presion_arterial;	
-	private List<String> evolucion;	//antecedentes
-	private List<String> indicaciones;	//medicinas y horarios
+	private String evolucion;	//antecedentes
+	private String indicaciones;	//medicinas y horarios
 	private String responsable; //médico que trata al paciente
 	
-	public Registros(Date fechas_atencion, List<String> diagnostico, double peso, double altura, double temperatura,
-			String presion_arterial, List<String> evolucion, List<String> indicaciones, String responsable, 
+	public Registros(Date fechas_atencion, String diagnostico, double peso, double altura, double temperatura,
+			String presion_arterial, String evolucion, String indicaciones, String responsable, 
 			String ci) 
 	{
 		super();
@@ -42,12 +42,12 @@ public class Registros {
 		this.fechas_atencion = fechas_atencion;
 	}
 
-	public List<String> getDiagnostico() 
+	public String getDiagnostico() 
 	{
 		return diagnostico;
 	}
 
-	public void setDiagnostico(List<String> diagnostico) 
+	public void setDiagnostico(String diagnostico) 
 	{
 		this.diagnostico = diagnostico;
 	}
@@ -92,22 +92,22 @@ public class Registros {
 		this.presion_arterial = presion_arterial;
 	}
 
-	public List<String> getEvolucion() 
+	public String getEvolucion() 
 	{
 		return evolucion;
 	}
 
-	public void setEvolucion(List<String> evolucion) 
+	public void setEvolucion(String evolucion) 
 	{
 		this.evolucion = evolucion;
 	}
 
-	public List<String> getIndicaciones() 
+	public String getIndicaciones() 
 	{
 		return indicaciones;
 	}
 
-	public void setIndicaciones(List<String> indicaciones) 
+	public void setIndicaciones(String indicaciones) 
 	{
 		this.indicaciones = indicaciones;
 	}

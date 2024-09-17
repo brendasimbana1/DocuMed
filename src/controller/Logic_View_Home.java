@@ -2,7 +2,10 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
+import model.Paciente;
+import model.Registros;
 import threads.Threads_Hour;
 import view.View_Home;
 import view.View_Login;
@@ -15,6 +18,9 @@ public class Logic_View_Home implements ActionListener {
 	private View_Register vr;
 	private View_Patient vp;
 	private Threads_Hour tr;
+	public static List<Registros> registros;
+	public static List<Paciente> pacientes;
+
 
 	public Logic_View_Home(View_Home vh)
 	{
