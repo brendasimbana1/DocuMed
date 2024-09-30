@@ -6,6 +6,7 @@ import java.util.Calendar;
 
 import model.UsuarioDAO;
 import view.View_Home;
+import view.View_Login;
 import view.View_Patient;
 import view.View_Register;
 
@@ -14,6 +15,8 @@ public class Logic_View_Register implements ActionListener{
 	private View_Register vr;
 	private View_Home vh;
 	private View_Patient vp;
+	private View_Login vl;
+	
 	private UsuarioDAO udao = new UsuarioDAO();
 
 	
@@ -23,6 +26,7 @@ public class Logic_View_Register implements ActionListener{
 		this.vr.btnPrincipal.addActionListener(this);
 		this.vr.btnNuevoPaciente.addActionListener(this);
 		this.vr.btn_registro_visita.addActionListener(this);
+		this.vr.btnSalir.addActionListener(this);
 		this.vr.panel_info.setVisible(false);
 		this.vr.panel_content.setVisible(false);
 	}
@@ -69,6 +73,12 @@ public class Logic_View_Register implements ActionListener{
 		else if (e.getSource() == vr.btn_registro_visita)
 		{
 			createRegister();
+		}
+		else if(e.getSource() == vr.btnSalir)
+		{
+			vl = new View_Login();
+			vl.setVisible(true);
+			vr.dispose();
 		}
 	}
 

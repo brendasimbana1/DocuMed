@@ -17,6 +17,7 @@ import view.View_Patient;
 import view.View_Register;
 
 public class Logic_View_Patient implements ActionListener {
+	
 	private View_Home vh;
 	private View_Register vr;
 	private View_Patient vp;
@@ -31,12 +32,17 @@ public class Logic_View_Patient implements ActionListener {
 		this.vp.btnPrincipal.addActionListener(this);
 		this.vp.btnNuevoRegistro.addActionListener(this);
 		this.vp.btnSalir.addActionListener(this);
+		setOpcionesCmb();
+	}
+
+	private void setOpcionesCmb()
+	{
 		this.vp.cmb_genero.addItem('F');
 		this.vp.cmb_genero.addItem('M');
 		this.vp.cmb_genero.addItem('-');
 		this.vp.cmb_genero.setSelectedItem('-');
 	}
-
+	
 	public boolean validar() {
 		if(!ValidateByER.validateNames(vp.txt_nombres.getText())) {
 			vp.txt_nombres.setText("");
