@@ -100,7 +100,7 @@ public class View_Register extends JFrame {
 		//Barra de navegación
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(0, 82, 164));
-		panel.setBounds(0, 0, 184, 561);
+		panel.setBounds(0, 0, 184, 563);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 
@@ -143,7 +143,7 @@ public class View_Register extends JFrame {
 
 		JLabel lblNewLabel_4 = new JLabel("");
 		lblNewLabel_4.setIcon(new ImageIcon(View_Home.class.getResource("/resources/cerrar-sesion.png")));
-		lblNewLabel_4.setBounds(10, 396, 49, 35);
+		lblNewLabel_4.setBounds(10, 510, 49, 35);
 		panel.add(lblNewLabel_4);
 
 		JLabel lblNewLabel_5 = new JLabel("");

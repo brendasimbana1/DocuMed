@@ -2,10 +2,14 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import model.Paciente;
+import model.PacienteDAO;
 import model.Registros;
+import model.RegistrosDAO;
 import threads.Threads_Hour;
 import view.View_Home;
 import view.View_Login;
@@ -18,6 +22,9 @@ public class Logic_View_Home implements ActionListener {
 	private View_Register vr;
 	private View_Patient vp;
 	private Threads_Hour tr;
+	private PacienteDAO pdao = new PacienteDAO();
+	private RegistrosDAO rdao = new RegistrosDAO();
+	
 	public static List<Registros> registros;
 	public static List<Paciente> pacientes;
 
@@ -32,15 +39,22 @@ public class Logic_View_Home implements ActionListener {
 		this.vh.frame.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
-                tr.detener(); // Stop the thread
-                try {
-                    tr.join(); // Ensure the thread has stopped
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
+                tr.detener(); 
+//                try {
+//                    tr.join(); // Ensure the thread has stopped
+//                } catch (InterruptedException ex) {
+//                    ex.printStackTrace();
+//                }
                 vh.frame.dispose();
             }
         });
+		setInfo();
+	}
+	
+	
+	private void setInfo() 
+	{
+		Logic_View_Home.registros = rdao.getRegistros();
 	}
 	
 	private void setFecha()
@@ -54,17 +68,17 @@ public class Logic_View_Home implements ActionListener {
 		// TODO Auto-generated method stub
 		if(e.getSource() == vh.btnNuevoRegistro)	
 		{
+			tr.detener();
 			vr = new View_Register();
 			vr.setVisible(true);
 			vh.frame.dispose();
-			tr.detener();
 		}	
 		else if (e.getSource() == vh.btnNuevoPaciente)
 		{	
+			tr.detener();
 			vp = new View_Patient();
 			vp.setVisible(true);
 			vh.frame.dispose();
-			tr.detener();
 
 		}
 		

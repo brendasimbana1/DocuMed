@@ -1,6 +1,8 @@
 package model;
 
 import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,7 +15,7 @@ public class RegistrosDAO {
 	public List<Registros> getRegistros()
 	{
 		List<Registros> registers = new ArrayList<Registros>();
-		query = "SELECT * FROM usuarios;";
+		query = "SELECT * FROM registros;";
 		ResultSet rs;
 		rs = dbConn.executeQuery(query);
 		try 
@@ -58,18 +60,38 @@ public class RegistrosDAO {
 	
 	public boolean addRegister(Registros r)
 	{
-		query = String.format("INSERT INTO registros VALUES('%s', %t, '%s', %f,  %f, %f, '%s', '%s', '%s', '%s')",
-				r.getCi(),
-				r.getFechas_atencion(),
-				r.getDiagnostico(),
-				r.getPeso(),
-				r.getAltura(),
-				r.getTemperatura(),
-				r.getPresion_arterial(),
-				r.getEvolucion(),
-				r.getIndicaciones(),
-				r.getResponsable());
-		boolean result = dbConn.executeUpdate(query);
-		return result;
+        PreparedStatement pstmt = null;
+        Connection conn = null;
+        String query = "INSERT INTO registros (cedula, fecha_atencion, diagnostico, peso, altura, temperatura, presion_arterial, evolucion, indicaciones, responsable) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            conn = dbConn.connect();
+            pstmt = conn.prepareStatement(query);
+
+            pstmt.setString(1, r.getCi());
+            pstmt.setDate(2,  new java.sql.Date(r.getFechas_atencion().getTime())); 
+            pstmt.setString(3, r.getDiagnostico());
+            pstmt.setDouble(4, r.getPeso());
+            pstmt.setDouble(5, r.getAltura());
+            pstmt.setDouble(6, r.getTemperatura());
+            pstmt.setString(7, r.getPresion_arterial());
+            pstmt.setString(8, r.getEvolucion());
+            pstmt.setString(9, r.getIndicaciones());
+            pstmt.setString(10, r.getResponsable());
+
+            int rowsAffected = pstmt.executeUpdate();
+            
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) dbConn.close(conn);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
 	}
 }

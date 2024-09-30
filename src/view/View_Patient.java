@@ -133,7 +133,7 @@ public class View_Patient extends JFrame {
 
 		JLabel lblNewLabel_4 = new JLabel("");
 		lblNewLabel_4.setIcon(new ImageIcon(View_Home.class.getResource("/resources/cerrar-sesion.png")));
-		lblNewLabel_4.setBounds(10, 509, 49, 35);
+		lblNewLabel_4.setBounds(10, 510, 49, 35);
 		panel.add(lblNewLabel_4);
 
 		JLabel lblNewLabel_5 = new JLabel("");

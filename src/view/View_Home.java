@@ -141,7 +141,7 @@ public class View_Home {
 
         JPanel panel_1 = new JPanel();
         panel_1.setBackground(new Color(0, 128, 255));
-        panel_1.setBounds(162, 46, 626, 116);
+        panel_1.setBounds(180, 46, 608, 116);
         frame.getContentPane().add(panel_1);
         panel_1.setLayout(null);
         
@@ -183,7 +183,7 @@ public class View_Home {
 		fecha_label = new JLabel();
         fecha_label.setForeground(Color.BLACK);
         fecha_label.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 18));
-        fecha_label.setBounds(26, 37, 347, 68);
+        fecha_label.setBounds(26, 37, 426, 68);
         panel_1.add(fecha_label);
         
 		lvh = new Logic_View_Home(this);
