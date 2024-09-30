@@ -14,6 +14,8 @@ import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 
 import controller.Logic_View_Home;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class View_Home {
 
@@ -23,6 +25,7 @@ public class View_Home {
     public JButton btnPrincipal;
     public JLabel fecha_label;
     public Logic_View_Home lvh;
+    public JButton btnSalir;
     
     /**
      * Launch the application.
@@ -138,6 +141,20 @@ public class View_Home {
         btnPrincipal.setFocusPainted(false);   
         btnPrincipal.setBounds(46, 166, 138, 43);
         panel.add(btnPrincipal);
+        
+        btnSalir = new JButton("Cerrar Sesión");
+        btnSalir.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	}
+        });
+        btnSalir.setHorizontalAlignment(SwingConstants.CENTER);
+        btnSalir.setForeground(Color.WHITE);
+        btnSalir.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
+        btnSalir.setFocusPainted(false);
+        btnSalir.setBorderPainted(false);
+        btnSalir.setBackground(new Color(0, 82, 164));
+        btnSalir.setBounds(46, 388, 138, 43);
+        panel.add(btnSalir);
 
         JPanel panel_1 = new JPanel();
         panel_1.setBackground(new Color(0, 128, 255));
@@ -188,5 +205,4 @@ public class View_Home {
         
 		lvh = new Logic_View_Home(this);
     }
-    
 }

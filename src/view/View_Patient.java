@@ -55,6 +55,7 @@ public class View_Patient extends JFrame {
 	public JDateChooser date_actual;
 	public JTextField txt_lugar;
 	public JComboBox<Character> cmb_genero;
+	public JButton btnSalir;
 
 	/**
 	 * Launch the application.
@@ -157,6 +158,16 @@ public class View_Patient extends JFrame {
 		btnPrincipal.setFocusPainted(false);   
 		btnPrincipal.setBounds(46, 166, 138, 43);
 		panel.add(btnPrincipal);
+		
+		btnSalir = new JButton("Cerrar Sesión");
+		btnSalir.setHorizontalAlignment(SwingConstants.CENTER);
+		btnSalir.setForeground(Color.WHITE);
+		btnSalir.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
+		btnSalir.setFocusPainted(false);
+		btnSalir.setBorderPainted(false);
+		btnSalir.setBackground(new Color(0, 82, 164));
+		btnSalir.setBounds(46, 502, 138, 43);
+		panel.add(btnSalir);
 
 		//Título
 		JPanel panel_2 = new JPanel();

@@ -4,8 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
 
+import javax.swing.JOptionPane;
+
+import model.Paciente;
 import model.UsuarioDAO;
 import view.View_Home;
+import view.View_Login;
 import view.View_Patient;
 import view.View_Register;
 
@@ -14,6 +18,8 @@ public class Logic_View_Register implements ActionListener{
 	private View_Register vr;
 	private View_Home vh;
 	private View_Patient vp;
+	private View_Login vl;
+	
 	private UsuarioDAO udao = new UsuarioDAO();
 
 	
@@ -23,6 +29,8 @@ public class Logic_View_Register implements ActionListener{
 		this.vr.btnPrincipal.addActionListener(this);
 		this.vr.btnNuevoPaciente.addActionListener(this);
 		this.vr.btn_registro_visita.addActionListener(this);
+		this.vr.btnSalir.addActionListener(this);
+		this.vr.btn_buscar.addActionListener(this);
 		this.vr.panel_info.setVisible(false);
 		this.vr.panel_content.setVisible(false);
 	}
@@ -39,16 +47,46 @@ public class Logic_View_Register implements ActionListener{
 		return fecha;
 	}
 	
+	private boolean busquedaPaciente(String cedula)
+	{
+		if(!Logic_View_Home.pacientes.isEmpty())
+		{
+			for(Paciente p:Logic_View_Home.pacientes)
+			{
+				if(p.getCi().equals(cedula))
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+		return false;
+
+	}
 	private void createRegister()
 	{
 		int[] fecha = getFecha();
-		String cedula = vr.txt_ci.getText();
-		//AQUI DEBO IMPLEMENTAR UN METODO QUE VERIFIQUE LA EXISTENCIA DE LA CÉDULA
+		
 		//String diagnostico = vr.textArea_diagnostico.getText();
 		double peso = (Double)vr.spn_peso.getValue();
 		double altura = (Double)vr.spn_altura.getValue();
 		double temperatura = (Double)vr.spn_temp.getValue();
 
+	}
+	
+	private void verificarExistenciaPaciente()
+	{
+		String cedula = vr.txt_ci.getText();
+		if(busquedaPaciente(cedula))
+		{
+			this.vr.panel_info.setVisible(false);
+			this.vr.panel_content.setVisible(false);
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(vr, "No se ha encontrado al paciente!");
+
+		}
 	}
 	
 	@Override
@@ -69,6 +107,16 @@ public class Logic_View_Register implements ActionListener{
 		else if (e.getSource() == vr.btn_registro_visita)
 		{
 			createRegister();
+		}
+		else if(e.getSource() == vr.btnSalir)
+		{
+			vl = new View_Login();
+			vl.setVisible(true);
+			vr.dispose();
+		}
+		else if(e.getSource() == vr.btn_buscar)
+		{
+			verificarExistenciaPaciente();
 		}
 	}
 

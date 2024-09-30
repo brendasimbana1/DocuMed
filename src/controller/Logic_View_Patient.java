@@ -12,13 +12,16 @@ import com.toedter.calendar.JDateChooser;
 import model.Paciente;
 import model.PacienteDAO;
 import view.View_Home;
+import view.View_Login;
 import view.View_Patient;
 import view.View_Register;
 
 public class Logic_View_Patient implements ActionListener {
+	
 	private View_Home vh;
 	private View_Register vr;
 	private View_Patient vp;
+	private View_Login vl;
 	private Paciente p;
 	public PacienteDAO pdao = new PacienteDAO();
 
@@ -28,13 +31,19 @@ public class Logic_View_Patient implements ActionListener {
 		this.vp.btn_registro_paciente.addActionListener(this);
 		this.vp.btnPrincipal.addActionListener(this);
 		this.vp.btnNuevoRegistro.addActionListener(this);
+		this.vp.btnSalir.addActionListener(this);
+		setOpcionesCmb();
+	}
+
+	private void setOpcionesCmb()
+	{
 		this.vp.cmb_genero.addItem('F');
 		this.vp.cmb_genero.addItem('M');
 		this.vp.cmb_genero.addItem('-');
 		this.vp.cmb_genero.setSelectedItem('-');
 		this.pdao.getPacientes();
 	}
-
+	
 	public boolean validar() {
 		if(!ValidateByER.validateNames(vp.txt_nombres.getText())) {
 			vp.txt_nombres.setText("");
@@ -90,6 +99,12 @@ public class Logic_View_Patient implements ActionListener {
 		{	
 			vh = new View_Home();
 			vh.frame.setVisible(true);
+			vp.dispose();
+		}
+		else if(e.getSource() == vp.btnSalir) 
+		{
+			vl = new View_Login();
+			vl.setVisible(true);
 			vp.dispose();
 		}
 		else if (e.getSource() == vp.btn_registro_paciente)

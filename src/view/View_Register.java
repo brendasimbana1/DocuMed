@@ -55,6 +55,7 @@ public class View_Register extends JFrame {
 	public JTextField txt_edad;
 	public JPanel panel_info;
 	public JPanel panel_content;
+	public JButton btnSalir;
 
 	private Logic_View_Register lvr;
 
@@ -167,6 +168,16 @@ public class View_Register extends JFrame {
 		btnPrincipal.setFocusPainted(false);   
 		btnPrincipal.setBounds(46, 166, 138, 43);
 		panel.add(btnPrincipal);
+		
+		btnSalir = new JButton("Cerrar Sesión");
+		btnSalir.setHorizontalAlignment(SwingConstants.CENTER);
+		btnSalir.setForeground(Color.WHITE);
+		btnSalir.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
+		btnSalir.setFocusPainted(false);
+		btnSalir.setBorderPainted(false);
+		btnSalir.setBackground(new Color(0, 82, 164));
+		btnSalir.setBounds(46, 502, 138, 43);
+		panel.add(btnSalir);
 
 		//Body
 		JPanel panel_1 = new JPanel();

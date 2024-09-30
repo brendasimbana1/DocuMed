@@ -21,6 +21,7 @@ public class Logic_View_Home implements ActionListener {
 	public View_Home vh;
 	private View_Register vr;
 	private View_Patient vp;
+	private View_Login vl;
 	private Threads_Hour tr;
 	private PacienteDAO pdao = new PacienteDAO();
 	private RegistrosDAO rdao = new RegistrosDAO();
@@ -35,6 +36,7 @@ public class Logic_View_Home implements ActionListener {
 		this.vh.btnPrincipal.addActionListener(this);
 		this.vh.btnNuevoPaciente.addActionListener(this);
 		this.vh.btnNuevoRegistro.addActionListener(this);
+		this.vh.btnSalir.addActionListener(this);
 		setFecha();
 		this.vh.frame.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -79,6 +81,15 @@ public class Logic_View_Home implements ActionListener {
 			vp = new View_Patient();
 			vp.setVisible(true);
 			vh.frame.dispose();
+
+		}
+		else if(e.getSource() == vh.btnSalir)
+		{
+			tr.detener();
+			vl = new View_Login();
+			vl.setVisible(true);
+			vh.frame.dispose();
+			
 
 		}
 		
