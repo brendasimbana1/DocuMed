@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -19,8 +20,7 @@ public class Paciente {
 	private String ant_ginec_obs;
 	private List<Registros> registro;
 
-	
-	
+
 	public Paciente(String ci, String nombres, String apellidos, String ocupacion, String profesion,
 			Date fecha_nacimiento, Date fecha_actual, String[] telefonos, Character genero, String lugar_nacimiento,
 			String ant_personales, String ant_familiares, String ant_ginec_obs, List<Registros> registros) {
@@ -150,5 +150,17 @@ public class Paciente {
 	{
 		this.registro = registro;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Paciente [ci=" + ci + ", nombres=" + nombres + ", apellidos=" + apellidos + ", ocupacion=" + ocupacion
+				+ ", profesion=" + profesion + ", fecha_nacimiento=" + fecha_nacimiento + ", fecha_actual="
+				+ fecha_actual + ", telefonos=" + Arrays.toString(telefonos) + ", genero=" + genero
+				+ ", lugar_nacimiento=" + lugar_nacimiento + ", ant_personales=" + ant_personales + ", ant_familiares="
+				+ ant_familiares + ", ant_ginec_obs=" + ant_ginec_obs + "]";
+	}
+	
+	
 	
 }

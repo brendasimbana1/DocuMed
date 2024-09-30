@@ -6,6 +6,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import database.ConnectionPostgres;
 
@@ -13,6 +15,64 @@ public class PacienteDAO {
 	private ConnectionPostgres dbConn = new ConnectionPostgres("bd_consulta_medica");
 	private String query="";
 	private boolean result = false;
+	
+	public List<Paciente> getPacientes()
+	{
+		List<Paciente> pacientes = new ArrayList<Paciente>();
+		query = "SELECT p.cedula, p.nombres, p.apellidos, p.ocupacion, p.profesion, p.fecha_nacimiento, "
+				+ "p.fecha_actual, p.telefonos, p.genero, p.lugar_nacimiento, "
+				+ "f.antecedentes as antecedentes_familiares, "
+				+ "g.antecedentes as antecedentes_gineco_obst, "
+				+ "a.antecedentes as antecedentes_personales "
+				+ "FROM pacientes p, antecedentes_familiares f, antecedentes_gineco_obst g, antecedentes_personales a "
+				+ "WHERE p.cedula = f.cedula "
+				+ "AND p.cedula = g.cedula "
+				+ "AND p.cedula = a.cedula; ";
+		ResultSet rs;
+		rs = dbConn.executeQuery(query);
+		try 
+		{
+			while (rs != null && rs.next()) 
+			{
+				System.out.println("aaaaaaa");
+				pacientes.add(new Paciente(
+						rs.getString(1),
+						rs.getString(2),
+						rs.getString(3),
+						rs.getString(4),
+						rs.getString(5),
+						rs.getDate(6),
+						rs.getDate(7),
+						(String[]) rs.getArray(8).getArray(),
+						(rs.getString(9)).charAt(0),
+						rs.getString(10),
+						rs.getString(13),
+						rs.getString(11),
+						rs.getString(12)
+						));
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		finally 
+		{
+			try 
+			{
+				if (rs != null) 
+					rs.close();
+				dbConn.close(dbConn.connect());
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+
+		return pacientes;
+	}
 	
 	
 	public boolean addPatient(Paciente p){

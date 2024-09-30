@@ -20,7 +20,7 @@ public class Logic_View_Patient implements ActionListener {
 	private View_Register vr;
 	private View_Patient vp;
 	private Paciente p;
-	public final PacienteDAO pdao = new PacienteDAO();
+	public PacienteDAO pdao = new PacienteDAO();
 
 	public Logic_View_Patient(View_Patient vp) 
 	{
@@ -32,6 +32,7 @@ public class Logic_View_Patient implements ActionListener {
 		this.vp.cmb_genero.addItem('M');
 		this.vp.cmb_genero.addItem('-');
 		this.vp.cmb_genero.setSelectedItem('-');
+		this.pdao.getPacientes();
 	}
 
 	public boolean validar() {
