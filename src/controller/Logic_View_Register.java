@@ -21,7 +21,6 @@ public class Logic_View_Register implements ActionListener{
 	private View_Login vl;
 	
 	private UsuarioDAO udao = new UsuarioDAO();
-
 	
 	public Logic_View_Register(View_Register vr) 
 	{
@@ -74,13 +73,19 @@ public class Logic_View_Register implements ActionListener{
 
 	}
 	
+	
+	private void setLabelsInfo()
+	{
+		
+	}
+	
 	private void verificarExistenciaPaciente()
 	{
 		String cedula = vr.txt_ci.getText();
 		if(busquedaPaciente(cedula))
 		{
-			this.vr.panel_info.setVisible(false);
-			this.vr.panel_content.setVisible(false);
+			this.vr.panel_info.setVisible(true);
+			this.vr.panel_content.setVisible(true);
 		}
 		else
 		{

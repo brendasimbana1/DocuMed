@@ -6,6 +6,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -78,6 +80,13 @@ public class View_Patient extends JFrame {
 	 */
 	public View_Patient() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                View_Login vm = new View_Login();
+                vm.setVisible(true);
+            }
+        });
 		setBounds(100, 100, 1000, 600);
 		contentPane = new JPanel();
 		setTitle("Registro de Pacientes");

@@ -86,6 +86,7 @@ public class Logic_View_Patient implements ActionListener {
 		vp.date_actual.setDate(sqlDate);
 		vp.cmb_genero.setSelectedItem('-');
 	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -126,8 +127,26 @@ public class Logic_View_Patient implements ActionListener {
 						vp.textArea_ant_gineco_obs.getText()
 						);
 
-				if(pdao.addPatient(p) && pdao.addAntPersonales(p) && pdao.addAntGinecoObst(p) && pdao.addAntFamiliares(p)) {
-					JOptionPane.showMessageDialog(vr, "Paciente agregado");
+				boolean tieneAntecedentesPersonales = !vp.textArea_ant_personales.getText().isBlank();
+				boolean tieneAntecedentesFamiliares = !vp.textArea_ant_familiares.getText().isBlank();
+				boolean tieneAntecedentesGinecoObst = !vp.textArea_ant_gineco_obs.getText().isBlank();
+				boolean ingresado = true;
+				if(pdao.addPatient(p)) 
+				{
+					if(tieneAntecedentesFamiliares)
+						ingresado = ingresado && pdao.addAntFamiliares(p);
+					if(tieneAntecedentesGinecoObst)
+						ingresado = ingresado && pdao.addAntGinecoObst(p);
+					if(tieneAntecedentesPersonales)
+						ingresado = ingresado && pdao.addAntPersonales(p);
+					if(ingresado)
+					{
+						JOptionPane.showMessageDialog(vr, "Paciente agregado");
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(vr, "Error al gestionar los antecedentes del paciente");
+					}
 					vaciar();
 				}else {
 					JOptionPane.showMessageDialog(vr, "Error al agregar paciente");
