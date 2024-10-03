@@ -46,7 +46,7 @@ public class Logic_View_Register implements ActionListener{
 		return fecha;
 	}
 	
-	private boolean busquedaPaciente(String cedula)
+	private Paciente busquedaPaciente(String cedula)
 	{
 		if(!Logic_View_Home.pacientes.isEmpty())
 		{
@@ -54,12 +54,12 @@ public class Logic_View_Register implements ActionListener{
 			{
 				if(p.getCi().equals(cedula))
 				{
-					return true;
+					return p;
 				}
 			}
-			return false;
+			return null;
 		}
-		return false;
+		return null;
 
 	}
 	private void createRegister()
@@ -74,18 +74,22 @@ public class Logic_View_Register implements ActionListener{
 	}
 	
 	
-	private void setLabelsInfo()
+	private void setLabelsInfo(Paciente p)
 	{
-		
+		this.vr.txt_nombres.setText(p.getNombres());
+		this.vr.txt_apellidos.setText(p.getApellidos());
+
 	}
 	
 	private void verificarExistenciaPaciente()
 	{
 		String cedula = vr.txt_ci.getText();
-		if(busquedaPaciente(cedula))
+		Paciente p = busquedaPaciente(cedula);
+		if(p != null)
 		{
 			this.vr.panel_info.setVisible(true);
 			this.vr.panel_content.setVisible(true);
+			setLabelsInfo(p);
 		}
 		else
 		{

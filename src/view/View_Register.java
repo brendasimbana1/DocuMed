@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
@@ -56,6 +57,7 @@ public class View_Register extends JFrame {
 	public JPanel panel_info;
 	public JPanel panel_content;
 	public JButton btnSalir;
+	public JButton btnListado;
 
 	private Logic_View_Register lvr;
 
@@ -178,6 +180,16 @@ public class View_Register extends JFrame {
 		btnSalir.setBackground(new Color(0, 82, 164));
 		btnSalir.setBounds(46, 502, 138, 43);
 		panel.add(btnSalir);
+		
+		btnListado = new JButton("Listado");
+		btnListado.setHorizontalAlignment(SwingConstants.CENTER);
+		btnListado.setForeground(Color.WHITE);
+		btnListado.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
+		btnListado.setFocusPainted(false);
+		btnListado.setBorderPainted(false);
+		btnListado.setBackground(new Color(0, 82, 164));
+		btnListado.setBounds(46, 292, 138, 43);
+		panel.add(btnListado);
 
 		//Body
 		JPanel panel_1 = new JPanel();
@@ -193,9 +205,11 @@ public class View_Register extends JFrame {
 		panel_1.add(fecha_label_1);
 		
 		txt_ci = new JTextField();
+		txt_ci.setFocusable(true);
 		txt_ci.setColumns(10);
 		txt_ci.setBounds(95, 21, 242, 20);
 		panel_1.add(txt_ci);
+		SwingUtilities.invokeLater(() -> txt_ci.requestFocusInWindow());
 		
 		SpinnerNumberModel model_peso = new SpinnerNumberModel(0.1, 0.1, 200.0, 0.1);
 		
@@ -298,14 +312,17 @@ public class View_Register extends JFrame {
         textField_2.setBounds(418, 87, 96, 20);
         panel_content.add(textField_2);
         textField_2.setColumns(10);
+        
         spn_temp = new JSpinner(model_temperatura);
         spn_temp.setBounds(280, 86, 96, 20);
         panel_content.add(spn_temp);
         spn_temp.setFont(new Font("Tahoma", Font.PLAIN, 11));
+        
         spn_altura = new JSpinner(model_altura);
         spn_altura.setBounds(144, 86, 96, 20);
         panel_content.add(spn_altura);
         spn_altura.setFont(new Font("Tahoma", Font.PLAIN, 11));
+        
         spn_peso = new JSpinner(model_peso);
         spn_peso.setBounds(20, 86, 96, 20);
         panel_content.add(spn_peso);

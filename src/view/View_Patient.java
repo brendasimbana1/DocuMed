@@ -22,6 +22,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
@@ -52,12 +53,13 @@ public class View_Patient extends JFrame {
 	public JButton btnPrincipal;
 	public JButton btnNuevoRegistro;
 	public JButton btnNuevoPaciente;
-	
+	public JButton btnListado;
+	public JButton btnSalir;
+
 	private Logic_View_Patient lvp;
 	public JDateChooser date_actual;
 	public JTextField txt_lugar;
 	public JComboBox<Character> cmb_genero;
-	public JButton btnSalir;
 
 	/**
 	 * Launch the application.
@@ -177,6 +179,16 @@ public class View_Patient extends JFrame {
 		btnSalir.setBackground(new Color(0, 82, 164));
 		btnSalir.setBounds(46, 502, 138, 43);
 		panel.add(btnSalir);
+		
+		btnListado = new JButton("Listado");
+		btnListado.setHorizontalAlignment(SwingConstants.CENTER);
+		btnListado.setForeground(Color.WHITE);
+		btnListado.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
+		btnListado.setFocusPainted(false);
+		btnListado.setBorderPainted(false);
+		btnListado.setBackground(new Color(0, 82, 164));
+		btnListado.setBounds(46, 292, 138, 43);
+		panel.add(btnListado);
 
 		//Título
 		JPanel panel_2 = new JPanel();
@@ -223,8 +235,11 @@ public class View_Patient extends JFrame {
 
 		txt_ci = new JTextField();
 		txt_ci.setBounds(161, 22, 203, 20);
-		panel_1.add(txt_ci);
+		txt_ci.setFocusable(true);
 		txt_ci.setColumns(10);
+		panel_1.add(txt_ci);
+		SwingUtilities.invokeLater(() -> txt_ci.requestFocusInWindow());
+
 
 		Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 
