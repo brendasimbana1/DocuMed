@@ -8,14 +8,14 @@ public class Registros {
 	private String diagnostico;
 	private String ci;
 	private double peso;
-	private double altura;
+	private int altura;
 	private double temperatura;
 	private String presion_arterial;	
 	private String evolucion;	//antecedentes
 	private String indicaciones;	//medicinas y horarios
 	private String responsable; //médico que trata al paciente
 	
-	public Registros(Date fechas_atencion, String diagnostico, double peso, double altura, double temperatura,
+	public Registros(Date fechas_atencion, String diagnostico, double peso, int altura, double temperatura,
 			String presion_arterial, String evolucion, String indicaciones, String responsable, 
 			String ci) 
 	{
@@ -62,12 +62,12 @@ public class Registros {
 		this.peso = peso;
 	}
 
-	public double getAltura() 
+	public int getAltura() 
 	{
 		return altura;
 	}
 
-	public void setAltura(double altura) 
+	public void setAltura(int altura) 
 	{
 		this.altura = altura;
 	}
