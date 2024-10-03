@@ -40,7 +40,7 @@ public class View_Register extends JFrame {
 	public JButton btnNuevoRegistro;
 	public JButton btnNuevoPaciente;
 	public JTextField txt_ci;
-	public JTextField textField_2;
+	public JTextField txt_presion;
 	public JButton btn_registro_visita;
 	public JTextArea textArea_diagnostico;
 	public JTextArea textArea_evolucion;
@@ -48,7 +48,7 @@ public class View_Register extends JFrame {
 	public JSpinner spn_peso;
 	public JSpinner spn_altura;
 	public JSpinner spn_temp;
-	public JTextField textField_1;
+	public JTextField txt_responsable;
 	public JDateChooser dateChooser;
 	public JButton btn_buscar;
 	public JTextField txt_apellidos;
@@ -236,32 +236,35 @@ public class View_Register extends JFrame {
         
         JLabel lblNewLabel = new JLabel("Nombres:");
         lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
-        lblNewLabel.setBounds(10, 10, 62, 13);
+        lblNewLabel.setBounds(10, 14, 62, 13);
         panel_info.add(lblNewLabel);
         
         txt_nombres = new JTextField();
-        txt_nombres.setBounds(10, 28, 212, 19);
+        txt_nombres.setEditable(false);
+        txt_nombres.setBounds(10, 28, 212, 22);
         panel_info.add(txt_nombres);
         txt_nombres.setColumns(10);
         
         JLabel lblApellidos = new JLabel("Apellidos:");
         lblApellidos.setFont(new Font("Tahoma", Font.BOLD, 13));
-        lblApellidos.setBounds(10, 50, 93, 13);
+        lblApellidos.setBounds(10, 58, 93, 13);
         panel_info.add(lblApellidos);
         
         txt_apellidos = new JTextField();
+        txt_apellidos.setEditable(false);
         txt_apellidos.setColumns(10);
-        txt_apellidos.setBounds(10, 68, 212, 19);
+        txt_apellidos.setBounds(10, 72, 212, 22);
         panel_info.add(txt_apellidos);
         
         JLabel lblEdad = new JLabel("Edad:");
         lblEdad.setFont(new Font("Tahoma", Font.BOLD, 13));
-        lblEdad.setBounds(10, 97, 48, 13);
+        lblEdad.setBounds(10, 102, 48, 13);
         panel_info.add(lblEdad);
         
         txt_edad = new JTextField();
+        txt_edad.setEditable(false);
         txt_edad.setColumns(10);
-        txt_edad.setBounds(51, 95, 87, 19);
+        txt_edad.setBounds(51, 100, 87, 22);
         panel_info.add(txt_edad);
         
         panel_content = new JPanel();
@@ -308,10 +311,10 @@ public class View_Register extends JFrame {
         fecha_label_7.setForeground(Color.BLACK);
         fecha_label_7.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
         
-        textField_2 = new JTextField();
-        textField_2.setBounds(418, 87, 96, 20);
-        panel_content.add(textField_2);
-        textField_2.setColumns(10);
+        txt_presion = new JTextField();
+        txt_presion.setBounds(418, 87, 96, 20);
+        panel_content.add(txt_presion);
+        txt_presion.setColumns(10);
         
         spn_temp = new JSpinner(model_temperatura);
         spn_temp.setBounds(280, 86, 96, 20);
@@ -388,10 +391,10 @@ public class View_Register extends JFrame {
                 scrollPane_indicaciones.setBounds(146, 208, 230, 34);
                 panel_content.add(scrollPane_indicaciones);
                 
-                textField_1 = new JTextField();
-                textField_1.setBounds(527, 220, 232, 20);
-                panel_content.add(textField_1);
-                textField_1.setColumns(10);
+                txt_responsable = new JTextField();
+                txt_responsable.setBounds(527, 220, 232, 20);
+                panel_content.add(txt_responsable);
+                txt_responsable.setColumns(10);
                 
                 btn_registro_visita = new JButton("Registrar");
                 btn_registro_visita.setBounds(282, 270, 232, 25);

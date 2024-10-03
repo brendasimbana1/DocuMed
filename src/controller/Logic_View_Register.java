@@ -2,11 +2,13 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 import java.util.Calendar;
 
 import javax.swing.JOptionPane;
 
 import model.Paciente;
+import model.Registros;
 import model.UsuarioDAO;
 import view.View_Home;
 import view.View_Login;
@@ -64,12 +66,23 @@ public class Logic_View_Register implements ActionListener{
 	}
 	private void createRegister()
 	{
-		int[] fecha = getFecha();
-		
-		//String diagnostico = vr.textArea_diagnostico.getText();
+		String cedula = vr.txt_ci.getText();
+		int[] fecha_array = getFecha();
+		java.time.LocalDate localDate = java.time.LocalDate.of(fecha_array[2], fecha_array[1], fecha_array[0]);		
+		java.sql.Date fecha = java.sql.Date.valueOf(localDate);
 		double peso = (Double)vr.spn_peso.getValue();
 		double altura = (Double)vr.spn_altura.getValue();
 		double temperatura = (Double)vr.spn_temp.getValue();
+		String presion = vr.txt_presion.getText();
+		String diagnostico = vr.textArea_diagnostico.getText();
+		String evolucion = vr.textArea_evolucion.getText();
+		String indicaciones = vr.textArea_indicaciones.getText();
+		String responsable = vr.txt_responsable.getText();
+		
+		Registros r = new Registros(fecha, diagnostico, peso, altura, temperatura, presion, evolucion, indicaciones, responsable, cedula);
+
+
+
 
 	}
 	
@@ -78,6 +91,8 @@ public class Logic_View_Register implements ActionListener{
 	{
 		this.vr.txt_nombres.setText(p.getNombres());
 		this.vr.txt_apellidos.setText(p.getApellidos());
+//		this.vr.txt_edad.setText(p.get);
+//		Necesitamos la edad del paciente
 
 	}
 	
@@ -90,6 +105,7 @@ public class Logic_View_Register implements ActionListener{
 			this.vr.panel_info.setVisible(true);
 			this.vr.panel_content.setVisible(true);
 			setLabelsInfo(p);
+			this.vr.txt_ci.setEditable(false);
 		}
 		else
 		{
