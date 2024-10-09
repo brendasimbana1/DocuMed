@@ -60,6 +60,7 @@ public class View_Patient extends JFrame {
 	public JDateChooser date_actual;
 	public JTextField txt_lugar;
 	public JComboBox<Character> cmb_genero;
+	public JTextField txt_edad;
 
 	/**
 	 * Launch the application.
@@ -224,7 +225,7 @@ public class View_Patient extends JFrame {
 		panel_1.add(date_nacimiento);
 
 		btn_registro_paciente = new JButton("Registrar");
-		btn_registro_paciente.setBounds(293, 439, 232, 25);
+		btn_registro_paciente.setBounds(292, 448, 232, 25);
 		panel_1.add(btn_registro_paciente);
 
 		JLabel fecha_label_1 = new JLabel("C.I.:");
@@ -359,7 +360,7 @@ public class View_Patient extends JFrame {
 		txt_profesion.setColumns(10);
 		txt_profesion.setBounds(161, 179, 203, 20);
 		panel_1.add(txt_profesion);
-		
+		//label?
 		date_actual = new JDateChooser(new Date());
 		date_actual.setBounds(161, 250, 124, 25);
 		panel_1.add(date_actual);
@@ -391,6 +392,19 @@ public class View_Patient extends JFrame {
 		txt_lugar.setColumns(10);
 		txt_lugar.setBounds(161, 356, 203, 20);
 		panel_1.add(txt_lugar);
+		
+		JLabel label_edad = new JLabel("Edad:");
+		label_edad.setForeground(Color.BLACK);
+		label_edad.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
+		label_edad.setBounds(27, 393, 138, 36);
+		panel_1.add(label_edad);
+		
+		txt_edad = new JTextField();
+		txt_edad.setEnabled(false);
+		txt_edad.setEditable(false);
+		txt_edad.setColumns(10);
+		txt_edad.setBounds(161, 403, 124, 20);
+		panel_1.add(txt_edad);
 		
 		lvp = new Logic_View_Patient(this);
 		

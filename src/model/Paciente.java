@@ -18,33 +18,11 @@ public class Paciente {
 	private String ant_personales;
 	private String ant_familiares;
 	private String ant_ginec_obs;
-	private List<Registros> registro;
-
-
-	public Paciente(String ci, String nombres, String apellidos, String ocupacion, String profesion,
-			Date fecha_nacimiento, Date fecha_actual, String[] telefonos, Character genero, String lugar_nacimiento,
-			String ant_personales, String ant_familiares, String ant_ginec_obs, List<Registros> registros) {
-		super();
-		this.ci = ci;
-		this.nombres = nombres;
-		this.apellidos = apellidos;
-		this.ocupacion = ocupacion;
-		this.profesion = profesion;
-		this.fecha_nacimiento = fecha_nacimiento;
-		this.fecha_actual = fecha_actual;
-		this.telefonos = telefonos;
-		this.genero = genero;
-		this.lugar_nacimiento = lugar_nacimiento;
-		this.ant_personales = ant_personales;
-		this.ant_familiares = ant_familiares;
-		this.ant_ginec_obs = ant_ginec_obs;
-		this.registro = registros;
-	}
-	
+	private int edad;
 	
 	public Paciente(String ci, String nombres, String apellidos, String ocupacion, String profesion,
 			Date fecha_nacimiento, Date fecha_actual, String[] telefonos, char genero, String lugar_nacimiento,
-			String ant_personales, String ant_familiares, String ant_ginec_obs) {
+			String ant_personales, String ant_familiares, String ant_ginec_obs, int edad) {
 		super();
 		this.ci = ci;
 		this.nombres = nombres;
@@ -59,6 +37,7 @@ public class Paciente {
 		this.ant_personales = ant_personales;
 		this.ant_familiares = ant_familiares;
 		this.ant_ginec_obs = ant_ginec_obs;
+		this.edad = edad;
 	}
 
 
@@ -140,15 +119,19 @@ public class Paciente {
 	public void setAnt_ginec_obs(String ant_ginec_obs) {
 		this.ant_ginec_obs = ant_ginec_obs;
 	}
-	
-	public List<Registros> getRegistro() 
-	{
-		return registro;
+
+	public int getEdad() {
+		return edad;
 	}
 
-	public void setRegistro(List<Registros> registro) 
-	{
-		this.registro = registro;
+
+	public void setEdad(int edad) {
+		this.edad = edad;
+	}
+
+
+	public void setGenero(Character genero) {
+		this.genero = genero;
 	}
 
 
@@ -158,9 +141,7 @@ public class Paciente {
 				+ ", profesion=" + profesion + ", fecha_nacimiento=" + fecha_nacimiento + ", fecha_actual="
 				+ fecha_actual + ", telefonos=" + Arrays.toString(telefonos) + ", genero=" + genero
 				+ ", lugar_nacimiento=" + lugar_nacimiento + ", ant_personales=" + ant_personales + ", ant_familiares="
-				+ ant_familiares + ", ant_ginec_obs=" + ant_ginec_obs + "]";
+				+ ant_familiares + ", ant_ginec_obs=" + ant_ginec_obs + ", edad=" + edad + "]";
 	}
-	
-	
 	
 }

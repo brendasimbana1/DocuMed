@@ -108,8 +108,7 @@ public class Logic_View_Register implements ActionListener{
 	{
 		this.vr.txt_nombres.setText(p.getNombres());
 		this.vr.txt_apellidos.setText(p.getApellidos());
-//		this.vr.txt_edad.setText(p.get);
-//		Necesitamos la edad del paciente
+		this.vr.txt_edad.setText(Integer.toString(p.getEdad()));
 
 	}
 	

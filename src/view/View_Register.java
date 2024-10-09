@@ -236,10 +236,11 @@ public class View_Register extends JFrame {
         
         JLabel lblNewLabel = new JLabel("Nombres:");
         lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
-        lblNewLabel.setBounds(10, 14, 62, 13);
+        lblNewLabel.setBounds(10, 14, 87, 13);
         panel_info.add(lblNewLabel);
         
         txt_nombres = new JTextField();
+        txt_nombres.setEnabled(false);
         txt_nombres.setEditable(false);
         txt_nombres.setBounds(10, 28, 212, 22);
         panel_info.add(txt_nombres);
@@ -251,6 +252,7 @@ public class View_Register extends JFrame {
         panel_info.add(lblApellidos);
         
         txt_apellidos = new JTextField();
+        txt_apellidos.setEnabled(false);
         txt_apellidos.setEditable(false);
         txt_apellidos.setColumns(10);
         txt_apellidos.setBounds(10, 72, 212, 22);
@@ -262,6 +264,7 @@ public class View_Register extends JFrame {
         panel_info.add(lblEdad);
         
         txt_edad = new JTextField();
+        txt_edad.setEnabled(false);
         txt_edad.setEditable(false);
         txt_edad.setColumns(10);
         txt_edad.setBounds(51, 100, 87, 22);

@@ -124,7 +124,8 @@ public class Logic_View_Patient implements ActionListener {
 						vp.txt_lugar.getText(),
 						vp.textArea_ant_personales.getText(),
 						vp.textArea_ant_familiares.getText(),
-						vp.textArea_ant_gineco_obs.getText()
+						vp.textArea_ant_gineco_obs.getText(),
+						Integer.valueOf(vp.txt_edad.getText())
 						);
 
 				boolean tieneAntecedentesPersonales = !vp.textArea_ant_personales.getText().isBlank();
@@ -174,4 +175,5 @@ public class Logic_View_Patient implements ActionListener {
 		Character seleccion = (Character) vp.cmb_genero.getSelectedItem();
 		return seleccion;
 	}
+
 }

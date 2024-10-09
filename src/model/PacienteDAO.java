@@ -6,6 +6,9 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,12 +24,12 @@ public class PacienteDAO {
 		List<Paciente> pacientes = new ArrayList<Paciente>();
 		query = "SELECT p.cedula, p.nombres, p.apellidos, p.ocupacion, p.profesion, "+
 				"p.fecha_nacimiento, p.fecha_actual, p.telefonos, p.genero, "+
-				"p.lugar_nacimiento, a.antecedentes, f.antecedentes, g.antecedentes "+
+				"p.lugar_nacimiento, a.antecedentes, f.antecedentes, g.antecedentes, "
+				+ "p.edad "+
 				"FROM pacientes p "+
 				"LEFT JOIN antecedentes_personales a ON p.cedula = a.cedula "+
 				"LEFT JOIN antecedentes_familiares f ON p.cedula = f.cedula "+
 				"LEFT JOIN antecedentes_gineco_obst g ON p.cedula = g.cedula;";
-		//CAMBIO EN EL QUERY PARA TOMAR EN CUENTA ANTECEDENTES VACÍOS
 		ResultSet rs;
 		rs = dbConn.executeQuery(query);
 		try 
@@ -46,7 +49,8 @@ public class PacienteDAO {
 						rs.getString(10),
 						rs.getString(11),
 						rs.getString(12),
-						rs.getString(13)
+						rs.getString(13),
+						rs.getInt(14)
 						));
 			}
 		} 
@@ -157,6 +161,48 @@ public class PacienteDAO {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	public int calcularEdad(String ci) {
+		query = "SELECT p.fecha_nacimiento "+
+				"FROM pacientes p "+
+				"WHERE p.cedula = "+"'"+ci+"';";
+		ResultSet rs;
+		rs = dbConn.executeQuery(query);
+		int edad = 0;
+		try 
+		{
+			while (rs != null && rs.next()) 
+			{
+				Date fechaNacimientoSQL = rs.getDate("fecha_nacimiento");
+                LocalDate fechaNacimiento = fechaNacimientoSQL.toLocalDate();
+                LocalDate fechaActual = LocalDate.now();
+                Period periodo = Period.between(fechaNacimiento, fechaActual);
+                edad = periodo.getYears();
+			}
+		}catch (Exception e) {
+			System.err.println("Error al calcular la edad");
+			e.printStackTrace();
+		}
+		return edad;
+	}
+	
+	public boolean updateEdad(Paciente p) {
+		if(this.calcularEdad(p.getCi()) != p.getEdad())
+		{
+			query = "UPDATE pacientes"+
+					" SET edad = "+this.calcularEdad(p.getCi())+
+					" WHERE cedula = "+"'"+p.getCi()+"';";
+			if (dbConn.executeUpdate(query)) {
+				p.setEdad(this.calcularEdad(p.getCi()));
+	            return true;
+	        } else {
+	            System.out.println("No se actualizó ninguna fila.");
+	        }
+	    }
+	    
+	    return false; 
+		
 	}
 }
 
