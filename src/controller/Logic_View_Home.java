@@ -57,6 +57,11 @@ public class Logic_View_Home implements ActionListener {
 	private void setInfo() 
 	{
 		Logic_View_Home.registros = rdao.getRegistros();
+		Logic_View_Home.pacientes = pdao.getPacientes();
+//		for(Paciente p:Logic_View_Home.pacientes)
+//		{
+//			System.out.println(p.toString());
+//		}
 	}
 	
 	private void setFecha()

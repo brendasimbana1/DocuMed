@@ -2,11 +2,14 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 import java.util.Calendar;
 
 import javax.swing.JOptionPane;
 
 import model.Paciente;
+import model.Registros;
+import model.RegistrosDAO;
 import model.UsuarioDAO;
 import view.View_Home;
 import view.View_Login;
@@ -20,8 +23,7 @@ public class Logic_View_Register implements ActionListener{
 	private View_Patient vp;
 	private View_Login vl;
 	
-	private UsuarioDAO udao = new UsuarioDAO();
-
+	private RegistrosDAO rdao = new RegistrosDAO();
 	
 	public Logic_View_Register(View_Register vr) 
 	{
@@ -37,6 +39,8 @@ public class Logic_View_Register implements ActionListener{
 
 	public int[] getFecha() {
 		Calendar calendario = vr.dateChooser.getCalendar();
+		if(calendario == null)
+			return null;
 		int dia = calendario.get(Calendar.DATE); 
 		int mes = calendario.get(Calendar.MONTH) + 1;
 		int year = calendario.get(Calendar.YEAR);
@@ -47,7 +51,7 @@ public class Logic_View_Register implements ActionListener{
 		return fecha;
 	}
 	
-	private boolean busquedaPaciente(String cedula)
+	private Paciente busquedaPaciente(String cedula)
 	{
 		if(!Logic_View_Home.pacientes.isEmpty())
 		{
@@ -55,32 +59,70 @@ public class Logic_View_Register implements ActionListener{
 			{
 				if(p.getCi().equals(cedula))
 				{
-					return true;
+					return p;
 				}
 			}
-			return false;
+			return null;
 		}
-		return false;
+		return null;
 
 	}
-	private void createRegister()
+	private boolean createRegister()
 	{
-		int[] fecha = getFecha();
-		
-		//String diagnostico = vr.textArea_diagnostico.getText();
+		String cedula = vr.txt_ci.getText();
+		if(cedula==null)
+			return false;
+		int[] fecha_array = getFecha();
+		if(fecha_array == null)
+			return false;
+		java.time.LocalDate localDate = java.time.LocalDate.of(fecha_array[2], fecha_array[1], fecha_array[0]);		
+		java.sql.Date fecha = java.sql.Date.valueOf(localDate);
 		double peso = (Double)vr.spn_peso.getValue();
-		double altura = (Double)vr.spn_altura.getValue();
+		int altura = (Integer)vr.spn_altura.getValue();
 		double temperatura = (Double)vr.spn_temp.getValue();
+		String presion = vr.txt_presion.getText();
+		if(vr.txt_presion.getText().isBlank())
+			return false;
+		String diagnostico = vr.textArea_diagnostico.getText();
+		if(vr.textArea_diagnostico.getText().isBlank())
+			return false;
+		String evolucion = vr.textArea_evolucion.getText();
+		if(vr.textArea_evolucion.getText().isBlank())
+			return false;
+		String indicaciones = vr.textArea_indicaciones.getText();
+		if(vr.textArea_indicaciones.getText().isBlank())
+			return false;
+		String responsable = vr.txt_responsable.getText();
+		if(vr.txt_responsable.getText().isBlank())
+			return false;
+		
+		Registros r = new Registros(fecha, diagnostico, peso, altura, temperatura, presion, evolucion, indicaciones, responsable, cedula);
+		rdao.addRegister(r);
+		Logic_View_Home.registros.add(r);
+		return true;
+
+	}
+	
+	
+	private void setLabelsInfo(Paciente p)
+	{
+		this.vr.txt_nombres.setText(p.getNombres());
+		this.vr.txt_apellidos.setText(p.getApellidos());
+//		this.vr.txt_edad.setText(p.get);
+//		Necesitamos la edad del paciente
 
 	}
 	
 	private void verificarExistenciaPaciente()
 	{
 		String cedula = vr.txt_ci.getText();
-		if(busquedaPaciente(cedula))
+		Paciente p = busquedaPaciente(cedula);
+		if(p != null)
 		{
-			this.vr.panel_info.setVisible(false);
-			this.vr.panel_content.setVisible(false);
+			this.vr.panel_info.setVisible(true);
+			this.vr.panel_content.setVisible(true);
+			setLabelsInfo(p);
+			this.vr.txt_ci.setEditable(false);
 		}
 		else
 		{
@@ -106,7 +148,13 @@ public class Logic_View_Register implements ActionListener{
 		}
 		else if (e.getSource() == vr.btn_registro_visita)
 		{
-			createRegister();
+			if(createRegister())
+			{
+				JOptionPane.showMessageDialog(vr, "¡Registro creado exitosamente!");
+				this.vr.dispose();
+				this.vr = new View_Register();
+				this.vr.setVisible(true);
+			}
 		}
 		else if(e.getSource() == vr.btnSalir)
 		{

@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
@@ -39,7 +40,7 @@ public class View_Register extends JFrame {
 	public JButton btnNuevoRegistro;
 	public JButton btnNuevoPaciente;
 	public JTextField txt_ci;
-	public JTextField textField_2;
+	public JTextField txt_presion;
 	public JButton btn_registro_visita;
 	public JTextArea textArea_diagnostico;
 	public JTextArea textArea_evolucion;
@@ -47,7 +48,7 @@ public class View_Register extends JFrame {
 	public JSpinner spn_peso;
 	public JSpinner spn_altura;
 	public JSpinner spn_temp;
-	public JTextField textField_1;
+	public JTextField txt_responsable;
 	public JDateChooser dateChooser;
 	public JButton btn_buscar;
 	public JTextField txt_apellidos;
@@ -56,6 +57,7 @@ public class View_Register extends JFrame {
 	public JPanel panel_info;
 	public JPanel panel_content;
 	public JButton btnSalir;
+	public JButton btnListado;
 
 	private Logic_View_Register lvr;
 
@@ -178,6 +180,16 @@ public class View_Register extends JFrame {
 		btnSalir.setBackground(new Color(0, 82, 164));
 		btnSalir.setBounds(46, 502, 138, 43);
 		panel.add(btnSalir);
+		
+		btnListado = new JButton("Listado");
+		btnListado.setHorizontalAlignment(SwingConstants.CENTER);
+		btnListado.setForeground(Color.WHITE);
+		btnListado.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
+		btnListado.setFocusPainted(false);
+		btnListado.setBorderPainted(false);
+		btnListado.setBackground(new Color(0, 82, 164));
+		btnListado.setBounds(46, 292, 138, 43);
+		panel.add(btnListado);
 
 		//Body
 		JPanel panel_1 = new JPanel();
@@ -193,9 +205,11 @@ public class View_Register extends JFrame {
 		panel_1.add(fecha_label_1);
 		
 		txt_ci = new JTextField();
+		txt_ci.setFocusable(true);
 		txt_ci.setColumns(10);
 		txt_ci.setBounds(95, 21, 242, 20);
 		panel_1.add(txt_ci);
+		SwingUtilities.invokeLater(() -> txt_ci.requestFocusInWindow());
 		
 		SpinnerNumberModel model_peso = new SpinnerNumberModel(0.1, 0.1, 200.0, 0.1);
 		
@@ -222,32 +236,35 @@ public class View_Register extends JFrame {
         
         JLabel lblNewLabel = new JLabel("Nombres:");
         lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
-        lblNewLabel.setBounds(10, 10, 62, 13);
+        lblNewLabel.setBounds(10, 14, 62, 13);
         panel_info.add(lblNewLabel);
         
         txt_nombres = new JTextField();
-        txt_nombres.setBounds(10, 28, 212, 19);
+        txt_nombres.setEditable(false);
+        txt_nombres.setBounds(10, 28, 212, 22);
         panel_info.add(txt_nombres);
         txt_nombres.setColumns(10);
         
         JLabel lblApellidos = new JLabel("Apellidos:");
         lblApellidos.setFont(new Font("Tahoma", Font.BOLD, 13));
-        lblApellidos.setBounds(10, 50, 93, 13);
+        lblApellidos.setBounds(10, 58, 93, 13);
         panel_info.add(lblApellidos);
         
         txt_apellidos = new JTextField();
+        txt_apellidos.setEditable(false);
         txt_apellidos.setColumns(10);
-        txt_apellidos.setBounds(10, 68, 212, 19);
+        txt_apellidos.setBounds(10, 72, 212, 22);
         panel_info.add(txt_apellidos);
         
         JLabel lblEdad = new JLabel("Edad:");
         lblEdad.setFont(new Font("Tahoma", Font.BOLD, 13));
-        lblEdad.setBounds(10, 97, 48, 13);
+        lblEdad.setBounds(10, 102, 48, 13);
         panel_info.add(lblEdad);
         
         txt_edad = new JTextField();
+        txt_edad.setEditable(false);
         txt_edad.setColumns(10);
-        txt_edad.setBounds(51, 95, 87, 19);
+        txt_edad.setBounds(51, 100, 87, 22);
         panel_info.add(txt_edad);
         
         panel_content = new JPanel();
@@ -294,18 +311,21 @@ public class View_Register extends JFrame {
         fecha_label_7.setForeground(Color.BLACK);
         fecha_label_7.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
         
-        textField_2 = new JTextField();
-        textField_2.setBounds(418, 87, 96, 20);
-        panel_content.add(textField_2);
-        textField_2.setColumns(10);
+        txt_presion = new JTextField();
+        txt_presion.setBounds(418, 87, 96, 20);
+        panel_content.add(txt_presion);
+        txt_presion.setColumns(10);
+        
         spn_temp = new JSpinner(model_temperatura);
         spn_temp.setBounds(280, 86, 96, 20);
         panel_content.add(spn_temp);
         spn_temp.setFont(new Font("Tahoma", Font.PLAIN, 11));
+        
         spn_altura = new JSpinner(model_altura);
         spn_altura.setBounds(144, 86, 96, 20);
         panel_content.add(spn_altura);
         spn_altura.setFont(new Font("Tahoma", Font.PLAIN, 11));
+        
         spn_peso = new JSpinner(model_peso);
         spn_peso.setBounds(20, 86, 96, 20);
         panel_content.add(spn_peso);
@@ -371,10 +391,10 @@ public class View_Register extends JFrame {
                 scrollPane_indicaciones.setBounds(146, 208, 230, 34);
                 panel_content.add(scrollPane_indicaciones);
                 
-                textField_1 = new JTextField();
-                textField_1.setBounds(527, 220, 232, 20);
-                panel_content.add(textField_1);
-                textField_1.setColumns(10);
+                txt_responsable = new JTextField();
+                txt_responsable.setBounds(527, 220, 232, 20);
+                panel_content.add(txt_responsable);
+                txt_responsable.setColumns(10);
                 
                 btn_registro_visita = new JButton("Registrar");
                 btn_registro_visita.setBounds(282, 270, 232, 25);

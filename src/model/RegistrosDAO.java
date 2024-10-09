@@ -26,7 +26,7 @@ public class RegistrosDAO {
 						rs.getDate(3),
 						rs.getString(4),
 						rs.getDouble(5),
-						rs.getDouble(6),
+						rs.getInt(6),
 						rs.getDouble(7),
 						rs.getString(8),
 						rs.getString(9),
