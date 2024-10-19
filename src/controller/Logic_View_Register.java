@@ -15,12 +15,14 @@ import view.View_Home;
 import view.View_Login;
 import view.View_Patient;
 import view.View_Register;
+import view.View_Table;
 
 public class Logic_View_Register implements ActionListener{
 	
 	private View_Register vr;
 	private View_Home vh;
 	private View_Patient vp;
+	private View_Table vt;
 	private View_Login vl;
 	
 	private RegistrosDAO rdao = new RegistrosDAO();
@@ -33,6 +35,7 @@ public class Logic_View_Register implements ActionListener{
 		this.vr.btn_registro_visita.addActionListener(this);
 		this.vr.btnSalir.addActionListener(this);
 		this.vr.btn_buscar.addActionListener(this);
+		this.vr.btnListado.addActionListener(this);
 		this.vr.panel_info.setVisible(false);
 		this.vr.panel_content.setVisible(false);
 	}
@@ -164,6 +167,10 @@ public class Logic_View_Register implements ActionListener{
 		else if(e.getSource() == vr.btn_buscar)
 		{
 			verificarExistenciaPaciente();
+		}else if (e.getSource() == vr.btnListado) {
+			vt = new View_Table();
+			vt.setVisible(true);
+			vr.dispose();
 		}
 	}
 

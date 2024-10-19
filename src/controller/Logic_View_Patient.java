@@ -15,6 +15,7 @@ import view.View_Home;
 import view.View_Login;
 import view.View_Patient;
 import view.View_Register;
+import view.View_Table;
 
 public class Logic_View_Patient implements ActionListener {
 	
@@ -22,6 +23,7 @@ public class Logic_View_Patient implements ActionListener {
 	private View_Register vr;
 	private View_Patient vp;
 	private View_Login vl;
+	private View_Table vt;
 	private Paciente p;
 	public PacienteDAO pdao = new PacienteDAO();
 
@@ -32,6 +34,7 @@ public class Logic_View_Patient implements ActionListener {
 		this.vp.btnPrincipal.addActionListener(this);
 		this.vp.btnNuevoRegistro.addActionListener(this);
 		this.vp.btnSalir.addActionListener(this);
+		this.vp.btnListado.addActionListener(this);
 		setOpcionesCmb();
 	}
 
@@ -107,6 +110,10 @@ public class Logic_View_Patient implements ActionListener {
 			vl = new View_Login();
 			vl.setVisible(true);
 			vp.dispose();
+		}else if (e.getSource() == vp.btnListado) {
+			vt = new View_Table();
+			vt.setVisible(true);
+			vp.dispose();
 		}
 		else if (e.getSource() == vp.btn_registro_paciente)
 		{	
@@ -160,7 +167,6 @@ public class Logic_View_Patient implements ActionListener {
 
 	public Date Fecha(JDateChooser jd) {
 		java.util.Date utilDate = jd.getDate();
-
 		//Formato para base de datos
 		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 		return sqlDate;

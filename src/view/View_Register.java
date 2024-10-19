@@ -412,7 +412,7 @@ public class View_Register extends JFrame {
 		panel_2.setLayout(null);
 
 
-		JLabel lblNewLabel_11 = new JLabel("Registro Visita Médica");
+		JLabel lblNewLabel_11 = new JLabel("Registro de Visita Médica");
 		lblNewLabel_11.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_11.setBounds(0, 22, 801, 25);
 		panel_2.add(lblNewLabel_11);
