@@ -59,7 +59,7 @@ public class View_Register extends JFrame {
 	public JButton btnSalir;
 	public JButton btnListado;
 
-	private Logic_View_Register lvr;
+	public Logic_View_Register lvr;
 
 	/**
 	 * Launch the application.

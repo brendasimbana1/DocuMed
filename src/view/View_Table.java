@@ -42,7 +42,6 @@ public class View_Table extends JFrame {
 	public JButton btnNuevoRegistro;
 	public JButton btnNuevoPaciente;
 	public JTextField txt_ci;
-	public JButton btn_registro_visita;
 	public JTextArea textArea_diagnostico;
 	public JTextArea textArea_evolucion;
 	public JTextArea textArea_indicaciones;
@@ -226,11 +225,6 @@ public class View_Table extends JFrame {
 		panel_content.setBounds(0, 51, 801, 453);
 		panel_1.add(panel_content);
 		panel_content.setLayout(null);
-
-		btn_registro_visita = new JButton("Registrar");
-		btn_registro_visita.setBounds(559, 418, 232, 25);
-		panel_content.add(btn_registro_visita);
-		btn_registro_visita.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		table = new JTable();
 		table.setBounds(10, 10, 781, 395);

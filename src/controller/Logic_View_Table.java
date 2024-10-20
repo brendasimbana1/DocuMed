@@ -21,7 +21,6 @@ public class Logic_View_Table implements ActionListener{
 		this.vt = vt;
 		this.vt.btnPrincipal.addActionListener(this);
 		this.vt.btnNuevoPaciente.addActionListener(this);
-		this.vt.btn_registro_visita.addActionListener(this);
 		this.vt.btnNuevoRegistro.addActionListener(this);
 		this.vt.btnSalir.addActionListener(this);
 		this.vt.btn_buscar.addActionListener(this);

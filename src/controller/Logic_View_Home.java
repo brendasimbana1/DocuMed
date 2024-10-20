@@ -16,6 +16,7 @@ import view.View_Login;
 import view.View_Patient;
 import view.View_Register;
 import view.View_Table;
+import view.View_Table_Register;
 
 public class Logic_View_Home implements ActionListener {
 	
@@ -24,6 +25,7 @@ public class Logic_View_Home implements ActionListener {
 	private View_Patient vp;
 	private View_Login vl;
 	private View_Table vt;
+	private View_Table_Register vtr;
 	private Threads_Hour tr;
 	private PacienteDAO pdao = new PacienteDAO();
 	private RegistrosDAO rdao = new RegistrosDAO();
@@ -99,7 +101,9 @@ public class Logic_View_Home implements ActionListener {
 			vl = new View_Login();
 			vl.setVisible(true);
 			vh.frame.dispose();
-		}else if (e.getSource() == vh.btnListado) {
+		}
+		else if (e.getSource() == vh.btnListado) 
+		{
 			tr.detener();
 			vt = new View_Table();
 			vt.setVisible(true);

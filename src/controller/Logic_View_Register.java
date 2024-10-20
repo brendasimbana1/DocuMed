@@ -54,7 +54,7 @@ public class Logic_View_Register implements ActionListener{
 		return fecha;
 	}
 	
-	private Paciente busquedaPaciente(String cedula)
+	public Paciente busquedaPaciente(String cedula)
 	{
 		if(!Logic_View_Home.pacientes.isEmpty())
 		{

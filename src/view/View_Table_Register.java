@@ -19,10 +19,11 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
 
-import controller.Logic_View_Register;
+import controller.Logic_View_Table_Register;
 
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
@@ -41,17 +42,16 @@ public class View_Table_Register extends JFrame {
 	public JButton btnNuevoRegistro;
 	public JButton btnNuevoPaciente;
 	public JTextField txt_ci;
-	public JButton btn_registro_visita;
 	public JTextArea textArea_diagnostico;
 	public JTextArea textArea_evolucion;
 	public JTextArea textArea_indicaciones;
 	public JButton btn_buscar;
-	public JPanel panel_content;
 	public JButton btnSalir;
 	public JButton btnListado;
-	private JTable table;
-
-	//private Logic_View_Register lvr;
+	public JTable table;
+	
+	public DefaultTableModel model;
+	private Logic_View_Table_Register lvtr;
 
 	/**
 	 * Launch the application.
@@ -69,9 +69,6 @@ public class View_Table_Register extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public View_Table_Register() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1000, 600);
@@ -87,12 +84,9 @@ public class View_Table_Register extends JFrame {
 			}
 		});
 		setLocationRelativeTo(null);
-
-
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		//Barra de navegación
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(0, 82, 164));
 		panel.setBounds(0, 0, 184, 563);
@@ -203,14 +197,6 @@ public class View_Table_Register extends JFrame {
 		panel_1.add(txt_ci);
 		SwingUtilities.invokeLater(() -> txt_ci.requestFocusInWindow());
 
-		SpinnerNumberModel model_peso = new SpinnerNumberModel(0.1, 0.1, 200.0, 0.1);
-
-		SpinnerNumberModel model_altura = new SpinnerNumberModel(1,1,230,1);
-
-		SpinnerNumberModel model_temperatura = new SpinnerNumberModel(0.01,0.01,50,0.01);
-
-		Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
-
 		btn_buscar = new JButton("Buscar");
 		btn_buscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -219,23 +205,14 @@ public class View_Table_Register extends JFrame {
 		btn_buscar.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btn_buscar.setBounds(347, 19, 85, 21);
 		panel_1.add(btn_buscar);
-
-		panel_content = new JPanel();
-		panel_content.setBackground(new Color(255, 255, 255));
-		panel_content.setBounds(0, 51, 801, 453);
-		panel_1.add(panel_content);
-		panel_content.setLayout(null);
-
-		btn_registro_visita = new JButton("Registrar");
-		btn_registro_visita.setBounds(559, 418, 232, 25);
-		panel_content.add(btn_registro_visita);
-		btn_registro_visita.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
-		table = new JTable();
-		table.setBounds(10, 10, 781, 395);
-		panel_content.add(table);
-
-		//Título
+		String[] labels = {"Cédula", "Fecha", "Diagnóstico", "Peso", "Altura", "Temperatura", "Presión", "Evolución", "Indicaciones", "Responsable"};
+		model = new DefaultTableModel(null, labels);
+		table = new JTable(model);
+		JScrollPane scrollPane2 = new JScrollPane(table);
+		scrollPane2.setBounds(10, 56, 781, 395);
+		panel_1.add(scrollPane2);
+		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(0, 128, 255));
 		panel_2.setBounds(183, 0, 801, 57);
@@ -250,6 +227,6 @@ public class View_Table_Register extends JFrame {
 		lblNewLabel_11.setForeground(new Color(255, 255, 255));
 		lblNewLabel_11.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 16));
 
-		//lvr = new Logic_View_Register(this);
+		lvtr = new Logic_View_Table_Register(this);
 	}
 }
