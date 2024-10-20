@@ -10,14 +10,25 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import controller.Logic_View_Home;
 import database.ConnectionPostgres;
 
 public class PacienteDAO {
 	private ConnectionPostgres dbConn = new ConnectionPostgres("bd_consulta_medica");
 	private String query="";
 	private boolean result = false;
+	
+	public Paciente pacienteData(String ci) {
+		for(Paciente p:Logic_View_Home.pacientes) {
+			if(p.getCi().equals(ci)) {
+				return p;
+			}
+		}
+		return null;
+	}
 
 	public List<Paciente> getPacientes()
 	{

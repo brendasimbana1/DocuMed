@@ -5,6 +5,12 @@ import java.util.Date;
 import java.util.List;
 
 public class Paciente {
+	public Paciente() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
 	private String ci;
 	private String nombres;
 	private String apellidos;
