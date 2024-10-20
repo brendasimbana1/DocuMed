@@ -15,6 +15,7 @@ import view.View_Login;
 import view.View_Patient;
 import view.View_Register;
 import view.View_Table;
+import view.View_Table_Register;
 
 public class Logic_View_Table implements ActionListener{
 	private View_Register vr;
@@ -22,6 +23,7 @@ public class Logic_View_Table implements ActionListener{
 	private View_Patient vp;
 	private View_Table vt;
 	private View_Login vl;
+	private View_Table_Register vtr;
 	private DefaultTableModel tableModel;
 	public PacienteDAO pdao = new PacienteDAO();
 	private Paciente p;
@@ -34,6 +36,7 @@ public class Logic_View_Table implements ActionListener{
 		this.vt.btnNuevoRegistro.addActionListener(this);
 		this.vt.btnSalir.addActionListener(this);
 		this.vt.btn_buscar.addActionListener(this);
+		this.vt.btn_registros.addActionListener(this);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -81,6 +84,10 @@ public class Logic_View_Table implements ActionListener{
 			}
 			
 
+		}else if (e.getSource() == this.vt.btn_registros) {
+			vtr = new View_Table_Register();
+			vtr.setVisible(true);
+			vt.dispose();
 		}
 	}
 

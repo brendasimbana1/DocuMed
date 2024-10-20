@@ -157,7 +157,7 @@ public class View_Home {
         btnSalir.setBounds(46, 388, 138, 43);
         panel.add(btnSalir);
         
-        btnListado = new JButton("Listado");
+        btnListado = new JButton("Buscar Paciente");
         btnListado.setHorizontalAlignment(SwingConstants.CENTER);
         btnListado.setForeground(Color.WHITE);
         btnListado.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
@@ -166,6 +166,10 @@ public class View_Home {
         btnListado.setBackground(new Color(0, 82, 164));
         btnListado.setBounds(46, 296, 138, 43);
         panel.add(btnListado);
+        JLabel lblNewLabel_3_1 = new JLabel("");
+		lblNewLabel_3_1.setIcon(new ImageIcon(View_Table_Register.class.getResource("/resources/buscar.png")));
+		lblNewLabel_3_1.setBounds(10, 292, 32, 43);
+		panel.add(lblNewLabel_3_1);
 
         JPanel panel_1 = new JPanel();
         panel_1.setBackground(new Color(0, 128, 255));

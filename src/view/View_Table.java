@@ -60,6 +60,7 @@ public class View_Table extends JFrame {
 	public JTextField txt_genero;
 	public JTextField txt_lugar;
 	public JTextField txt_edad;
+	public JButton btn_registros;
 
 	/**
 	 * Launch the application.
@@ -181,7 +182,7 @@ public class View_Table extends JFrame {
 		btnSalir.setBounds(46, 502, 138, 43);
 		panel.add(btnSalir);
 
-		btnListado = new JButton("Listado");
+		btnListado = new JButton("Buscar Paciente");
 		btnListado.setHorizontalAlignment(SwingConstants.CENTER);
 		btnListado.setForeground(Color.WHITE);
 		btnListado.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
@@ -190,6 +191,11 @@ public class View_Table extends JFrame {
 		btnListado.setBackground(new Color(0, 82, 164));
 		btnListado.setBounds(46, 292, 138, 43);
 		panel.add(btnListado);
+		
+		JLabel lblNewLabel_3_1 = new JLabel("");
+		lblNewLabel_3_1.setIcon(new ImageIcon(View_Table.class.getResource("/resources/buscar.png")));
+		lblNewLabel_3_1.setBounds(10, 292, 32, 43);
+		panel.add(lblNewLabel_3_1);
 
 		//Body
 		JPanel panel_1 = new JPanel();
@@ -417,6 +423,11 @@ public class View_Table extends JFrame {
         scrollPane1.setBounds(426, 300, 280, 48);
         
         panel_content.add(scrollPane1);
+        
+        btn_registros = new JButton("Ver Registros");
+        btn_registros.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        btn_registros.setBounds(452, 19, 114, 21);
+        panel_1.add(btn_registros);
 		
 		
 		//Título
