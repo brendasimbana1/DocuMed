@@ -42,17 +42,24 @@ public class View_Table extends JFrame {
 	public JButton btnNuevoRegistro;
 	public JButton btnNuevoPaciente;
 	public JTextField txt_ci;
-	public JButton btn_registro_visita;
-	public JTextArea textArea_diagnostico;
-	public JTextArea textArea_evolucion;
-	public JTextArea textArea_indicaciones;
 	public JButton btn_buscar;
 	public JPanel panel_content;
 	public JButton btnSalir;
 	public JButton btnListado;
-	private JTable table;
-
+	public JTextArea textArea_ant_personales;
+	public JTextArea textArea_ant_familiares;
+	public JTextArea textArea_ant_gineco_obs;
 	private Logic_View_Table lvt;
+	public JTextField txt_nombres;
+	public JTextField txt_apellidos;
+	public JTextField txt_ocupacion;
+	public JTextField txt_profesion;
+	public JTextField txt_fNacimiento;
+	public JTextField txt_fRegistro;
+	public JTextField txt_telefonos;
+	public JTextField txt_genero;
+	public JTextField txt_lugar;
+	public JTextField txt_edad;
 
 	/**
 	 * Launch the application.
@@ -226,16 +233,192 @@ public class View_Table extends JFrame {
 		panel_content.setBounds(0, 51, 801, 453);
 		panel_1.add(panel_content);
 		panel_content.setLayout(null);
-
-		btn_registro_visita = new JButton("Registrar");
-		btn_registro_visita.setBounds(559, 418, 232, 25);
-		panel_content.add(btn_registro_visita);
-		btn_registro_visita.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
-		table = new JTable();
-		table.setBounds(10, 10, 781, 395);
-		panel_content.add(table);
-
+		JLabel fecha_label_1_1 = new JLabel("Nombres:");
+		fecha_label_1_1.setForeground(Color.BLACK);
+		fecha_label_1_1.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
+		fecha_label_1_1.setBounds(24, 27, 100, 36);
+		panel_content.add(fecha_label_1_1);
+		
+		JLabel fecha_label_1_1_1 = new JLabel("Apellidos:");
+		fecha_label_1_1_1.setForeground(Color.BLACK);
+		fecha_label_1_1_1.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
+		fecha_label_1_1_1.setBounds(24, 65, 100, 36);
+		panel_content.add(fecha_label_1_1_1);
+		
+		JLabel fecha_label_1_1_1_1 = new JLabel("Ocupación:");
+		fecha_label_1_1_1_1.setForeground(Color.BLACK);
+		fecha_label_1_1_1_1.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
+		fecha_label_1_1_1_1.setBounds(24, 104, 100, 36);
+		panel_content.add(fecha_label_1_1_1_1);
+		
+		JLabel fecha_label_1_1_1_1_1 = new JLabel("Profesión:");
+		fecha_label_1_1_1_1_1.setForeground(Color.BLACK);
+		fecha_label_1_1_1_1_1.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
+		fecha_label_1_1_1_1_1.setBounds(24, 141, 100, 36);
+		panel_content.add(fecha_label_1_1_1_1_1);
+		
+		JLabel fecha_label_1_1_1_1_1_1 = new JLabel("Fecha nacimiento:");
+		fecha_label_1_1_1_1_1_1.setForeground(Color.BLACK);
+		fecha_label_1_1_1_1_1_1.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
+		fecha_label_1_1_1_1_1_1.setBounds(24, 177, 123, 36);
+		panel_content.add(fecha_label_1_1_1_1_1_1);
+		
+		JLabel fecha_label_1_1_1_1_1_1_1 = new JLabel("Fecha registro:");
+		fecha_label_1_1_1_1_1_1_1.setForeground(Color.BLACK);
+		fecha_label_1_1_1_1_1_1_1.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
+		fecha_label_1_1_1_1_1_1_1.setBounds(24, 217, 123, 36);
+		panel_content.add(fecha_label_1_1_1_1_1_1_1);
+		
+		JLabel fecha_label_1_1_1_1_1_1_1_1 = new JLabel("Teléfonos:");
+		fecha_label_1_1_1_1_1_1_1_1.setForeground(Color.BLACK);
+		fecha_label_1_1_1_1_1_1_1_1.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
+		fecha_label_1_1_1_1_1_1_1_1.setBounds(24, 256, 123, 36);
+		panel_content.add(fecha_label_1_1_1_1_1_1_1_1);
+		
+		JLabel fecha_label_1_1_1_1_1_1_1_1_1 = new JLabel("Género:");
+		fecha_label_1_1_1_1_1_1_1_1_1.setForeground(Color.BLACK);
+		fecha_label_1_1_1_1_1_1_1_1_1.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
+		fecha_label_1_1_1_1_1_1_1_1_1.setBounds(24, 293, 123, 36);
+		panel_content.add(fecha_label_1_1_1_1_1_1_1_1_1);
+		
+		JLabel fecha_label_1_1_1_1_1_1_1_1_1_1 = new JLabel("Lugar nacimiento:");
+		fecha_label_1_1_1_1_1_1_1_1_1_1.setForeground(Color.BLACK);
+		fecha_label_1_1_1_1_1_1_1_1_1_1.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
+		fecha_label_1_1_1_1_1_1_1_1_1_1.setBounds(24, 332, 123, 36);
+		panel_content.add(fecha_label_1_1_1_1_1_1_1_1_1_1);
+		
+		JLabel fecha_label_1_1_1_1_1_1_1_1_1_1_1 = new JLabel("Edad:");
+		fecha_label_1_1_1_1_1_1_1_1_1_1_1.setForeground(Color.BLACK);
+		fecha_label_1_1_1_1_1_1_1_1_1_1_1.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
+		fecha_label_1_1_1_1_1_1_1_1_1_1_1.setBounds(426, 27, 123, 36);
+		panel_content.add(fecha_label_1_1_1_1_1_1_1_1_1_1_1);
+		
+		txt_nombres = new JTextField();
+		txt_nombres.setEditable(false);
+		txt_nombres.setColumns(10);
+		txt_nombres.setBounds(105, 37, 212, 22);
+		panel_content.add(txt_nombres);
+		
+		txt_apellidos = new JTextField();
+		txt_apellidos.setEditable(false);
+		txt_apellidos.setColumns(10);
+		txt_apellidos.setBounds(105, 75, 212, 22);
+		panel_content.add(txt_apellidos);
+		
+		txt_ocupacion = new JTextField();
+		txt_ocupacion.setEditable(false);
+		txt_ocupacion.setColumns(10);
+		txt_ocupacion.setBounds(105, 112, 212, 22);
+		panel_content.add(txt_ocupacion);
+		
+		txt_profesion = new JTextField();
+		txt_profesion.setEditable(false);
+		txt_profesion.setColumns(10);
+		txt_profesion.setBounds(105, 151, 212, 22);
+		panel_content.add(txt_profesion);
+		
+		txt_fNacimiento = new JTextField();
+		txt_fNacimiento.setEditable(false);
+		txt_fNacimiento.setColumns(10);
+		txt_fNacimiento.setBounds(157, 187, 212, 22);
+		panel_content.add(txt_fNacimiento);
+		
+		txt_fRegistro = new JTextField();
+		txt_fRegistro.setEditable(false);
+		txt_fRegistro.setColumns(10);
+		txt_fRegistro.setBounds(143, 227, 212, 22);
+		panel_content.add(txt_fRegistro);
+		
+		txt_telefonos = new JTextField();
+		txt_telefonos.setEditable(false);
+		txt_telefonos.setColumns(10);
+		txt_telefonos.setBounds(121, 264, 212, 22);
+		panel_content.add(txt_telefonos);
+		
+		txt_genero = new JTextField();
+		txt_genero.setEditable(false);
+		txt_genero.setColumns(10);
+		txt_genero.setBounds(105, 303, 212, 22);
+		panel_content.add(txt_genero);
+		
+		txt_lugar = new JTextField();
+		txt_lugar.setEditable(false);
+		txt_lugar.setColumns(10);
+		txt_lugar.setBounds(157, 342, 212, 22);
+		panel_content.add(txt_lugar);
+		
+		txt_edad = new JTextField();
+		txt_edad.setEditable(false);
+		txt_edad.setColumns(10);
+		txt_edad.setBounds(486, 37, 212, 22);
+		panel_content.add(txt_edad);
+		
+		JLabel fecha_label = new JLabel("Antecedentes personales:");
+		fecha_label.setForeground(Color.BLACK);
+		fecha_label.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
+		fecha_label.setBounds(426, 65, 213, 36);
+		panel_content.add(fecha_label);
+		
+		textArea_ant_personales = new JTextArea();
+		textArea_ant_personales.setRows(10);
+		textArea_ant_personales.setForeground(new Color(0, 0, 0));
+		textArea_ant_personales.setBounds(420, 95, 280, 48);
+		textArea_ant_personales.setBorder(border);
+		textArea_ant_personales.setLineWrap(true);
+		textArea_ant_personales.setWrapStyleWord(true);
+		textArea_ant_personales.setCaretPosition(0);
+		textArea_ant_personales.setEditable(false);
+		panel_content.add(textArea_ant_personales);
+		
+		JScrollPane scrollPane = new JScrollPane(textArea_ant_personales);
+        scrollPane.setBounds(420, 95, 280, 48);
+        
+        panel_content.add(scrollPane);
+        
+        JLabel fecha_label_6 = new JLabel("Antecedentes familiares:");
+        fecha_label_6.setForeground(Color.BLACK);
+        fecha_label_6.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
+        fecha_label_6.setBounds(426, 154, 213, 36);
+        panel_content.add(fecha_label_6);
+        
+        textArea_ant_familiares = new JTextArea();
+        textArea_ant_familiares.setRows(10);
+        textArea_ant_familiares.setForeground(new Color(0, 0, 0));
+        textArea_ant_familiares.setBounds(426, 200, 280, 48);
+		textArea_ant_familiares.setBorder(border);
+		textArea_ant_familiares.setLineWrap(true);
+		textArea_ant_familiares.setEditable(false);
+		textArea_ant_familiares.setWrapStyleWord(true);
+		panel_content.add(textArea_ant_familiares);
+		
+		JScrollPane scrollPane2 = new JScrollPane(textArea_ant_familiares);
+        scrollPane2.setBounds(426, 200, 280, 48);
+        
+        panel_content.add(scrollPane2);
+        
+        JLabel fecha_label_6_1 = new JLabel("Antecedentes gineco-obstétricos:");
+        fecha_label_6_1.setForeground(Color.BLACK);
+        fecha_label_6_1.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
+        fecha_label_6_1.setBounds(426, 269, 237, 36);
+        panel_content.add(fecha_label_6_1);
+        
+        textArea_ant_gineco_obs = new JTextArea();
+        textArea_ant_gineco_obs.setRows(10);
+        textArea_ant_gineco_obs.setForeground(new Color(0, 0, 0));
+        textArea_ant_gineco_obs.setBounds(426, 300, 280, 48);
+        textArea_ant_gineco_obs.setBorder(border);
+        textArea_ant_gineco_obs.setLineWrap(true);
+        textArea_ant_gineco_obs.setWrapStyleWord(true);
+        textArea_ant_gineco_obs.setEditable(false);
+        panel_content.add(textArea_ant_gineco_obs);
+		
+		JScrollPane scrollPane1 = new JScrollPane(textArea_ant_gineco_obs);
+        scrollPane1.setBounds(426, 300, 280, 48);
+        
+        panel_content.add(scrollPane1);
+		
+		
 		//Título
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(0, 128, 255));
