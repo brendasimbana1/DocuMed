@@ -267,7 +267,7 @@ public class View_Table extends JFrame {
 		JLabel fecha_label_1_1_1_1_1_1 = new JLabel("Fecha nacimiento:");
 		fecha_label_1_1_1_1_1_1.setForeground(Color.BLACK);
 		fecha_label_1_1_1_1_1_1.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
-		fecha_label_1_1_1_1_1_1.setBounds(24, 177, 123, 36);
+		fecha_label_1_1_1_1_1_1.setBounds(24, 177, 145, 36);
 		panel_content.add(fecha_label_1_1_1_1_1_1);
 		
 		JLabel fecha_label_1_1_1_1_1_1_1 = new JLabel("Fecha registro:");
@@ -303,55 +303,55 @@ public class View_Table extends JFrame {
 		txt_nombres = new JTextField();
 		txt_nombres.setEditable(false);
 		txt_nombres.setColumns(10);
-		txt_nombres.setBounds(105, 37, 212, 22);
+		txt_nombres.setBounds(177, 37, 212, 22);
 		panel_content.add(txt_nombres);
 		
 		txt_apellidos = new JTextField();
 		txt_apellidos.setEditable(false);
 		txt_apellidos.setColumns(10);
-		txt_apellidos.setBounds(105, 75, 212, 22);
+		txt_apellidos.setBounds(177, 75, 212, 22);
 		panel_content.add(txt_apellidos);
 		
 		txt_ocupacion = new JTextField();
 		txt_ocupacion.setEditable(false);
 		txt_ocupacion.setColumns(10);
-		txt_ocupacion.setBounds(105, 112, 212, 22);
+		txt_ocupacion.setBounds(177, 112, 212, 22);
 		panel_content.add(txt_ocupacion);
 		
 		txt_profesion = new JTextField();
 		txt_profesion.setEditable(false);
 		txt_profesion.setColumns(10);
-		txt_profesion.setBounds(105, 151, 212, 22);
+		txt_profesion.setBounds(177, 151, 212, 22);
 		panel_content.add(txt_profesion);
 		
 		txt_fNacimiento = new JTextField();
 		txt_fNacimiento.setEditable(false);
 		txt_fNacimiento.setColumns(10);
-		txt_fNacimiento.setBounds(157, 187, 212, 22);
+		txt_fNacimiento.setBounds(177, 187, 212, 22);
 		panel_content.add(txt_fNacimiento);
 		
 		txt_fRegistro = new JTextField();
 		txt_fRegistro.setEditable(false);
 		txt_fRegistro.setColumns(10);
-		txt_fRegistro.setBounds(143, 227, 212, 22);
+		txt_fRegistro.setBounds(177, 227, 212, 22);
 		panel_content.add(txt_fRegistro);
 		
 		txt_telefonos = new JTextField();
 		txt_telefonos.setEditable(false);
 		txt_telefonos.setColumns(10);
-		txt_telefonos.setBounds(121, 264, 212, 22);
+		txt_telefonos.setBounds(177, 266, 212, 22);
 		panel_content.add(txt_telefonos);
 		
 		txt_genero = new JTextField();
 		txt_genero.setEditable(false);
 		txt_genero.setColumns(10);
-		txt_genero.setBounds(105, 303, 212, 22);
+		txt_genero.setBounds(177, 303, 212, 22);
 		panel_content.add(txt_genero);
 		
 		txt_lugar = new JTextField();
 		txt_lugar.setEditable(false);
 		txt_lugar.setColumns(10);
-		txt_lugar.setBounds(157, 342, 212, 22);
+		txt_lugar.setBounds(177, 342, 212, 22);
 		panel_content.add(txt_lugar);
 		
 		txt_edad = new JTextField();

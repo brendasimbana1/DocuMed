@@ -5,8 +5,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.table.DefaultTableModel;
-
 import model.Paciente;
 import model.Registros;
 import view.View_Home;
@@ -18,7 +16,7 @@ import view.View_Table_Register;
 
 public class Logic_View_Table_Register implements ActionListener {
 	private View_Table_Register vtr;
-	private View_Register vr;
+	private View_Register vr = new View_Register();
 	private View_Home vh;
 	private View_Patient vp;
 	private View_Table vt;
@@ -27,17 +25,18 @@ public class Logic_View_Table_Register implements ActionListener {
 	public Logic_View_Table_Register(View_Table_Register vtr)
 	{
 		this.vtr = vtr;
-		this.vtr.btn_buscar.addActionListener(this);
 		this.vtr.btnListado.addActionListener(this);
 		this.vtr.btnNuevoPaciente.addActionListener(this);
 		this.vtr.btnNuevoRegistro.addActionListener(this);
 		this.vtr.btnPrincipal.addActionListener(this);
 		this.vtr.btnSalir.addActionListener(this);
+		actualizarTablaConCedula(this.vtr.cedulaPaciente);
 	}
 	
 	private Object[][] obtenerDatos(String cedula)
 	{
-		Paciente p = vr.lvr.busquedaPaciente(cedula);
+		Paciente p = this.vr.lvr.busquedaPaciente(cedula);
+		System.out.println(p.getNombres());
 	    List<Object[]> datos = new ArrayList<>();
 		for(Registros r:Logic_View_Home.registros)
 		{
@@ -84,6 +83,12 @@ public class Logic_View_Table_Register implements ActionListener {
 			vr = new View_Register();
 			vtr.dispose();
 			vr.setVisible(true);
+		}
+		else if(e.getSource() == vtr.btnSalir)
+		{
+			vl = new View_Login();
+			vl.setVisible(true);
+			vtr.dispose();
 		}
 	}
 }

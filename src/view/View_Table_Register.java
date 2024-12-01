@@ -3,6 +3,8 @@ package view;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -13,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
@@ -41,14 +44,13 @@ public class View_Table_Register extends JFrame {
 	public JButton btnPrincipal;
 	public JButton btnNuevoRegistro;
 	public JButton btnNuevoPaciente;
-	public JTextField txt_ci;
 	public JTextArea textArea_diagnostico;
 	public JTextArea textArea_evolucion;
 	public JTextArea textArea_indicaciones;
-	public JButton btn_buscar;
 	public JButton btnSalir;
 	public JButton btnListado;
 	public JTable table;
+	public String cedulaPaciente;
 	
 	public DefaultTableModel model;
 	private Logic_View_Table_Register lvtr;
@@ -69,7 +71,8 @@ public class View_Table_Register extends JFrame {
 		});
 	}
 
-	public View_Table_Register() {
+	public View_Table_Register(String cedula) {
+		this.cedulaPaciente = cedula;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1000, 600);
 		contentPane = new JPanel();
@@ -188,34 +191,31 @@ public class View_Table_Register extends JFrame {
 		panel_1.setBounds(183, 57, 801, 504);
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
-
-		JLabel fecha_label_1 = new JLabel("C.I.:");
-		fecha_label_1.setForeground(Color.BLACK);
-		fecha_label_1.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 14));
-		fecha_label_1.setBounds(26, 10, 100, 36);
-		panel_1.add(fecha_label_1);
-
-		txt_ci = new JTextField();
-		txt_ci.setFocusable(true);
-		txt_ci.setColumns(10);
-		txt_ci.setBounds(95, 21, 242, 20);
-		panel_1.add(txt_ci);
-		SwingUtilities.invokeLater(() -> txt_ci.requestFocusInWindow());
-
-		btn_buscar = new JButton("Buscar");
-		btn_buscar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btn_buscar.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btn_buscar.setBounds(347, 19, 85, 21);
-		panel_1.add(btn_buscar);
 		
 		String[] labels = {"Cédula", "Fecha", "Diagnóstico", "Peso", "Altura", "Temperatura", "Presión", "Evolución", "Indicaciones", "Responsable"};
-		model = new DefaultTableModel(null, labels);
+		model = new DefaultTableModel(null, labels){
+		    @Override
+		    public boolean isCellEditable(int row, int column) {
+		        return false; 
+		    }
+		};
 		table = new JTable(model);
+		 table.addMouseListener(new MouseAdapter() {
+	            @Override
+	            public void mouseClicked(MouseEvent e) {
+	                int row = table.getSelectedRow();
+	                int column = table.getSelectedColumn();
+
+	                if (row >= 0 && column >= 0) {
+	                    Object value = table.getValueAt(row, column);
+	                    String contenido = value != null ? value.toString() : "Celda vacía";
+
+	                    JOptionPane.showMessageDialog(View_Table_Register.this, contenido, "Contenido de la Celda", JOptionPane.INFORMATION_MESSAGE);
+	                }
+	            }
+	        });
 		JScrollPane scrollPane2 = new JScrollPane(table);
-		scrollPane2.setBounds(10, 56, 781, 395);
+		scrollPane2.setBounds(10, 10, 781, 484);
 		panel_1.add(scrollPane2);
 		
 		JPanel panel_2 = new JPanel();

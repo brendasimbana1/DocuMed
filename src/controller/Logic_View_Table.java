@@ -27,6 +27,7 @@ public class Logic_View_Table implements ActionListener{
 	private DefaultTableModel tableModel;
 	public PacienteDAO pdao = new PacienteDAO();
 	private Paciente p;
+	private String cedulaEscogida;
 
 	public Logic_View_Table(View_Table vt) 
 	{
@@ -37,6 +38,7 @@ public class Logic_View_Table implements ActionListener{
 		this.vt.btnSalir.addActionListener(this);
 		this.vt.btn_buscar.addActionListener(this);
 		this.vt.btn_registros.addActionListener(this);
+		this.vt.btn_registros.setEnabled(false);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -65,6 +67,7 @@ public class Logic_View_Table implements ActionListener{
 			// Ejemplo de agregar filas
 			p = pdao.pacienteData(this.vt.txt_ci.getText());
 			if(p != null) {
+				this.cedulaEscogida = this.vt.txt_ci.getText();
 				this.vt.txt_nombres.setText(p.getNombres());
 				this.vt.txt_apellidos.setText(p.getApellidos());
 				this.vt.txt_fNacimiento.setText(p.getFecha_nacimiento().toString());
@@ -78,14 +81,14 @@ public class Logic_View_Table implements ActionListener{
 				this.vt.textArea_ant_personales.setText(p.getAnt_personales());
 				this.vt.textArea_ant_familiares.setText(p.getAnt_familiares());
 				this.vt.textArea_ant_gineco_obs.setText(p.getAnt_ginec_obs());
+				this.vt.btn_registros.setEnabled(true);
 			}else {
 				JOptionPane.showMessageDialog(vl, "Error. No se ha encontrado el paciente.");
 				this.vt.txt_ci.setText("");
 			}
 			
-
 		}else if (e.getSource() == this.vt.btn_registros) {
-			vtr = new View_Table_Register();
+			vtr = new View_Table_Register(this.cedulaEscogida);
 			vtr.setVisible(true);
 			vt.dispose();
 		}
