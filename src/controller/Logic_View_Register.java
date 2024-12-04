@@ -140,7 +140,7 @@ public class Logic_View_Register implements ActionListener{
 		{
 			vh = new View_Home();
 			vr.dispose();
-			vh.frame.setVisible(true);
+			vh.setVisible(true);
 		}
 		else if (e.getSource() == vr.btnNuevoPaciente)
 		{	

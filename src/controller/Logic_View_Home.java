@@ -45,7 +45,7 @@ public class Logic_View_Home implements ActionListener {
 		this.vh.btnSalir.addActionListener(this);
 		this.vh.btnListado.addActionListener(this);
 		setFecha();
-		this.vh.frame.addWindowListener(new java.awt.event.WindowAdapter() {
+		this.vh.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
                 tr.detener(); 
@@ -54,7 +54,7 @@ public class Logic_View_Home implements ActionListener {
 //                } catch (InterruptedException ex) {
 //                    ex.printStackTrace();
 //                }
-                vh.frame.dispose();
+                vh.dispose();
             }
         });
 		setInfo();
@@ -85,14 +85,14 @@ public class Logic_View_Home implements ActionListener {
 			tr.detener();
 			vr = new View_Register();
 			vr.setVisible(true);
-			vh.frame.dispose();
+			vh.dispose();
 		}	
 		else if (e.getSource() == vh.btnNuevoPaciente)
 		{	
 			tr.detener();
 			vp = new View_Patient();
 			vp.setVisible(true);
-			vh.frame.dispose();
+			vh.dispose();
 
 		}
 		else if(e.getSource() == vh.btnSalir)
@@ -100,14 +100,14 @@ public class Logic_View_Home implements ActionListener {
 			tr.detener();
 			vl = new View_Login();
 			vl.setVisible(true);
-			vh.frame.dispose();
+			vh.dispose();
 		}
 		else if (e.getSource() == vh.btnListado) 
 		{
 			tr.detener();
 			vt = new View_Table();
 			vt.setVisible(true);
-			vh.frame.dispose();
+			vh.dispose();
 		}
 		
 	}

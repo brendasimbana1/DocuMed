@@ -1,223 +1,254 @@
 package view;
 
-import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import java.awt.AlphaComposite;
+import java.awt.BorderLayout;
 import java.awt.Color;
-import javax.swing.JLabel;
-import javax.swing.JButton;  //Importación de JButton
+import java.awt.Dimension;
 import java.awt.Font;
-
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.Insets;
+import java.awt.RenderingHints;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import javax.swing.SwingConstants;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import controller.Logic_View_Home;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
-public class View_Home {
+public class View_Home extends JFrame {
+	public JButton btnNuevoPaciente;
+	public JButton btnNuevoRegistro;
+	public JButton btnPrincipal;
+	public JLabel fecha_label;
+	private Logic_View_Home lvh;
+	public JButton btnSalir;
+	public JButton btnListado;
+	private BufferedImage image;
 
-    public JFrame frame;
-    public JButton btnNuevoPaciente;
-    public JButton btnNuevoRegistro;
-    public JButton btnPrincipal;
-    public JLabel fecha_label;
-    public Logic_View_Home lvh;
-    public JButton btnSalir;
-    public JButton btnListado;
-    
-    /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    View_Home window = new View_Home();
-                    window.frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+	public View_Home() {
+		initializeFrame();
+		createComponents();
+		setupListeners();
+	}
 
-    /**
-     * Create the application.
-     */
-    public View_Home() {
-        initialize();
-        
-    }
+	private void initializeFrame() {
+		setTitle("DocuMed - Sistema de Gestión de Pacientes");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		//setMinimumSize(new Dimension(800, 600));
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		setMinimumSize(new Dimension(screenSize.width, screenSize.height));
+		setLocationRelativeTo(null);
+		getContentPane().setBackground(Color.WHITE);
+		setLayout(new BorderLayout(10, 10));
+	}
 
-    /**
-     * Initialize the contents of the frame.
-     */
-    private void initialize() {
-        frame = new JFrame();
-        frame.getContentPane().setBackground(Color.WHITE);
-        frame.setBounds(100, 100, 802, 500);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                View_Login vm = new View_Login();
-                vm.setVisible(true);
-                
-            }
-        });
-        frame.getContentPane().setLayout(null);
-        frame.setResizable(false);
-        frame.setTitle("Home");
-        frame.setLocationRelativeTo(null);
-        
-        JPanel panel = new JPanel();
-        panel.setBackground(new Color(0, 82, 164));
-        panel.setBounds(0, 0, 184, 463);
-        frame.getContentPane().add(panel);
-        panel.setLayout(null);
+	private void createComponents() {
+		// Sidebar Panel
+		JPanel sidebarPanel = createSidebarPanel();
+		add(sidebarPanel, BorderLayout.WEST);
 
-        btnNuevoPaciente = new JButton("Nuevo Paciente");
-        btnNuevoPaciente.setHorizontalAlignment(SwingConstants.CENTER);
-        btnNuevoPaciente.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
-        btnNuevoPaciente.setForeground(Color.WHITE);
-        btnNuevoPaciente.setBackground(new Color(0, 82, 164));  
-        btnNuevoPaciente.setBorderPainted(false);  
-        btnNuevoPaciente.setFocusPainted(false);   
-        btnNuevoPaciente.setBounds(46, 250, 138, 43);
-        panel.add(btnNuevoPaciente);
+		// Main Content Panel
+		JPanel mainContentPanel = createMainContentPanel();
+		JPanel hourPaner = createHourPanel();
+		add(mainContentPanel, BorderLayout.CENTER);
+		add(hourPaner, BorderLayout.NORTH);
+	}
 
-        btnNuevoRegistro = new JButton("Nuevo Registro");
-        btnNuevoRegistro.setHorizontalAlignment(SwingConstants.CENTER);
-        btnNuevoRegistro.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
-        btnNuevoRegistro.setForeground(Color.WHITE);
-        btnNuevoRegistro.setBackground(new Color(0, 82, 164)); 
-        btnNuevoRegistro.setBorderPainted(false);  
-        btnNuevoRegistro.setFocusPainted(false);  
-        btnNuevoRegistro.setBounds(46, 207, 138, 42);
-        panel.add(btnNuevoRegistro);
+	private JPanel createSidebarPanel() {
+		JPanel sidebarPanel = new JPanel();
+		sidebarPanel.setBackground(new Color(0, 82, 164));
+		sidebarPanel.setLayout(new BoxLayout(sidebarPanel, BoxLayout.Y_AXIS));
+		sidebarPanel.setPreferredSize(new Dimension(200, getHeight()));
 
-        JLabel lblNewLabel_1 = new JLabel("__________________");
-        lblNewLabel_1.setForeground(Color.WHITE);
-        lblNewLabel_1.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
-        lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-        lblNewLabel_1.setBounds(0, 77, 163, 35);
-        panel.add(lblNewLabel_1);
-        
-        JLabel lblNewLabel_2 = new JLabel("");
-        lblNewLabel_2.setIcon(new ImageIcon(View_Home.class.getResource("/resources/registro.png")));
-        lblNewLabel_2.setBounds(10, 207, 32, 42);
-        panel.add(lblNewLabel_2);
-        
-        JLabel lblNewLabel_3 = new JLabel("");
-        lblNewLabel_3.setIcon(new ImageIcon(View_Home.class.getResource("/resources/nueva-cuenta.png")));
-        lblNewLabel_3.setBounds(10, 250, 32, 43);
-        panel.add(lblNewLabel_3);
-        
-        JLabel lblNewLabel_4 = new JLabel("");
-        lblNewLabel_4.setIcon(new ImageIcon(View_Home.class.getResource("/resources/cerrar-sesion.png")));
-        lblNewLabel_4.setBounds(10, 396, 49, 35);
-        panel.add(lblNewLabel_4);
-        
-        JLabel lblNewLabel_5 = new JLabel("");
-        lblNewLabel_5.setIcon(new ImageIcon(View_Home.class.getResource("/resources/casa.png")));
-        lblNewLabel_5.setBounds(10, 166, 32, 39);
-        panel.add(lblNewLabel_5);
-        
-        JLabel lblNewLabel_6 = new JLabel("DocuMed");
-        lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
-        lblNewLabel_6.setForeground(Color.WHITE);
-        lblNewLabel_6.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 18));
-        lblNewLabel_6.setBounds(0, 59, 163, 42);
-        panel.add(lblNewLabel_6);
-        
-        btnPrincipal = new JButton("Principal");
-        btnPrincipal.setHorizontalAlignment(SwingConstants.CENTER);
-        btnPrincipal.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
-        btnPrincipal.setForeground(Color.WHITE);
-        btnPrincipal.setBackground(new Color(0, 82, 164));  
-        btnPrincipal.setBorderPainted(false);  
-        btnPrincipal.setFocusPainted(false);   
-        btnPrincipal.setBounds(46, 166, 138, 43);
-        panel.add(btnPrincipal);
-        
-        btnSalir = new JButton("Cerrar Sesión");
-        btnSalir.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
-        btnSalir.setHorizontalAlignment(SwingConstants.CENTER);
-        btnSalir.setForeground(Color.WHITE);
-        btnSalir.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
-        btnSalir.setFocusPainted(false);
-        btnSalir.setBorderPainted(false);
-        btnSalir.setBackground(new Color(0, 82, 164));
-        btnSalir.setBounds(46, 388, 138, 43);
-        panel.add(btnSalir);
-        
-        btnListado = new JButton("Buscar Paciente");
-        btnListado.setHorizontalAlignment(SwingConstants.CENTER);
-        btnListado.setForeground(Color.WHITE);
-        btnListado.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
-        btnListado.setFocusPainted(false);
-        btnListado.setBorderPainted(false);
-        btnListado.setBackground(new Color(0, 82, 164));
-        btnListado.setBounds(46, 296, 138, 43);
-        panel.add(btnListado);
-        JLabel lblNewLabel_3_1 = new JLabel("");
-		lblNewLabel_3_1.setIcon(new ImageIcon(View_Table_Register.class.getResource("/resources/buscar.png")));
-		lblNewLabel_3_1.setBounds(10, 292, 32, 43);
-		panel.add(lblNewLabel_3_1);
+		// Logo and Title
+		JLabel titleLabel = new JLabel("DocuMed", SwingConstants.CENTER);
+		titleLabel.setForeground(Color.WHITE);
+		titleLabel.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 18));
+		titleLabel.setAlignmentX(CENTER_ALIGNMENT);
 
-        JPanel panel_1 = new JPanel();
-        panel_1.setBackground(new Color(0, 128, 255));
-        panel_1.setBounds(180, 46, 608, 116);
-        frame.getContentPane().add(panel_1);
-        panel_1.setLayout(null);
-        
-        JLabel lblNewLabel_6_1_1 = new JLabel("Sistema de Gestión de Pacientes");
-        lblNewLabel_6_1_1.setBounds(26, 0, 295, 46);
-        panel_1.add(lblNewLabel_6_1_1);
-        lblNewLabel_6_1_1.setForeground(Color.BLACK);
-        lblNewLabel_6_1_1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 14));
-        
-        JLabel lblNewLabel_6_1 = new JLabel("Consultorios Médicos");
-        lblNewLabel_6_1.setForeground(Color.BLACK);
-        lblNewLabel_6_1.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 13));
-        lblNewLabel_6_1.setBounds(194, 0, 215, 46);
-        frame.getContentPane().add(lblNewLabel_6_1);
-        
-        JLabel lblNewLabel_9 = new JLabel("");
-        lblNewLabel_9.setIcon(new ImageIcon(View_Home.class.getResource("/resources/su_salud2.png")));
-        lblNewLabel_9.setBounds(550, 199, 215, 209);
-        frame.getContentPane().add(lblNewLabel_9);
-        
-        JLabel lbl_inicio = new JLabel("¡Bienvenido/a!");
-		lbl_inicio.setForeground(Color.BLACK);
-		lbl_inicio.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 18));
-		lbl_inicio.setBounds(194, 173, 347, 39);
-		frame.getContentPane().add(lbl_inicio);
+		// Buttons with Icons
+		btnPrincipal = createStyledButton("Principal", new ImageIcon(getClass().getResource("/resources/casa.png")));
+		btnNuevoRegistro = createStyledButton("Nuevo Registro", new ImageIcon(getClass().getResource("/resources/registro.png")));
+		btnNuevoPaciente = createStyledButton("Nuevo Paciente", new ImageIcon(getClass().getResource("/resources/nueva-cuenta.png")));
+		btnListado = createStyledButton("Buscar Paciente", new ImageIcon(getClass().getResource("/resources/buscar.png")));
+		btnSalir = createStyledButton("Cerrar Sesión", new ImageIcon(getClass().getResource("/resources/cerrar-sesion.png")));
 
-		JLabel lblNewLabel_6_1_2 = new JLabel("<html>Sistema de Gestión de Pacientes para Centro Médico<br>\r\n\"Su Salud\". Registro y revisión de antecedentes previos.</html>");
-		lblNewLabel_6_1_2.setBounds(194, 212, 375, 39);
-		frame.getContentPane().add(lblNewLabel_6_1_2);
-		lblNewLabel_6_1_2.setForeground(Color.BLACK);
-		lblNewLabel_6_1_2.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 13));
+		sidebarPanel.add(Box.createVerticalStrut(20));
+		sidebarPanel.add(titleLabel);
+		sidebarPanel.add(Box.createVerticalStrut(20));
+		sidebarPanel.add(btnPrincipal);
+		sidebarPanel.add(btnNuevoRegistro);
+		sidebarPanel.add(btnNuevoPaciente);
+		sidebarPanel.add(btnListado);
+		sidebarPanel.add(Box.createVerticalGlue());
+		sidebarPanel.add(btnSalir);
+		sidebarPanel.add(Box.createVerticalStrut(20));
 
-		JLabel lblNewLabel_6_1_2_1 = new JLabel("<html>Esta herramienta permite: <br>◇ Registro de una nueva visita al médico <br>◇ Registro de un nuevo paciente <br>◇ Búsqueda de antecedentes <br>◇ \"Generación de reporte\"</html>");
-		lblNewLabel_6_1_2_1.setForeground(Color.BLACK);
-		lblNewLabel_6_1_2_1.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 13));
-		lblNewLabel_6_1_2_1.setBounds(194, 262, 375, 105);
-		frame.getContentPane().add(lblNewLabel_6_1_2_1);
-				
+		return sidebarPanel;
+	}
+
+	private JPanel createMainContentPanel() {
+		JPanel mainPanel = new JPanel(new GridBagLayout()) {
+			protected void paintComponent(Graphics g) {
+			    super.paintComponent(g);
+
+			    Graphics2D g2d = (Graphics2D) g.create();
+
+			    Image watermarkImage = null;
+			    try {
+			        watermarkImage = ImageIO.read(getClass().getResource("/resources/su_salud2.png"));
+			    } catch (IOException e) {
+			        e.printStackTrace();
+			    }
+
+			    if (watermarkImage != null) {
+			        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.2f));
+
+			        int x = ((getWidth() - watermarkImage.getWidth(null)) / 2) - 100;
+			        int y = (getHeight() - watermarkImage.getHeight(null)) / 2;
+
+			        //g2d.rotate(-Math.PI/4, getWidth()/2, getHeight()/2);
+
+			        g2d.drawImage(watermarkImage, x, y, null);
+			    }
+			    g2d.dispose();
+			}
+		};
+
+		mainPanel.setBackground(Color.WHITE);
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.insets = new Insets(10, 10, 10, 10);
+
+		JLabel welcomeLabel = new JLabel("¡Bienvenido/a!");
+		welcomeLabel.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 20));
+		gbc.gridy = 1;
+		mainPanel.add(welcomeLabel, gbc);
+
+		// System Description
+		JLabel descriptionLabel = new JLabel(
+				"<html>Sistema de Gestión de Pacientes para Centro Médico \"Su Salud\".<br>" +
+						"Registro y revisión de antecedentes previos.</html>"
+				);
+		descriptionLabel.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 18));
+		gbc.gridy = 2;
+		mainPanel.add(descriptionLabel, gbc);
+
+		// Features List
+		JLabel featuresLabel = new JLabel(
+				"<html>Esta herramienta permite: <br>" +
+						"◇ Registro de una nueva visita al médico <br>" +
+						"◇ Registro de un nuevo paciente <br>" +
+						"◇ Búsqueda de antecedentes <br>" +
+						"◇ Generación de reporte</html>"
+				);
+		featuresLabel.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 16));
+		gbc.gridy = 3;
+		mainPanel.add(featuresLabel, gbc);
+
+		// Health Image
+		JLabel imageLabel = new JLabel(new ImageIcon(getClass().getResource("/resources/su_salud1.png")));
+		gbc.gridx = 2;
+		gbc.gridy = 1;
+		gbc.gridheight = 4;
+		mainPanel.add(imageLabel, gbc);
+
+		return mainPanel;
+	}
+	private JPanel createHourPanel() {
+		JPanel topPanel = new JPanel();
+		topPanel.setBackground(new Color(0, 128, 255));
+		topPanel.setLayout(new BorderLayout());
+		topPanel.setPreferredSize(new Dimension(getWidth(), 100));
+
+		// Left side - Title
+		JLabel titleLabel = new JLabel("Sistema de Gestión de Pacientes");
+		titleLabel.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 20));
+		titleLabel.setForeground(Color.BLACK);
+		titleLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 20, 10, 10));
+		titleLabel.setAlignmentX(LEFT_ALIGNMENT);  
+		topPanel.add(titleLabel, BorderLayout.WEST);
+
+
+		// Right side - Date and Time
+		JPanel dateTimePanel = new JPanel();
+		dateTimePanel.setOpaque(false);
+		dateTimePanel.setLayout(new BoxLayout(dateTimePanel, BoxLayout.Y_AXIS));
+
+
 		fecha_label = new JLabel();
-        fecha_label.setForeground(Color.BLACK);
-        fecha_label.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 18));
-        fecha_label.setBounds(26, 37, 426, 68);
-        panel_1.add(fecha_label);
-        
+		fecha_label.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 18));
+		fecha_label.setForeground(Color.WHITE);
+		fecha_label.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 20, 10, 10));
+
+		fecha_label.setAlignmentX(RIGHT_ALIGNMENT);    	        
+		dateTimePanel.add(fecha_label);
+
+		dateTimePanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(30, 20, 10, 10));
+		topPanel.add(dateTimePanel, BorderLayout.EAST);
+
+		return topPanel;
+	}
+
+
+	private JButton createStyledButton(String text, ImageIcon icon) {
+		JButton button = new JButton(text, icon);
+		button.setHorizontalAlignment(SwingConstants.LEFT);
+		button.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
+		button.setForeground(Color.WHITE);
+		button.setBackground(new Color(0, 82, 164));
+		button.setBorderPainted(false);
+		button.setFocusPainted(false);
+		button.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
+		button.setAlignmentX(CENTER_ALIGNMENT);
+		button.setIconTextGap(10);
+		return button;
+	}
+
+	private void setupListeners() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				new View_Login().setVisible(true);
+			}
+		});
+
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new View_Login().setVisible(true);
+				dispose();
+			}
+		});
+
+		// Initialize Logic_View_Home with the updated view
 		lvh = new Logic_View_Home(this);
-    }
+	}
+
+
+	public static void main(String[] args) {
+		java.awt.EventQueue.invokeLater(() -> {
+			View_Home window = new View_Home();
+			window.setSize(1024, 768);
+			window.setLocationRelativeTo(null);
+			window.setVisible(true);
+		});
+	}
 }

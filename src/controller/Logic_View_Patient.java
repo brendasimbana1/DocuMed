@@ -102,7 +102,7 @@ public class Logic_View_Patient implements ActionListener {
 		else if (e.getSource() == vp.btnPrincipal)
 		{	
 			vh = new View_Home();
-			vh.frame.setVisible(true);
+			vh.setVisible(true);
 			vp.dispose();
 		}
 		else if(e.getSource() == vp.btnSalir) 

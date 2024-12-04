@@ -48,7 +48,7 @@ public class Logic_View_Table implements ActionListener{
 		{
 			vh = new View_Home();
 			vt.dispose();
-			vh.frame.setVisible(true);
+			vh.setVisible(true);
 		}
 		else if (e.getSource() == vt.btnNuevoPaciente)
 		{	

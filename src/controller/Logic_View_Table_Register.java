@@ -64,7 +64,7 @@ public class Logic_View_Table_Register implements ActionListener {
 		{
 			vh = new View_Home();
 			vtr.dispose();
-			vh.frame.setVisible(true);
+			vh.setVisible(true);
 		}
 		else if(e.getSource() == vtr.btnListado)
 		{

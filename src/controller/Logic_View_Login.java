@@ -40,7 +40,7 @@ public class Logic_View_Login implements ActionListener {
 						vl.passwordField.setText("");
 						vh = new View_Home();
 						vl.dispose();
-						vh.frame.setVisible(true);
+						vh.setVisible(true);
 					} else {
 						JOptionPane.showMessageDialog(vl, "Usuario y/o contraseña NO encontrados");
 						vl.textField.setText("");
@@ -86,7 +86,7 @@ public class Logic_View_Login implements ActionListener {
 			vl.passwordField.setText("");
 			vh = new View_Home();
 			vl.dispose();
-			vh.frame.setVisible(true);
+			vh.setVisible(true);
 		}else {
 			JOptionPane.showMessageDialog(vl, "Usuario y/o contraseña NO encontrados");
 			vl.textField.setText("");
