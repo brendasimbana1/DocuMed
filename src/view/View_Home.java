@@ -79,13 +79,11 @@ public class View_Home extends JFrame {
 		sidebarPanel.setLayout(new BoxLayout(sidebarPanel, BoxLayout.Y_AXIS));
 		sidebarPanel.setPreferredSize(new Dimension(200, getHeight()));
 
-		// Logo and Title
 		JLabel titleLabel = new JLabel("DocuMed", SwingConstants.CENTER);
 		titleLabel.setForeground(Color.WHITE);
 		titleLabel.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 18));
 		titleLabel.setAlignmentX(CENTER_ALIGNMENT);
 
-		// Buttons with Icons
 		btnPrincipal = createStyledButton("Principal", new ImageIcon(getClass().getResource("/resources/casa.png")));
 		btnNuevoRegistro = createStyledButton("Nuevo Registro", new ImageIcon(getClass().getResource("/resources/registro.png")));
 		btnNuevoPaciente = createStyledButton("Nuevo Paciente", new ImageIcon(getClass().getResource("/resources/nueva-cuenta.png")));
@@ -143,7 +141,6 @@ public class View_Home extends JFrame {
 		gbc.gridy = 1;
 		mainPanel.add(welcomeLabel, gbc);
 
-		// System Description
 		JLabel descriptionLabel = new JLabel(
 				"<html>Sistema de Gestión de Pacientes para Centro Médico \"Su Salud\".<br>" +
 						"Registro y revisión de antecedentes previos.</html>"
@@ -152,7 +149,6 @@ public class View_Home extends JFrame {
 		gbc.gridy = 2;
 		mainPanel.add(descriptionLabel, gbc);
 
-		// Features List
 		JLabel featuresLabel = new JLabel(
 				"<html>Esta herramienta permite: <br>" +
 						"◇ Registro de una nueva visita al médico <br>" +
@@ -164,7 +160,6 @@ public class View_Home extends JFrame {
 		gbc.gridy = 3;
 		mainPanel.add(featuresLabel, gbc);
 
-		// Health Image
 		JLabel imageLabel = new JLabel(new ImageIcon(getClass().getResource("/resources/su_salud1.png")));
 		gbc.gridx = 2;
 		gbc.gridy = 1;
@@ -188,7 +183,6 @@ public class View_Home extends JFrame {
 		topPanel.add(titleLabel, BorderLayout.WEST);
 
 
-		// Right side - Date and Time
 		JPanel dateTimePanel = new JPanel();
 		dateTimePanel.setOpaque(false);
 		dateTimePanel.setLayout(new BoxLayout(dateTimePanel, BoxLayout.Y_AXIS));
@@ -238,7 +232,6 @@ public class View_Home extends JFrame {
 			}
 		});
 
-		// Initialize Logic_View_Home with the updated view
 		lvh = new Logic_View_Home(this);
 	}
 
