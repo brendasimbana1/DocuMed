@@ -59,6 +59,7 @@ public class View_Home extends JFrame {
 		setLocationRelativeTo(null);
 		getContentPane().setBackground(Color.WHITE);
 		setLayout(new BorderLayout(10, 10));
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 	}
 
 	private void createComponents() {
@@ -222,13 +223,8 @@ public class View_Home extends JFrame {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				new View_Login().setVisible(true);
-			}
-		});
-
-		btnSalir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new View_Login().setVisible(true);
 				dispose();
+
 			}
 		});
 

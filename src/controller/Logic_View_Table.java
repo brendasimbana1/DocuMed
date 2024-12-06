@@ -1,20 +1,29 @@
 package controller;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
 
 import model.Paciente;
 import model.PacienteDAO;
+import model.Registros;
 import view.View_Home;
 import view.View_Login;
 import view.View_Patient;
 import view.View_Register;
 import view.View_Table;
+import view.View_Table_Patients;
 import view.View_Table_Register;
 
 public class Logic_View_Table implements ActionListener{
@@ -24,10 +33,11 @@ public class Logic_View_Table implements ActionListener{
 	private View_Table vt;
 	private View_Login vl;
 	private View_Table_Register vtr;
-	private DefaultTableModel tableModel;
+	private View_Table_Patients vtp;
 	public PacienteDAO pdao = new PacienteDAO();
 	private Paciente p;
 	private String cedulaEscogida;
+	public Object[][] infoTable;
 
 	public Logic_View_Table(View_Table vt) 
 	{
@@ -39,7 +49,62 @@ public class Logic_View_Table implements ActionListener{
 		this.vt.btn_buscar.addActionListener(this);
 		this.vt.btn_registros.addActionListener(this);
 		this.vt.btn_registros.setEnabled(false);
+		this.vt.btn_lista.addActionListener(this);
 	}
+
+	public JDialog crearVentanaCarga(JFrame parentFrame, String mensaje) {
+		JDialog ventanaCarga = new JDialog(parentFrame, "Carga de Pacientes", true);
+		ventanaCarga.setSize(200, 100);
+		ventanaCarga.setLocationRelativeTo(parentFrame);
+		ventanaCarga.setLayout(new BorderLayout());
+
+		JLabel lblMensaje = new JLabel(mensaje, SwingConstants.CENTER);
+		ventanaCarga.add(lblMensaje, BorderLayout.CENTER);
+
+		return ventanaCarga;
+	}
+	
+	private void actualizarTabla() {
+	    this.vtp.model.setRowCount(0);
+	    for (Object[] fila : this.infoTable) {
+	    	this.vtp.model.addRow(fila);
+	    }
+	}
+	
+	private void setPacientes()
+	{
+		JDialog ventanaCarga = crearVentanaCarga(this.vt, "Cargando listado de pacientes...");
+		SwingWorker<Void, Void> worker = new SwingWorker<>() {
+			@Override
+			protected Void doInBackground() throws Exception {
+			    List<Object[]> datos = new ArrayList<>();
+				for(Paciente p:Logic_View_Home.pacientes)
+				{
+					pdao.updateEdad(p);
+					Object[] fila = {p.getCi(),p.getNombres(), p.getApellidos(), p.getOcupacion(), p.getProfesion(), 
+							p.getFecha_nacimiento(), p.getEdad(), p.getTelefonos()[0], p.getGenero(), p.getLugar_nacimiento(), 
+							p.getAnt_personales()==null?"-":(p.getAnt_personales()), p.getAnt_familiares()==null?"-":p.getAnt_familiares(), 
+							p.getAnt_ginec_obs()==null?"-":p.getAnt_ginec_obs()};
+			        datos.add(fila);
+				}
+				infoTable = datos.toArray(new Object[0][]);
+				return null;
+			}
+
+			@Override
+			protected void done() {
+				ventanaCarga.dispose();
+				vtp = new View_Table_Patients();
+				actualizarTabla();
+				vtp.setVisible(true);
+				vt.dispose();				
+				JOptionPane.showMessageDialog(null, "Datos cargados correctamente.");
+			}
+		};
+		worker.execute();
+		ventanaCarga.setVisible(true);
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -86,12 +151,17 @@ public class Logic_View_Table implements ActionListener{
 				JOptionPane.showMessageDialog(vl, "Error. No se ha encontrado el paciente.");
 				this.vt.txt_ci.setText("");
 			}
-			
+
 		}else if (e.getSource() == this.vt.btn_registros) {
 			vtr = new View_Table_Register(this.cedulaEscogida);
 			vtr.setVisible(true);
 			vt.dispose();
 		}
+		else if (e.getSource() == this.vt.btn_lista) {
+			setPacientes();
+		}
+
+
 	}
 
 }

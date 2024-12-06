@@ -49,11 +49,6 @@ public class Logic_View_Home implements ActionListener {
             @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
                 tr.detener(); 
-//                try {
-//                    tr.join(); // Ensure the thread has stopped
-//                } catch (InterruptedException ex) {
-//                    ex.printStackTrace();
-//                }
                 vh.dispose();
             }
         });
@@ -65,10 +60,6 @@ public class Logic_View_Home implements ActionListener {
 	{
 		Logic_View_Home.registros = rdao.getRegistros();
 		Logic_View_Home.pacientes = pdao.getPacientes();
-		for(Paciente p:Logic_View_Home.pacientes)
-		{
-			pdao.updateEdad(p);
-		}
 	}
 	
 	private void setFecha()

@@ -78,6 +78,7 @@ public class View_Register extends JFrame {
 		setLocationRelativeTo(null);
 		getContentPane().setBackground(Color.WHITE);
 		getContentPane().setLayout(new BorderLayout(10, 10));
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 	}
 
 	private void createComponents() {
