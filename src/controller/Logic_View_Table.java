@@ -38,10 +38,17 @@ public class Logic_View_Table implements ActionListener{
 	private Paciente p;
 	private String cedulaEscogida;
 	public Object[][] infoTable;
+	
+
+	public Logic_View_Table() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public Logic_View_Table(View_Table vt) 
 	{
 		this.vt = vt;
+		this.vtp = new View_Table_Patients();
 		this.vt.btnPrincipal.addActionListener(this);
 		this.vt.btnNuevoPaciente.addActionListener(this);
 		this.vt.btnNuevoRegistro.addActionListener(this);
@@ -63,29 +70,32 @@ public class Logic_View_Table implements ActionListener{
 
 		return ventanaCarga;
 	}
-	
-	private void actualizarTabla() {
-	    this.vtp.model.setRowCount(0);
-	    for (Object[] fila : this.infoTable) {
-	    	this.vtp.model.addRow(fila);
-	    }
+
+	public void actualizarTabla(DefaultTableModel model, Object[][] data) {
+		model.setRowCount(0);
+		for (Object[] fila : data) {
+			model.addRow(fila);
+		}
 	}
-	
-	private void setPacientes()
-	{
-		JDialog ventanaCarga = crearVentanaCarga(this.vt, "Cargando listado de pacientes...");
+
+
+
+	public void setPacientes(JFrame ventanaActual) {
+		JDialog ventanaCarga = crearVentanaCarga(ventanaActual, "Cargando listado de pacientes...");
 		SwingWorker<Void, Void> worker = new SwingWorker<>() {
 			@Override
 			protected Void doInBackground() throws Exception {
-			    List<Object[]> datos = new ArrayList<>();
-				for(Paciente p:Logic_View_Home.pacientes)
-				{
+				List<Object[]> datos = new ArrayList<>();
+				for (Paciente p : Logic_View_Home.pacientes) {
 					pdao.updateEdad(p);
-					Object[] fila = {p.getCi(),p.getNombres(), p.getApellidos(), p.getOcupacion(), p.getProfesion(), 
-							p.getFecha_nacimiento(), p.getEdad(), p.getTelefonos()[0], p.getGenero(), p.getLugar_nacimiento(), 
-							p.getAnt_personales()==null?"-":(p.getAnt_personales()), p.getAnt_familiares()==null?"-":p.getAnt_familiares(), 
-							p.getAnt_ginec_obs()==null?"-":p.getAnt_ginec_obs()};
-			        datos.add(fila);
+					Object[] fila = {
+							p.getCi(), p.getNombres(), p.getApellidos(), p.getOcupacion(), p.getProfesion(),
+							p.getFecha_nacimiento(), p.getEdad(), p.getTelefonos()[0], p.getGenero(), p.getLugar_nacimiento(),
+							p.getAnt_personales() == null ? "-" : p.getAnt_personales(),
+									p.getAnt_familiares() == null ? "-" : p.getAnt_familiares(),
+											p.getAnt_ginec_obs() == null ? "-" : p.getAnt_ginec_obs()
+					};
+					datos.add(fila);
 				}
 				infoTable = datos.toArray(new Object[0][]);
 				return null;
@@ -94,16 +104,17 @@ public class Logic_View_Table implements ActionListener{
 			@Override
 			protected void done() {
 				ventanaCarga.dispose();
-				vtp = new View_Table_Patients();
-				actualizarTabla();
+				View_Table_Patients vtp = new View_Table_Patients();
+				actualizarTabla(vtp.model,infoTable);
 				vtp.setVisible(true);
-				vt.dispose();				
+				ventanaActual.dispose();				
 				JOptionPane.showMessageDialog(null, "Datos cargados correctamente.");
 			}
 		};
 		worker.execute();
 		ventanaCarga.setVisible(true);
 	}
+
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -158,7 +169,7 @@ public class Logic_View_Table implements ActionListener{
 			vt.dispose();
 		}
 		else if (e.getSource() == this.vt.btn_lista) {
-			setPacientes();
+			setPacientes(this.vt);
 		}
 
 

@@ -38,6 +38,7 @@ public class View_Home extends JFrame {
 	public JButton btnNuevoPaciente;
 	public JButton btnNuevoRegistro;
 	public JButton btnPrincipal;
+	public JButton btnLista;
 	public JLabel fecha_label;
 	private Logic_View_Home lvh;
 	public JButton btnSalir;
@@ -53,7 +54,6 @@ public class View_Home extends JFrame {
 	private void initializeFrame() {
 		setTitle("DocuMed - Sistema de Gestión de Pacientes");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		//setMinimumSize(new Dimension(800, 600));
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setMinimumSize(new Dimension(screenSize.width, screenSize.height));
 		setLocationRelativeTo(null);
@@ -89,6 +89,7 @@ public class View_Home extends JFrame {
 		btnNuevoRegistro = createStyledButton("Nuevo Registro", new ImageIcon(getClass().getResource("/resources/registro.png")));
 		btnNuevoPaciente = createStyledButton("Nuevo Paciente", new ImageIcon(getClass().getResource("/resources/nueva-cuenta.png")));
 		btnListado = createStyledButton("Buscar Paciente", new ImageIcon(getClass().getResource("/resources/buscar.png")));
+		btnLista = createStyledButton("Lista Pacientes", new ImageIcon(getClass().getResource("/resources/lista.png")));
 		btnSalir = createStyledButton("Cerrar Sesión", new ImageIcon(getClass().getResource("/resources/cerrar-sesion.png")));
 
 		sidebarPanel.add(Box.createVerticalStrut(20));
@@ -98,6 +99,7 @@ public class View_Home extends JFrame {
 		sidebarPanel.add(btnNuevoRegistro);
 		sidebarPanel.add(btnNuevoPaciente);
 		sidebarPanel.add(btnListado);
+		sidebarPanel.add(btnLista);
 		sidebarPanel.add(Box.createVerticalGlue());
 		sidebarPanel.add(btnSalir);
 		sidebarPanel.add(Box.createVerticalStrut(20));
