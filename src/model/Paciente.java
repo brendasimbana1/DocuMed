@@ -26,6 +26,27 @@ public class Paciente {
 	private String ant_ginec_obs;
 	private int edad;
 	
+	
+	public Paciente(String ci, String nombres, String apellidos, String ocupacion, String profesion,
+			Date fecha_nacimiento, Date fecha_actual, String[] telefonos, Character genero, String lugar_nacimiento,
+			String ant_personales, String ant_familiares, String ant_ginec_obs) {
+		super();
+		this.ci = ci;
+		this.nombres = nombres;
+		this.apellidos = apellidos;
+		this.ocupacion = ocupacion;
+		this.profesion = profesion;
+		this.fecha_nacimiento = fecha_nacimiento;
+		this.fecha_actual = fecha_actual;
+		this.telefonos = telefonos;
+		this.genero = genero;
+		this.lugar_nacimiento = lugar_nacimiento;
+		this.ant_personales = ant_personales;
+		this.ant_familiares = ant_familiares;
+		this.ant_ginec_obs = ant_ginec_obs;
+	}
+
+
 	public Paciente(String ci, String nombres, String apellidos, String ocupacion, String profesion,
 			Date fecha_nacimiento, Date fecha_actual, String[] telefonos, char genero, String lugar_nacimiento,
 			String ant_personales, String ant_familiares, String ant_ginec_obs, int edad) {

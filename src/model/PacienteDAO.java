@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.postgresql.util.PSQLException;
+
 import controller.Logic_View_Home;
 import database.ConnectionPostgres;
 
@@ -87,6 +89,31 @@ public class PacienteDAO {
 		return pacientes;
 	}
 
+	private void sincronizarSecuencia(String antecedentes) throws SQLException {
+	    String queryMaxId = "SELECT MAX(id) FROM "+ antecedentes;
+	    int maxId = 0;
+
+	    try (Connection conn = dbConn.connect();
+	         PreparedStatement stmtMax = conn.prepareStatement(queryMaxId);
+	         ResultSet rs = stmtMax.executeQuery()) {
+	        if (rs.next()) {
+	            maxId = rs.getInt(1);
+	        }
+	    }
+
+	    String querySecuencia = "ALTER SEQUENCE public."+antecedentes+"_id_seq RESTART WITH ?";
+	    try (Connection conn = dbConn.connect();
+	         PreparedStatement stmtSecuencia = conn.prepareStatement(querySecuencia)) {
+	        stmtSecuencia.setInt(1, maxId + 1);
+	        stmtSecuencia.executeUpdate();
+	        System.out.println("Secuencia sincronizada correctamente.");
+	    } catch (SQLException e) {
+	        System.err.println("Error al sincronizar la secuencia.");
+	        e.printStackTrace();
+	        throw e;
+	    }
+	}
+
 
 	public boolean addPatient(Paciente p){
 		query = "INSERT INTO pacientes (cedula, nombres, apellidos, ocupacion, profesion, fecha_nacimiento, fecha_actual, telefonos, genero, lugar_nacimiento)"
@@ -118,24 +145,35 @@ public class PacienteDAO {
 	}
 
 	public boolean addAntPersonales(Paciente p) {
-		query = "INSERT INTO antecedentes_personales (cedula, antecedentes)"
-				+"VALUES (?, ?)";
-		try (Connection conn = dbConn.connect();
-				PreparedStatement stmt = conn.prepareStatement(query)) {
+	    query = "INSERT INTO antecedentes_personales (cedula, antecedentes) VALUES (?, ?)";
+	    try (Connection conn = dbConn.connect();
+	         PreparedStatement stmt = conn.prepareStatement(query)) {
+	        
+	        stmt.setString(1, p.getCi());
+	        stmt.setString(2, p.getAnt_personales());
+	        
+	        int rowsAffected = stmt.executeUpdate();
+	        System.out.println("Operación realizada con éxito.");
 
-			stmt.setString(1, p.getCi());
-			stmt.setString(2, p.getAnt_personales());
-			int rowsAffected = stmt.executeUpdate();
-			System.out.println("Operación realizada con éxito." );
-			return rowsAffected > 0;
-
-		} catch (SQLException e) {
-			System.err.println("Error al ejecutar la operación.");
-			e.printStackTrace();
-			return false;
-		}
+	        return rowsAffected > 0;
+	        
+	    } catch (PSQLException e) {
+	        try {
+	            sincronizarSecuencia("antecedentes_personales");
+	            return addAntPersonales(p);
+	        } catch (SQLException ex) {
+	            System.err.println("Error al sincronizar la secuencia.");
+	            ex.printStackTrace();
+	            return false;
+	        }
+	    } catch (SQLException e) {
+	        System.err.println("Error al ejecutar la operación.");
+	        e.printStackTrace();
+	        return false;
+	    }
 	}
 
+	
 	public boolean addAntGinecoObst(Paciente p) {
 		query = "INSERT INTO antecedentes_gineco_obst (cedula, antecedentes)"
 				+"VALUES (?, ?)";
@@ -148,11 +186,20 @@ public class PacienteDAO {
 			System.out.println("Operación realizada con éxito." );
 			return rowsAffected > 0;
 
-		} catch (SQLException e) {
-			System.err.println("Error al ejecutar la operación.");
-			e.printStackTrace();
-			return false;
-		}
+		 } catch (PSQLException e) {
+		        try {
+		            sincronizarSecuencia("antecedentes_gineco_obst");
+		            return addAntGinecoObst(p);
+		        } catch (SQLException ex) {
+		            System.err.println("Error al sincronizar la secuencia.");
+		            ex.printStackTrace();
+		            return false;
+		        }
+		    } catch (SQLException e) {
+		        System.err.println("Error al ejecutar la operación.");
+		        e.printStackTrace();
+		        return false;
+		    }
 	}
 
 	public boolean addAntFamiliares(Paciente p) {
@@ -165,13 +212,23 @@ public class PacienteDAO {
 			stmt.setString(2, p.getAnt_familiares());
 			int rowsAffected = stmt.executeUpdate();
 			System.out.println("Operación realizada con éxito." );
+			
 			return rowsAffected > 0;
 
-		} catch (SQLException e) {
-			System.err.println("Error al ejecutar la operación.");
-			e.printStackTrace();
-			return false;
-		}
+		 } catch (PSQLException e) {
+		        try {
+		            sincronizarSecuencia("antecedentes_familiares");
+		            return addAntFamiliares(p);
+		        } catch (SQLException ex) {
+		            System.err.println("Error al sincronizar la secuencia.");
+		            ex.printStackTrace();
+		            return false;
+		        }
+		    } catch (SQLException e) {
+		        System.err.println("Error al ejecutar la operación.");
+		        e.printStackTrace();
+		        return false;
+		    }
 	}
 	
 	public int calcularEdad(String ci) {

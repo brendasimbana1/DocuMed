@@ -37,6 +37,7 @@ public class View_Patient extends JFrame {
     public JButton btnPrincipal;
     public JButton btnListado;
     public JButton btnSalir;
+    public JButton btnLista;
     
     public JTextField txt_ci;
     public JTextField txt_nombres;
@@ -102,15 +103,17 @@ public class View_Patient extends JFrame {
         btnNuevoRegistro = createStyledButton("Nuevo Registro", new ImageIcon(getClass().getResource("/resources/registro.png")));
         btnNuevoPaciente = createStyledButton("Nuevo Paciente", new ImageIcon(getClass().getResource("/resources/nueva-cuenta.png")));
         btnListado = createStyledButton("Buscar Paciente", new ImageIcon(getClass().getResource("/resources/buscar.png")));
-        btnSalir = createStyledButton("Cerrar Sesión", new ImageIcon(getClass().getResource("/resources/cerrar-sesion.png")));
+        btnLista = createStyledButton("Lista Pacientes", new ImageIcon(getClass().getResource("/resources/lista.png")));
+		btnSalir = createStyledButton("Cerrar Sesión", new ImageIcon(getClass().getResource("/resources/cerrar-sesion.png")));
 
-        sidebarPanel.add(Box.createVerticalStrut(20));
-        sidebarPanel.add(titleLabel);
-        sidebarPanel.add(Box.createVerticalStrut(20));
-        sidebarPanel.add(btnPrincipal);
-        sidebarPanel.add(btnNuevoRegistro);
-        sidebarPanel.add(btnNuevoPaciente);
-        sidebarPanel.add(btnListado);
+		sidebarPanel.add(Box.createVerticalStrut(20));
+		sidebarPanel.add(titleLabel);
+		sidebarPanel.add(Box.createVerticalStrut(20));
+		sidebarPanel.add(btnPrincipal);
+		sidebarPanel.add(btnNuevoRegistro);
+		sidebarPanel.add(btnNuevoPaciente);
+		sidebarPanel.add(btnListado);
+		sidebarPanel.add(btnLista);
         sidebarPanel.add(Box.createVerticalGlue());
         sidebarPanel.add(btnSalir);
         sidebarPanel.add(Box.createVerticalStrut(20));
@@ -151,6 +154,7 @@ public class View_Patient extends JFrame {
 
     private JPanel createPatientDetailsPanel() {
         JPanel detailsPanel = new JPanel(new GridBagLayout());
+        detailsPanel.setBackground(Color.WHITE);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.anchor = GridBagConstraints.WEST;
@@ -200,6 +204,16 @@ public class View_Patient extends JFrame {
 		gbc.gridx = 1;
 		txt_profesion = new JTextField(20);
         detailsPanel.add(txt_profesion, gbc);
+        
+        gbc.gridx = 0;
+        gbc.gridy++;
+		JLabel fecha_label_10 = new JLabel("Lugar de Nacimiento:");
+		fecha_label_10.setForeground(Color.BLACK);
+		detailsPanel.add(fecha_label_10, gbc);
+		gbc.gridx = 1;
+		txt_lugar = new JTextField(20);
+        detailsPanel.add(txt_lugar, gbc);
+		
 		
 		gbc.gridx = 0;
         gbc.gridy++;
@@ -238,6 +252,7 @@ public class View_Patient extends JFrame {
 
     private JPanel createMedicalHistoryPanel() {
         JPanel historyPanel = new JPanel(new GridBagLayout());
+        historyPanel.setBackground(Color.WHITE);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.anchor = GridBagConstraints.WEST;

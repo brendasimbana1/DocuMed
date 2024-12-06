@@ -60,6 +60,7 @@ public class View_Register extends JFrame {
 	public JPanel panel_content;
 	public JButton btnSalir;
 	public JButton btnListado;
+	public JButton btnLista;
 
 	public Logic_View_Register lvr;
 
@@ -106,7 +107,7 @@ public class View_Register extends JFrame {
 		btnPrincipal = createStyledButton("Principal", new ImageIcon(getClass().getResource("/resources/casa.png")));
 		btnNuevoRegistro = createStyledButton("Nuevo Registro", new ImageIcon(getClass().getResource("/resources/registro.png")));
 		btnNuevoPaciente = createStyledButton("Nuevo Paciente", new ImageIcon(getClass().getResource("/resources/nueva-cuenta.png")));
-		btnListado = createStyledButton("Buscar Paciente", new ImageIcon(getClass().getResource("/resources/buscar.png")));
+		btnLista = createStyledButton("Lista Pacientes", new ImageIcon(getClass().getResource("/resources/lista.png")));
 		btnSalir = createStyledButton("Cerrar Sesión", new ImageIcon(getClass().getResource("/resources/cerrar-sesion.png")));
 
 		sidebarPanel.add(Box.createVerticalStrut(20));
@@ -116,6 +117,7 @@ public class View_Register extends JFrame {
 		sidebarPanel.add(btnNuevoRegistro);
 		sidebarPanel.add(btnNuevoPaciente);
 		sidebarPanel.add(btnListado);
+		sidebarPanel.add(btnLista);
 		sidebarPanel.add(Box.createVerticalGlue());
 		sidebarPanel.add(btnSalir);
 		sidebarPanel.add(Box.createVerticalStrut(20));

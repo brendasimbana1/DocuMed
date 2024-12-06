@@ -148,7 +148,8 @@ public class Logic_View_Table implements ActionListener{
 				this.vt.txt_apellidos.setText(p.getApellidos());
 				this.vt.txt_fNacimiento.setText(p.getFecha_nacimiento().toString());
 				this.vt.txt_fRegistro.setText(p.getFecha_actual().toString());
-				this.vt.txt_edad.setText(String.valueOf(p.getEdad()));
+				pdao.updateEdad(p);
+				this.vt.txt_edad.setText(String.valueOf(pdao.calcularEdad(this.vt.txt_ci.getText())));
 				this.vt.txt_ocupacion.setText(p.getOcupacion());
 				this.vt.txt_profesion.setText(p.getProfesion());
 				this.vt.txt_telefonos.setText(String.join(", ", p.getTelefonos()));
