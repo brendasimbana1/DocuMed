@@ -42,6 +42,7 @@ public class Logic_View_Patient implements ActionListener {
 		java.util.Date utilDate = calendar.getTime();
         Date sqlDate = new Date(utilDate.getTime());
 		this.vp.date_actual.setText(sqlDate.toString());
+		this.vp.date_actual.setEditable(false);
 
 		setOpcionesCmb();
 	}
@@ -73,6 +74,8 @@ public class Logic_View_Patient implements ActionListener {
 			return false;
 		}
 		if(vp.cmb_genero.getSelectedIndex()==2)
+			return false;
+		if(Fecha(this.vp.date_nacimiento)==null)
 			return false;
 		return true;
 	}
@@ -182,15 +185,36 @@ public class Logic_View_Patient implements ActionListener {
 	}
 
 	public Date Fecha(JDateChooser jd) {
-		java.util.Date currentDate = new java.util.Date();
 		java.util.Date utilDate = jd.getDate();
-		if (utilDate.after(currentDate)) {
-	        JOptionPane.showMessageDialog(null, "La fecha seleccionada no puede ser posterior a la fecha actual.");
+		Calendar calendar = Calendar.getInstance();
+	    calendar.setTime(utilDate);
+	    calendar.set(Calendar.HOUR_OF_DAY, 0);
+	    calendar.set(Calendar.MINUTE, 0);
+	    calendar.set(Calendar.SECOND, 0);
+	    calendar.set(Calendar.MILLISECOND, 0);
+	    
+	    java.util.Date fechaSeleccionada = calendar.getTime();
+	    
+	    calendar.setTime(new java.util.Date());
+	    calendar.set(Calendar.HOUR_OF_DAY, 0);
+	    calendar.set(Calendar.MINUTE, 0);
+	    calendar.set(Calendar.SECOND, 0);
+	    calendar.set(Calendar.MILLISECOND, 0);
+	    java.util.Date fechaActual = calendar.getTime();
+	    
+		if (!fechaSeleccionada.before(fechaActual)) {
+	        JOptionPane.showMessageDialog(null, "La fecha de nacimiento no puede ser posterior a la fecha actual.");
 	        return null; 
 	    }
+
+		if (fechaSeleccionada.equals(fechaActual)) {
+		        JOptionPane.showMessageDialog(null, "La fecha de nacimiento debe ser diferente a la fecha actual.");
+		        return null; 
+		    }
 		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 		return sqlDate;
 	}
+	
 
 	public String [] telefonos(String text) {
 		String [] telefonos = text.split(",");

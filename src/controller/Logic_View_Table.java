@@ -155,6 +155,7 @@ public class Logic_View_Table implements ActionListener{
 		this.vt.txt_lugar.setEditable(true);
 		this.vt.txt_ci.setEditable(false);
 		this.vt.txt_edad.setEditable(true);
+		this.vt.txt_fRegistro.setEditable(false);
 		//Cambio de nombre y uso de JTextField
 		this.vt.txt_edad.setText(this.vt.txt_ci.getText());
 		this.vt.txt_nombres.requestFocusInWindow();
@@ -176,6 +177,7 @@ public class Logic_View_Table implements ActionListener{
 		this.vt.txt_edad.setText("");
 		this.vt.txt_ci.requestFocusInWindow();
 	}
+	
 
 	private void vaciarCampos()
 	{
@@ -212,10 +214,13 @@ public class Logic_View_Table implements ActionListener{
 		{
 			errores.add("profesión");
 		}
+		System.out.println(errores.size());
 		if(errores.isEmpty())
 			return true;
 		else
+		{
 			return false;
+		}
 	}
 
 	@Override
@@ -280,6 +285,7 @@ public class Logic_View_Table implements ActionListener{
 		else if(e.getSource() == this.vt.btn_editar)
 		{
 			enableEdicion();
+			disableExtra();
 			this.vt.labelArray[9].setText("Nueva Cédula: ");
 			this.vt.btn_editar.setVisible(false);
 			this.vt.btn_guardar.setVisible(true);
@@ -291,8 +297,7 @@ public class Logic_View_Table implements ActionListener{
 
 			if (result == JFileChooser.APPROVE_OPTION) {
 				File selectedFile = fileChooser.getSelectedFile();
-				boolean success = new PacienteDAO().addPdfFile(p, selectedFile);
-
+				boolean success = pdao.addPdfFile(p, selectedFile);
 				if (success) {
 					JOptionPane.showMessageDialog(null, "Archivo PDF cargado exitosamente.");
 				} else {
@@ -309,18 +314,23 @@ public class Logic_View_Table implements ActionListener{
 		    }
 		}
 		else if(e.getSource() == this.vt.btn_guardar)
-		{
+		{	
 			//this.vt.txt_fNacimiento.getText().matches("\\d{4}-\\d{2}-\\d{2}")
 			if(!validar())
 			{
 				JOptionPane.showMessageDialog(vh, "Error al actualizar la información", "Error", 0);
 			}
-			disableEdicion();
-			this.vt.labelArray[9].setText("Edad: ");
-			this.vt.btn_editar.setVisible(true);
-			this.vt.btn_guardar.setVisible(false);
-			disableExtra();
-			vaciarCampos();
+			else 
+			{
+				JOptionPane.showMessageDialog(vh, "Coming Soon...", "Actualización", 1);
+				disableEdicion();
+				this.vt.labelArray[9].setText("Edad: ");
+				this.vt.btn_editar.setVisible(true);
+				this.vt.btn_guardar.setVisible(false);
+				vaciarCampos();
+			}
+			errores.clear();
+			
 		}
 
 

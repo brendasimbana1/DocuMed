@@ -39,6 +39,7 @@ public class View_Login extends JFrame {
 
 	private void initializeFrame() {
 		setTitle("DocuMed - Inicio de Sesión");
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setSize(400, 500);
