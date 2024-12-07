@@ -57,7 +57,10 @@ public class Logic_View_Table implements ActionListener{
 		this.vt.btn_registros.addActionListener(this);
 		this.vt.btn_registros.setEnabled(false);
 		this.vt.btn_editar.addActionListener(this);
+		this.vt.btn_editar.setEnabled(false);
 		this.vt.btnLista.addActionListener(this);
+		this.vt.btnExamen.addActionListener(this);
+		this.vt.btnExamen.setEnabled(false);
 	}
 
 	public JDialog crearVentanaCarga(JFrame parentFrame, String mensaje) {
@@ -78,8 +81,6 @@ public class Logic_View_Table implements ActionListener{
 			model.addRow(fila);
 		}
 	}
-
-
 
 	public void setPacientes(JFrame ventanaActual) {
 		JDialog ventanaCarga = crearVentanaCarga(ventanaActual, "Cargando listado de pacientes...");
@@ -116,6 +117,11 @@ public class Logic_View_Table implements ActionListener{
 		ventanaCarga.setVisible(true);
 	}
 
+	
+	private void enableEdicion()
+	{
+		this.vt.txt_nombres.setEnabled(true);
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -160,6 +166,10 @@ public class Logic_View_Table implements ActionListener{
 				this.vt.textArea_ant_familiares.setText(p.getAnt_familiares());
 				this.vt.textArea_ant_gineco_obs.setText(p.getAnt_ginec_obs());
 				this.vt.btn_registros.setEnabled(true);
+				this.vt.btnExamen.setEnabled(true);
+				this.vt.btn_editar.setEnabled(true);
+
+
 			}else {
 				JOptionPane.showMessageDialog(vl, "Error. No se ha encontrado el paciente.");
 				this.vt.txt_ci.setText("");

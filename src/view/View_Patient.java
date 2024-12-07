@@ -127,13 +127,6 @@ public class View_Patient extends JFrame {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
 
-        JLabel titleLabel = new JLabel("Registro de Nuevo Paciente");
-        titleLabel.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 20));
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 2;
-        mainPanel.add(titleLabel, gbc);
-
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 1;
@@ -159,94 +152,119 @@ public class View_Patient extends JFrame {
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.anchor = GridBagConstraints.WEST;
 
+        // Fuente personalizada
+        Font labelFont = new Font("Arial", Font.BOLD, 16);
+        Font textFieldFont = new Font("Arial", Font.PLAIN, 14);
+        Dimension textFieldDimension = new Dimension(250, 30);
+
         gbc.gridx = 0;
         gbc.gridy = 0;
-        detailsPanel.add(new JLabel("C.I.:"), gbc);
+        JLabel ciLabel = new JLabel("C.I.:");
+        ciLabel.setFont(labelFont);
+        detailsPanel.add(ciLabel, gbc);
         gbc.gridx = 1;
-        txt_ci = new JTextField(20);
+        txt_ci = new JTextField();
+        txt_ci.setFont(textFieldFont);
+        txt_ci.setPreferredSize(textFieldDimension);
         detailsPanel.add(txt_ci, gbc);
 
         gbc.gridx = 0;
         gbc.gridy++;
-        detailsPanel.add(new JLabel("Nombres:"), gbc);
+        JLabel nombresLabel = new JLabel("Nombres:");
+        nombresLabel.setFont(labelFont);
+        detailsPanel.add(nombresLabel, gbc);
         gbc.gridx = 1;
-        txt_nombres = new JTextField(20);
+        txt_nombres = new JTextField();
+        txt_nombres.setFont(textFieldFont);
+        txt_nombres.setPreferredSize(textFieldDimension);
         detailsPanel.add(txt_nombres, gbc);
 
         gbc.gridx = 0;
         gbc.gridy++;
-        detailsPanel.add(new JLabel("Apellidos:"), gbc);
+        JLabel apellidosLabel = new JLabel("Apellidos:");
+        apellidosLabel.setFont(labelFont);
+        detailsPanel.add(apellidosLabel, gbc);
         gbc.gridx = 1;
-        txt_apellidos = new JTextField(20);
+        txt_apellidos = new JTextField();
+        txt_apellidos.setFont(textFieldFont);
+        txt_apellidos.setPreferredSize(textFieldDimension);
         detailsPanel.add(txt_apellidos, gbc);
 
         gbc.gridx = 0;
         gbc.gridy++;
-        detailsPanel.add(new JLabel("Género:"), gbc);
+        JLabel generoLabel = new JLabel("Género:");
+        generoLabel.setFont(labelFont);
+        detailsPanel.add(generoLabel, gbc);
         gbc.gridx = 1;
         cmb_genero = new JComboBox<>();
+        cmb_genero.setFont(textFieldFont);
+        cmb_genero.setPreferredSize(textFieldDimension);
         detailsPanel.add(cmb_genero, gbc);
-        
+
         gbc.gridx = 0;
         gbc.gridy++;
-        JLabel fecha_label_3 = new JLabel("Ocupación:");
-		fecha_label_3.setForeground(Color.BLACK);
-		detailsPanel.add(fecha_label_3, gbc);
-		gbc.gridx = 1;
-		txt_ocupacion = new JTextField(20);
+        JLabel ocupacionLabel = new JLabel("Ocupación:");
+        ocupacionLabel.setFont(labelFont);
+        detailsPanel.add(ocupacionLabel, gbc);
+        gbc.gridx = 1;
+        txt_ocupacion = new JTextField();
+        txt_ocupacion.setFont(textFieldFont);
+        txt_ocupacion.setPreferredSize(textFieldDimension);
         detailsPanel.add(txt_ocupacion, gbc);
-		
-		gbc.gridx = 0;
-        gbc.gridy++;
-		JLabel fecha_label_4 = new JLabel("Profesión:");
-		fecha_label_4.setForeground(Color.BLACK);
-		detailsPanel.add(fecha_label_4, gbc);
-		gbc.gridx = 1;
-		txt_profesion = new JTextField(20);
-        detailsPanel.add(txt_profesion, gbc);
-        
+
         gbc.gridx = 0;
         gbc.gridy++;
-		JLabel fecha_label_10 = new JLabel("Lugar de Nacimiento:");
-		fecha_label_10.setForeground(Color.BLACK);
-		detailsPanel.add(fecha_label_10, gbc);
-		gbc.gridx = 1;
-		txt_lugar = new JTextField(20);
+        JLabel profesionLabel = new JLabel("Profesión:");
+        profesionLabel.setFont(labelFont);
+        detailsPanel.add(profesionLabel, gbc);
+        gbc.gridx = 1;
+        txt_profesion = new JTextField();
+        txt_profesion.setFont(textFieldFont);
+        txt_profesion.setPreferredSize(textFieldDimension);
+        detailsPanel.add(txt_profesion, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy++;
+        JLabel lugarNacimientoLabel = new JLabel("Lugar de Nacimiento:");
+        lugarNacimientoLabel.setFont(labelFont);
+        detailsPanel.add(lugarNacimientoLabel, gbc);
+        gbc.gridx = 1;
+        txt_lugar = new JTextField();
+        txt_lugar.setFont(textFieldFont);
+        txt_lugar.setPreferredSize(textFieldDimension);
         detailsPanel.add(txt_lugar, gbc);
-		
-		
-		gbc.gridx = 0;
-        gbc.gridy++;
-		JLabel fecha_label_5 = new JLabel("Fecha Nacimento:");
-		fecha_label_5.setForeground(Color.BLACK);
-		detailsPanel.add(fecha_label_5,gbc);
-		gbc.gridx = 1;
-		date_nacimiento = new JDateChooser(new Date());
-		date_nacimiento.setPreferredSize(new Dimension(125, 20));
-		detailsPanel.add(date_nacimiento, gbc);
 
-		gbc.gridx = 0;
+        gbc.gridx = 0;
         gbc.gridy++;
-		JLabel fecha_label_7 = new JLabel("Fecha Actual:");
-		fecha_label_7.setForeground(Color.BLACK);
-		detailsPanel.add(fecha_label_7,gbc);
-		gbc.gridx = 1;
-		date_actual = new JDateChooser(new Date());
-		date_actual.setPreferredSize(new Dimension(125, 20));
-		detailsPanel.add(date_actual, gbc);
+        JLabel fechaNacimientoLabel = new JLabel("Fecha Nacimiento:");
+        fechaNacimientoLabel.setFont(labelFont);
+        detailsPanel.add(fechaNacimientoLabel, gbc);
+        gbc.gridx = 1;
+        date_nacimiento = new JDateChooser(new Date());
+        date_nacimiento.setPreferredSize(new Dimension(250, 30));
+        detailsPanel.add(date_nacimiento, gbc);
 
-		gbc.gridx = 0;
+        gbc.gridx = 0;
         gbc.gridy++;
-		JLabel fecha_label_8 = new JLabel("Teléfonos:");
-		fecha_label_8.setForeground(Color.BLACK);
-		fecha_label_8.setBounds(27, 274, 138, 36);
-		detailsPanel.add(fecha_label_8,gbc);
-		gbc.gridx = 1;
-		textArea_telefono = new JTextArea(2, 30);
-		textArea_telefono.setForeground(Color.BLACK);
-		textArea_telefono.setLineWrap(true);
-		detailsPanel.add(new JScrollPane(textArea_telefono), gbc);
-		
+        JLabel fechaActualLabel = new JLabel("Fecha Actual:");
+        fechaActualLabel.setFont(labelFont);
+        detailsPanel.add(fechaActualLabel, gbc);
+        gbc.gridx = 1;
+        date_actual = new JDateChooser(new Date());
+        date_actual.setPreferredSize(new Dimension(250, 30));
+        detailsPanel.add(date_actual, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy++;
+        JLabel telefonoLabel = new JLabel("Teléfonos:");
+        telefonoLabel.setFont(labelFont);
+        detailsPanel.add(telefonoLabel, gbc);
+        gbc.gridx = 1;
+        textArea_telefono = new JTextArea(2, 30);
+        textArea_telefono.setFont(textFieldFont);
+        textArea_telefono.setLineWrap(true);
+        detailsPanel.add(new JScrollPane(textArea_telefono), gbc);
+
         return detailsPanel;
     }
 
@@ -257,28 +275,40 @@ public class View_Patient extends JFrame {
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.anchor = GridBagConstraints.WEST;
 
+        // Fuente personalizada
+        Font labelFont = new Font("Arial", Font.BOLD, 16);
+        Font textAreaFont = new Font("Arial", Font.PLAIN, 14);
+
         gbc.gridx = 0;
         gbc.gridy = 0;
-        historyPanel.add(new JLabel("Antecedentes Personales:"), gbc);
+        JLabel personalesLabel = new JLabel("Antecedentes Personales:");
+        personalesLabel.setFont(labelFont);
+        historyPanel.add(personalesLabel, gbc);
         gbc.gridy++;
         textArea_ant_personales = new JTextArea(5, 30);
+        textArea_ant_personales.setFont(textAreaFont);
         textArea_ant_personales.setLineWrap(true);
         historyPanel.add(new JScrollPane(textArea_ant_personales), gbc);
 
         gbc.gridy++;
-        historyPanel.add(new JLabel("Antecedentes Familiares:"), gbc);
+        JLabel familiaresLabel = new JLabel("Antecedentes Familiares:");
+        familiaresLabel.setFont(labelFont);
+        historyPanel.add(familiaresLabel, gbc);
         gbc.gridy++;
         textArea_ant_familiares = new JTextArea(5, 30);
+        textArea_ant_familiares.setFont(textAreaFont);
         textArea_ant_familiares.setLineWrap(true);
         historyPanel.add(new JScrollPane(textArea_ant_familiares), gbc);
-        
+
         gbc.gridy++;
-        historyPanel.add(new JLabel("Antecedentes Gineco-obstétricos:"), gbc);
+        JLabel ginecoLabel = new JLabel("Antecedentes Gineco-obstétricos:");
+        ginecoLabel.setFont(labelFont);
+        historyPanel.add(ginecoLabel, gbc);
         gbc.gridy++;
         textArea_ant_gineco_obs = new JTextArea(5, 30);
+        textArea_ant_gineco_obs.setFont(textAreaFont);
         textArea_ant_gineco_obs.setLineWrap(true);
         historyPanel.add(new JScrollPane(textArea_ant_gineco_obs), gbc);
-
 
         return historyPanel;
     }

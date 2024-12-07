@@ -2,6 +2,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -125,6 +126,10 @@ public class View_Table extends JFrame {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
 
+        Font labelFont = new Font("Arial", Font.BOLD, 16); // Fuente para los labels
+        Font textFieldFont = new Font("Arial", Font.PLAIN, 14); // Fuente para los campos de texto
+        Dimension textFieldDimension = new Dimension(250, 30); // Dimensiones para los campos de texto
+
         // Search Section
         JPanel searchPanel = new JPanel(new GridBagLayout());
         searchPanel.setBackground(Color.WHITE);
@@ -133,9 +138,14 @@ public class View_Table extends JFrame {
 
         searchGbc.gridx = 0;
         searchGbc.gridy = 0;
-        searchPanel.add(new JLabel("C.I.:"), searchGbc);
+        JLabel ciLabel = new JLabel("C.I.:");
+        ciLabel.setFont(labelFont);
+        searchPanel.add(ciLabel, searchGbc);
+
         searchGbc.gridx = 1;
         txt_ci = new JTextField(20);
+        txt_ci.setFont(textFieldFont);
+        txt_ci.setPreferredSize(textFieldDimension);
         searchPanel.add(txt_ci, searchGbc);
 
         searchGbc.gridx = 2;
@@ -152,7 +162,7 @@ public class View_Table extends JFrame {
         btn_editar = new JButton("Editar");
         btn_editar.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 13));
         searchPanel.add(btn_editar, searchGbc);
-        
+
         searchGbc.gridx = 5;
         btnExamen = new JButton("Añadir Exámen");
         btnExamen.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 13));
@@ -166,13 +176,37 @@ public class View_Table extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 1;
-        mainPanel.add(createPatientDetailsPanel(), gbc);
+        JPanel patientDetailsPanel = createPatientDetailsPanel();
+        applyFontAndSizeToComponents(patientDetailsPanel, labelFont, textFieldFont, textFieldDimension);
+        mainPanel.add(patientDetailsPanel, gbc);
 
         gbc.gridx = 1;
-        mainPanel.add(createMedicalHistoryPanel(), gbc);
+        JPanel medicalHistoryPanel = createMedicalHistoryPanel();
+        applyFontAndSizeToComponents(medicalHistoryPanel, labelFont, textFieldFont, textFieldDimension);
+        mainPanel.add(medicalHistoryPanel, gbc);
 
         return mainPanel;
     }
+
+    /**
+     * Método para aplicar fuentes y tamaños a todos los componentes de un panel.
+     */
+    private void applyFontAndSizeToComponents(JPanel panel, Font labelFont, Font textFieldFont, Dimension textFieldDimension) {
+        for (Component component : panel.getComponents()) {
+            if (component instanceof JLabel) {
+                component.setFont(labelFont);
+            } else if (component instanceof JTextField) {
+                component.setFont(textFieldFont);
+                ((JTextField) component).setPreferredSize(textFieldDimension);
+            } else if (component instanceof JScrollPane) {
+                Component viewportComponent = ((JScrollPane) component).getViewport().getView();
+                if (viewportComponent instanceof JTextArea) {
+                    viewportComponent.setFont(textFieldFont);
+                }
+            }
+        }
+    }
+
 
     private JPanel createPatientDetailsPanel() {
         JPanel detailsPanel = new JPanel(new GridBagLayout());
