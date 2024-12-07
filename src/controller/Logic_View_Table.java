@@ -38,7 +38,6 @@ public class Logic_View_Table implements ActionListener{
 	private Paciente p;
 	private String cedulaEscogida;
 	public Object[][] infoTable;
-	
 
 	public Logic_View_Table() {
 		super();
@@ -49,6 +48,7 @@ public class Logic_View_Table implements ActionListener{
 	{
 		this.vt = vt;
 		this.vtp = new View_Table_Patients();
+		this.vtp = new View_Table_Patients();
 		this.vt.btnPrincipal.addActionListener(this);
 		this.vt.btnNuevoPaciente.addActionListener(this);
 		this.vt.btnNuevoRegistro.addActionListener(this);
@@ -57,6 +57,7 @@ public class Logic_View_Table implements ActionListener{
 		this.vt.btn_registros.addActionListener(this);
 		this.vt.btn_registros.setEnabled(false);
 		this.vt.btn_editar.addActionListener(this);
+		this.vt.btnLista.addActionListener(this);
 	}
 
 	public JDialog crearVentanaCarga(JFrame parentFrame, String mensaje) {
@@ -171,6 +172,8 @@ public class Logic_View_Table implements ActionListener{
 		}
 		else if (e.getSource() == this.vt.btn_editar) {
 			//edición
+		}else if (e.getSource() == this.vt.btnLista) {
+			setPacientes(this.vt);
 		}
 
 

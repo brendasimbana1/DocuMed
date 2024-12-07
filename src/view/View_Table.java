@@ -38,6 +38,7 @@ public class View_Table extends JFrame {
     public JButton btn_buscar;
     public JButton btn_registros;
     public JButton btn_editar;
+    public JButton btnLista;
     
     public JTextField txt_nombres;
     public JTextField txt_apellidos;
@@ -99,15 +100,17 @@ public class View_Table extends JFrame {
         btnNuevoRegistro = createStyledButton("Nuevo Registro", new ImageIcon(getClass().getResource("/resources/registro.png")));
         btnNuevoPaciente = createStyledButton("Nuevo Paciente", new ImageIcon(getClass().getResource("/resources/nueva-cuenta.png")));
         btnListado = createStyledButton("Buscar Paciente", new ImageIcon(getClass().getResource("/resources/buscar.png")));
-        btnSalir = createStyledButton("Cerrar Sesión", new ImageIcon(getClass().getResource("/resources/cerrar-sesion.png")));
+        btnLista = createStyledButton("Lista Pacientes", new ImageIcon(getClass().getResource("/resources/lista.png")));
+		btnSalir = createStyledButton("Cerrar Sesión", new ImageIcon(getClass().getResource("/resources/cerrar-sesion.png")));
 
-        sidebarPanel.add(Box.createVerticalStrut(20));
-        sidebarPanel.add(titleLabel);
-        sidebarPanel.add(Box.createVerticalStrut(20));
-        sidebarPanel.add(btnPrincipal);
-        sidebarPanel.add(btnNuevoRegistro);
-        sidebarPanel.add(btnNuevoPaciente);
-        sidebarPanel.add(btnListado);
+		sidebarPanel.add(Box.createVerticalStrut(20));
+		sidebarPanel.add(titleLabel);
+		sidebarPanel.add(Box.createVerticalStrut(20));
+		sidebarPanel.add(btnPrincipal);
+		sidebarPanel.add(btnNuevoRegistro);
+		sidebarPanel.add(btnNuevoPaciente);
+		sidebarPanel.add(btnListado);
+		sidebarPanel.add(btnLista);
         sidebarPanel.add(Box.createVerticalGlue());
         sidebarPanel.add(btnSalir);
         sidebarPanel.add(Box.createVerticalStrut(20));
