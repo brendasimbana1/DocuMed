@@ -270,7 +270,28 @@ public class PacienteDAO {
 	    }
 	    
 	    return false; 
-		
+	}
+	
+	public boolean updatePaciente(Paciente p, String antigua_cedula) {
+			query = "UPDATE pacientes"+
+					"SET cedula = '"+p.getCi()+"', "+
+					"nombres = '"+p.getNombres()+"', "+
+					"apellidos = '"+p.getApellidos()+"', "+
+					"ocupacion = '"+p.getOcupacion()+"', "+
+					"profesion = '"+p.getProfesion()+"', "+
+					"fecha_nacimiento = "+new java.sql.Date(p.getFecha_nacimiento().getTime())+", "+
+					"telefonos = '"+p.getTelefonos()+"', "+
+					"genero = '"+p.getGenero()+"', "+
+					"lugar_nacimiento = '"+p.getLugar_nacimiento()+"', "+
+					"edad = '"+p.getEdad()+"', "+
+					"WHERE cedula='"+antigua_cedula+"';";
+			if (dbConn.executeUpdate(query)) {
+	            return true;
+	        } else {
+	            System.out.println("No se actualizó la información.");
+	        }
+	    
+	    return false; 
 	}
 }
 
