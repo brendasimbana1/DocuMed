@@ -182,14 +182,25 @@ public class View_Table extends JFrame {
                                    txt_profesion, txt_fNacimiento, txt_fRegistro, 
                                    txt_telefonos, txt_genero, txt_lugar, txt_edad};
 
+        //Cambios de tamaño y fuente
+        Font labelFont = new Font("Arial", Font.BOLD, 16); 
+        Font textFieldFont = new Font("Arial", Font.PLAIN, 14);
+        Dimension textFieldDimension = new Dimension(250, 30);
+        
         for (int i = 0; i < labels.length; i++) {
-            gbc.gridx = 0;
+        	gbc.gridx = 0;
             gbc.gridy = i;
-            detailsPanel.add(new JLabel(labels[i]), gbc);
 
+            JLabel label = new JLabel(labels[i]);
+            label.setFont(labelFont); 
+            detailsPanel.add(label, gbc);
+            
             gbc.gridx = 1;
             textFields[i] = new JTextField(20);
             textFields[i].setEditable(false);
+            //Aplicación de fuente y tamaño
+            textFields[i].setFont(textFieldFont); 
+            textFields[i].setPreferredSize(textFieldDimension);
             detailsPanel.add(textFields[i], gbc);
         }
 
@@ -247,7 +258,7 @@ public class View_Table extends JFrame {
         topPanel.setLayout(new BorderLayout());
         topPanel.setPreferredSize(new Dimension(getWidth(), 100));
 
-        JLabel titleLabel = new JLabel("Búsqueda de Registros");
+        JLabel titleLabel = new JLabel("Búsqueda de Pacientes");
         titleLabel.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 20));
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
