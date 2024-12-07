@@ -109,6 +109,8 @@ public class View_Register extends JFrame {
 		btnNuevoPaciente = createStyledButton("Nuevo Paciente", new ImageIcon(getClass().getResource("/resources/nueva-cuenta.png")));
 		btnLista = createStyledButton("Lista Pacientes", new ImageIcon(getClass().getResource("/resources/lista.png")));
 		btnSalir = createStyledButton("Cerrar Sesión", new ImageIcon(getClass().getResource("/resources/cerrar-sesion.png")));
+        btnListado = createStyledButton("Buscar Paciente", new ImageIcon(getClass().getResource("/resources/buscar.png")));
+
 
 		sidebarPanel.add(Box.createVerticalStrut(20));
 		sidebarPanel.add(titleLabel);
@@ -373,9 +375,13 @@ public class View_Register extends JFrame {
 	}
 
 	private void setupListeners() {
-		btnSalir.addActionListener(e -> {
-			new View_Login().setVisible(true);
-			dispose();
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				new View_Login().setVisible(true);
+				dispose();
+
+			}
 		});
 
 		// Initialize Logic_View_Register

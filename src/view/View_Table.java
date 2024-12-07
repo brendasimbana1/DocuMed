@@ -61,7 +61,7 @@ public class View_Table extends JFrame {
 	public JTextField txt_lugar;
 	public JTextField txt_edad;
 	public JButton btn_registros;
-	public JButton btn_lista;
+	public JButton btn_editar;
 
 	/**
 	 * Launch the application.
@@ -430,10 +430,10 @@ public class View_Table extends JFrame {
         btn_registros.setBounds(452, 19, 114, 21);
         panel_1.add(btn_registros);
         
-        btn_lista = new JButton("Listado Completo");
-        btn_lista.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        btn_lista.setBounds(587, 20, 144, 21);
-        panel_1.add(btn_lista);
+        btn_editar = new JButton("Editar");
+        btn_editar.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        btn_editar.setBounds(587, 20, 100, 21);
+        panel_1.add(btn_editar);
 		
 		
 		//Título

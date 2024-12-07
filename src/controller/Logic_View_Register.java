@@ -24,6 +24,7 @@ public class Logic_View_Register implements ActionListener{
 	private View_Patient vp;
 	private View_Table vt;
 	private View_Login vl;
+	private Logic_View_Table lvt;
 	
 	private RegistrosDAO rdao = new RegistrosDAO();
 	
@@ -36,8 +37,10 @@ public class Logic_View_Register implements ActionListener{
 		this.vr.btnSalir.addActionListener(this);
 		this.vr.btn_buscar.addActionListener(this);
 		this.vr.btnListado.addActionListener(this);
+		this.vr.btnLista.addActionListener(this);
 		this.vr.panel_info.setVisible(false);
 		this.vr.panel_content.setVisible(false);
+		this.lvt = new Logic_View_Table();
 	}
 
 	public int[] getFecha() {
@@ -171,6 +174,8 @@ public class Logic_View_Register implements ActionListener{
 			vt = new View_Table();
 			vt.setVisible(true);
 			vr.dispose();
+		}else if (e.getSource() == vr.btnLista) {
+			lvt.setPacientes(this.vr);
 		}
 	}
 

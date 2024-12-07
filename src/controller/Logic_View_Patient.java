@@ -25,6 +25,7 @@ public class Logic_View_Patient implements ActionListener {
 	private View_Login vl;
 	private View_Table vt;
 	private Paciente p;
+	private Logic_View_Table lvt;
 	public PacienteDAO pdao = new PacienteDAO();
 
 	public Logic_View_Patient(View_Patient vp) 
@@ -35,6 +36,8 @@ public class Logic_View_Patient implements ActionListener {
 		this.vp.btnNuevoRegistro.addActionListener(this);
 		this.vp.btnSalir.addActionListener(this);
 		this.vp.btnListado.addActionListener(this);
+		this.vp.btnLista.addActionListener(this);
+		this.lvt = new Logic_View_Table();
 		setOpcionesCmb();
 	}
 
@@ -114,6 +117,8 @@ public class Logic_View_Patient implements ActionListener {
 			vt = new View_Table();
 			vt.setVisible(true);
 			vp.dispose();
+		}else if (e.getSource() == vp.btnLista) {
+			lvt.setPacientes(this.vp);
 		}
 		else if (e.getSource() == vp.btn_registro_paciente)
 		{	

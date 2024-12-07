@@ -56,7 +56,7 @@ public class Logic_View_Table implements ActionListener{
 		this.vt.btn_buscar.addActionListener(this);
 		this.vt.btn_registros.addActionListener(this);
 		this.vt.btn_registros.setEnabled(false);
-		this.vt.btn_lista.addActionListener(this);
+		this.vt.btn_editar.addActionListener(this);
 	}
 
 	public JDialog crearVentanaCarga(JFrame parentFrame, String mensaje) {
@@ -169,8 +169,8 @@ public class Logic_View_Table implements ActionListener{
 			vtr.setVisible(true);
 			vt.dispose();
 		}
-		else if (e.getSource() == this.vt.btn_lista) {
-			setPacientes(this.vt);
+		else if (e.getSource() == this.vt.btn_editar) {
+			//edición
 		}
 
 
