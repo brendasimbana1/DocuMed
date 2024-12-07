@@ -21,6 +21,7 @@ public class Logic_View_Table_Register implements ActionListener {
 	private View_Patient vp;
 	private View_Table vt;
 	private View_Login vl;
+	private Logic_View_Table lvt;
 	
 	public Logic_View_Table_Register(View_Table_Register vtr)
 	{
@@ -30,6 +31,8 @@ public class Logic_View_Table_Register implements ActionListener {
 		this.vtr.btnNuevoRegistro.addActionListener(this);
 		this.vtr.btnPrincipal.addActionListener(this);
 		this.vtr.btnSalir.addActionListener(this);
+		this.vtr.btnLista.addActionListener(this);
+		this.lvt = new Logic_View_Table();
 		actualizarTablaConCedula(this.vtr.cedulaPaciente);
 	}
 	
@@ -89,6 +92,8 @@ public class Logic_View_Table_Register implements ActionListener {
 			vl = new View_Login();
 			vl.setVisible(true);
 			vtr.dispose();
+		}else if (e.getSource() == vtr.btnLista) {
+			lvt.setPacientes(this.vtr);
 		}
 	}
 }

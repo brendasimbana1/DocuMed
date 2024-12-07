@@ -24,6 +24,7 @@ public class Logic_View_Table_Patients implements ActionListener {
 	
 	public Logic_View_Table_Patients(View_Table_Patients vtp) {
 		this.vtp = vtp;
+		this.vtp.btnLista.addActionListener(this);
 		this.vtp.btnPrincipal.addActionListener(this);
 		this.vtp.btnNuevoPaciente.addActionListener(this);
 		this.vtp.btnNuevoRegistro.addActionListener(this);

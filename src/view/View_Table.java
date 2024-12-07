@@ -39,6 +39,7 @@ public class View_Table extends JFrame {
     public JButton btn_registros;
     public JButton btn_editar;
     public JButton btnLista;
+    public JButton btnExamen;
     
     public JTextField txt_nombres;
     public JTextField txt_apellidos;
@@ -151,6 +152,11 @@ public class View_Table extends JFrame {
         btn_editar = new JButton("Editar");
         btn_editar.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 13));
         searchPanel.add(btn_editar, searchGbc);
+        
+        searchGbc.gridx = 5;
+        btnExamen = new JButton("Añadir Exámen");
+        btnExamen.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 13));
+        searchPanel.add(btnExamen, searchGbc);
 
         gbc.gridx = 0;
         gbc.gridy = 0;

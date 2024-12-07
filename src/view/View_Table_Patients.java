@@ -1,13 +1,20 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,211 +23,176 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import controller.Logic_View_Table_Patients;
 
 public class View_Table_Patients extends JFrame {
+    public JButton btnNuevoPaciente;
+    public JButton btnNuevoRegistro;
+    public JButton btnPrincipal;
+    public JButton btnListado;
+    public JButton btnSalir;
+    public JButton btnLista;
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	public JButton btnPrincipal;
-	public JButton btnNuevoRegistro;
-	public JButton btnNuevoPaciente;
-	public JTextArea textArea_diagnostico;
-	public JTextArea textArea_evolucion;
-	public JTextArea textArea_indicaciones;
-	public JButton btnSalir;
-	public JButton btnListado;
-	public JTable table;
-	private Logic_View_Table_Patients lvtp;
+    public JTable table;
+    public DefaultTableModel model;
 
-	public DefaultTableModel model;
+    private Logic_View_Table_Patients lvtp;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					View_Table_Patients frame = new View_Table_Patients();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+    public View_Table_Patients() {
+        initializeFrame();
+        createComponents();
+        setupListeners();
+    }
 
-	/**
-	 * Create the frame.
-	 */
-	public View_Table_Patients() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 1000, 600);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setResizable(false);
-		setTitle("Listado de Pacientes");
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				View_Login vm = new View_Login();
-				vm.setVisible(true);
-			}
-		});
-		setLocationRelativeTo(null);
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+    private void initializeFrame() {
+        setTitle("DocuMed - Listado de Pacientes");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        setMinimumSize(new Dimension(screenSize.width, screenSize.height));
+        setLocationRelativeTo(null);
+        getContentPane().setBackground(Color.WHITE);
+        setLayout(new BorderLayout(10, 10));
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+    }
 
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(0, 82, 164));
-		panel.setBounds(0, 0, 184, 563);
-		getContentPane().add(panel);
-		panel.setLayout(null);
+    private void createComponents() {
+        // Sidebar Panel
+        JPanel sidebarPanel = createSidebarPanel();
+        add(sidebarPanel, BorderLayout.WEST);
 
-		btnNuevoPaciente = new JButton("Nuevo Paciente");
-		btnNuevoPaciente.setHorizontalAlignment(SwingConstants.CENTER);
-		btnNuevoPaciente.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
-		btnNuevoPaciente.setForeground(Color.WHITE);
-		btnNuevoPaciente.setBackground(new Color(0, 82, 164));  
-		btnNuevoPaciente.setBorderPainted(false);  
-		btnNuevoPaciente.setFocusPainted(false);   
-		btnNuevoPaciente.setBounds(46, 250, 138, 43);
-		panel.add(btnNuevoPaciente);
+        JPanel mainContentPanel = createMainContentPanel();
+        JPanel titlePanel = createTitlePanel();
+        add(mainContentPanel, BorderLayout.CENTER);
+        add(titlePanel, BorderLayout.NORTH);
+    }
 
-		btnNuevoRegistro = new JButton("Nuevo Registro");
-		btnNuevoRegistro.setHorizontalAlignment(SwingConstants.CENTER);
-		btnNuevoRegistro.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
-		btnNuevoRegistro.setForeground(Color.WHITE);
-		btnNuevoRegistro.setBackground(new Color(0, 82, 164)); 
-		btnNuevoRegistro.setBorderPainted(false);  
-		btnNuevoRegistro.setFocusPainted(false);  
-		btnNuevoRegistro.setBounds(46, 207, 138, 42);
-		panel.add(btnNuevoRegistro);
+    private JPanel createSidebarPanel() {
+        JPanel sidebarPanel = new JPanel();
+        sidebarPanel.setBackground(new Color(0, 82, 164));
+        sidebarPanel.setLayout(new BoxLayout(sidebarPanel, BoxLayout.Y_AXIS));
+        sidebarPanel.setPreferredSize(new Dimension(200, getHeight()));
 
-		JLabel lblNewLabel_1 = new JLabel("__________________");
-		lblNewLabel_1.setForeground(Color.WHITE);
-		lblNewLabel_1.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(0, 77, 163, 35);
-		panel.add(lblNewLabel_1);
+        JLabel titleLabel = new JLabel("DocuMed", SwingConstants.CENTER);
+        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 18));
+        titleLabel.setAlignmentX(CENTER_ALIGNMENT);
 
-		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon(View_Home.class.getResource("/resources/registro.png")));
-		lblNewLabel_2.setBounds(10, 207, 32, 42);
-		panel.add(lblNewLabel_2);
+        btnPrincipal = createStyledButton("Principal", new ImageIcon(getClass().getResource("/resources/casa.png")));
+        btnNuevoRegistro = createStyledButton("Nuevo Registro", new ImageIcon(getClass().getResource("/resources/registro.png")));
+        btnNuevoPaciente = createStyledButton("Nuevo Paciente", new ImageIcon(getClass().getResource("/resources/nueva-cuenta.png")));
+        btnLista = createStyledButton("Lista Pacientes", new ImageIcon(getClass().getResource("/resources/lista.png")));
+        btnListado = createStyledButton("Buscar Paciente", new ImageIcon(getClass().getResource("/resources/buscar.png")));
+        btnSalir = createStyledButton("Cerrar Sesión", new ImageIcon(getClass().getResource("/resources/cerrar-sesion.png")));
 
-		JLabel lblNewLabel_3 = new JLabel("");
-		lblNewLabel_3.setIcon(new ImageIcon(View_Home.class.getResource("/resources/nueva-cuenta.png")));
-		lblNewLabel_3.setBounds(10, 250, 32, 43);
-		panel.add(lblNewLabel_3);
+        sidebarPanel.add(Box.createVerticalStrut(20));
+        sidebarPanel.add(titleLabel);
+        sidebarPanel.add(Box.createVerticalStrut(20));
+        sidebarPanel.add(btnPrincipal);
+        sidebarPanel.add(btnNuevoRegistro);
+        sidebarPanel.add(btnNuevoPaciente);
+        sidebarPanel.add(btnListado);
+        sidebarPanel.add(btnLista);
+        sidebarPanel.add(Box.createVerticalGlue());
+        sidebarPanel.add(btnSalir);
+        sidebarPanel.add(Box.createVerticalStrut(20));
 
-		JLabel lblNewLabel_4 = new JLabel("");
-		lblNewLabel_4.setIcon(new ImageIcon(View_Home.class.getResource("/resources/cerrar-sesion.png")));
-		lblNewLabel_4.setBounds(10, 510, 49, 35);
-		panel.add(lblNewLabel_4);
+        return sidebarPanel;
+    }
 
-		JLabel lblNewLabel_5 = new JLabel("");
-		lblNewLabel_5.setIcon(new ImageIcon(View_Home.class.getResource("/resources/casa.png")));
-		lblNewLabel_5.setBounds(10, 166, 32, 39);
-		panel.add(lblNewLabel_5);
+    private JPanel createMainContentPanel() {
+        JPanel mainPanel = new JPanel(new GridBagLayout());
+        mainPanel.setBackground(Color.WHITE);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
 
-		JLabel lblNewLabel_6 = new JLabel("DocuMed");
-		lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_6.setForeground(Color.WHITE);
-		lblNewLabel_6.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 18));
-		lblNewLabel_6.setBounds(0, 59, 163, 42);
-		panel.add(lblNewLabel_6);
+        // Create table model with existing column names
+        String[] labels = {"Cédula", "Nombres", "Apellidos", "Ocupación", "Profesión", 
+                           "Fecha de Nacimiento", "Edad", "Teléfonos", "Género", 
+                           "Lugar de Nacimiento", "Ant. Personales", "Ant. Familiares", "Ant.Gineco-Obst"};
+        model = new DefaultTableModel(null, labels) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
 
-		btnPrincipal = new JButton("Principal");
-		btnPrincipal.setHorizontalAlignment(SwingConstants.CENTER);
-		btnPrincipal.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
-		btnPrincipal.setForeground(Color.WHITE);
-		btnPrincipal.setBackground(new Color(0, 82, 164));  
-		btnPrincipal.setBorderPainted(false);  
-		btnPrincipal.setFocusPainted(false);   
-		btnPrincipal.setBounds(46, 166, 138, 43);
-		panel.add(btnPrincipal);
+        // Create table with the model
+        table = new JTable(model);
+        table.setBackground(Color.WHITE);
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int row = table.getSelectedRow();
+                int column = table.getSelectedColumn();
 
-		btnSalir = new JButton("Cerrar Sesión");
-		btnSalir.setHorizontalAlignment(SwingConstants.CENTER);
-		btnSalir.setForeground(Color.WHITE);
-		btnSalir.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
-		btnSalir.setFocusPainted(false);
-		btnSalir.setBorderPainted(false);
-		btnSalir.setBackground(new Color(0, 82, 164));
-		btnSalir.setBounds(46, 502, 138, 43);
-		panel.add(btnSalir);
+                if (row >= 0 && column >= 0) {
+                    Object value = table.getValueAt(row, column);
+                    String contenido = value != null ? value.toString() : "Celda vacía";
 
-		btnListado = new JButton("Buscar Paciente");
-		btnListado.setHorizontalAlignment(SwingConstants.CENTER);
-		btnListado.setForeground(Color.WHITE);
-		btnListado.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
-		btnListado.setFocusPainted(false);
-		btnListado.setBorderPainted(false);
-		btnListado.setBackground(new Color(0, 82, 164));
-		btnListado.setBounds(46, 292, 138, 43);
-		panel.add(btnListado);
-		
-		JLabel lblNewLabel_3_1 = new JLabel("");
-		lblNewLabel_3_1.setIcon(new ImageIcon(View_Table_Register.class.getResource("/resources/buscar.png")));
-		lblNewLabel_3_1.setBounds(10, 292, 32, 43);
-		panel.add(lblNewLabel_3_1);
+                    JOptionPane.showMessageDialog(View_Table_Patients.this, contenido, "Contenido de la Celda", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        });
 
-		//Body
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(255, 255, 255));
-		panel_1.setBounds(183, 57, 801, 504);
-		getContentPane().add(panel_1);
-		panel_1.setLayout(null);
-		
-		String[] labels = {"Cédula", "Nombres", "Apellidos", "Ocupación", "Profesión", "Fecha de Nacimiento", "Edad", "Teléfonos", "Género", "Lugar de Nacimiento", "Ant. Personales", "Ant. Familiares", "Ant.Gineco-Obst"};
-		model = new DefaultTableModel(null, labels){
-		    @Override
-		    public boolean isCellEditable(int row, int column) {
-		        return false; 
-		    }
-		};
-		table = new JTable(model);
-		 table.addMouseListener(new MouseAdapter() {
-	            @Override
-	            public void mouseClicked(MouseEvent e) {
-	                int row = table.getSelectedRow();
-	                int column = table.getSelectedColumn();
+        JScrollPane scrollPane = new JScrollPane(table);
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        mainPanel.add(scrollPane, gbc);
 
-	                if (row >= 0 && column >= 0) {
-	                    Object value = table.getValueAt(row, column);
-	                    String contenido = value != null ? value.toString() : "Celda vacía";
+        return mainPanel;
+    }
 
-	                    JOptionPane.showMessageDialog(View_Table_Patients.this, contenido, "Contenido de la Celda", JOptionPane.INFORMATION_MESSAGE);
-	                }
-	            }
-	        });
-		JScrollPane scrollPane2 = new JScrollPane(table);
-		scrollPane2.setBounds(10, 10, 781, 484);
-		panel_1.add(scrollPane2);
-		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(new Color(0, 128, 255));
-		panel_2.setBounds(183, 0, 801, 57);
-		contentPane.add(panel_2);
-		panel_2.setLayout(null);
+    private JPanel createTitlePanel() {
+        JPanel topPanel = new JPanel();
+        topPanel.setBackground(new Color(0, 128, 255));
+        topPanel.setLayout(new BorderLayout());
+        topPanel.setPreferredSize(new Dimension(getWidth(), 100));
 
+        JLabel titleLabel = new JLabel("Listado de Pacientes");
+        titleLabel.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 20));
+        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        titleLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 20, 10, 10));
+        topPanel.add(titleLabel, BorderLayout.CENTER);
 
-		JLabel lblNewLabel_11 = new JLabel("Listado de Pacientes");
-		lblNewLabel_11.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_11.setBounds(0, 22, 801, 25);
-		panel_2.add(lblNewLabel_11);
-		lblNewLabel_11.setForeground(new Color(255, 255, 255));
-		lblNewLabel_11.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 16));
-		
-		this.lvtp = new Logic_View_Table_Patients(this);
+        return topPanel;
+    }
 
-	}
+    private JButton createStyledButton(String text, ImageIcon icon) {
+        JButton button = new JButton(text, icon);
+        button.setHorizontalAlignment(SwingConstants.LEFT);
+        button.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
+        button.setForeground(Color.WHITE);
+        button.setBackground(new Color(0, 82, 164));
+        button.setBorderPainted(false);
+        button.setFocusPainted(false);
+        button.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
+        button.setAlignmentX(CENTER_ALIGNMENT);
+        button.setIconTextGap(10);
+        return button;
+    }
 
+    private void setupListeners() {
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                new View_Login().setVisible(true);
+            }
+        });
+
+        lvtp = new Logic_View_Table_Patients(this);
+    }
+
+    public static void main(String[] args) {
+        java.awt.EventQueue.invokeLater(() -> {
+            View_Table_Patients window = new View_Table_Patients();
+            window.setSize(1024, 768);
+            window.setLocationRelativeTo(null);
+            window.setVisible(true);
+        });
+    }
 }
