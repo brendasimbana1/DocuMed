@@ -41,6 +41,7 @@ public class View_Table extends JFrame {
     public JButton btn_editar;
     public JButton btnLista;
     public JButton btnExamen;
+    public JButton btn_guardar;
     
     public JTextField txt_nombres;
     public JTextField txt_apellidos;
@@ -56,6 +57,9 @@ public class View_Table extends JFrame {
     public JTextArea textArea_ant_personales;
     public JTextArea textArea_ant_familiares;
     public JTextArea textArea_ant_gineco_obs;
+    
+    public JLabel[] labelArray;
+    public  JTextField[] textFields;
     
     private Logic_View_Table lvt;
 
@@ -162,6 +166,12 @@ public class View_Table extends JFrame {
         btn_editar = new JButton("Editar");
         btn_editar.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 13));
         searchPanel.add(btn_editar, searchGbc);
+        
+        searchGbc.gridx = 4;
+        btn_guardar = new JButton("Guardar");
+        btn_guardar.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 13));
+        btn_guardar.setVisible(false);
+        searchPanel.add(btn_guardar, searchGbc);
 
         searchGbc.gridx = 5;
         btnExamen = new JButton("Añadir Exámen");
@@ -218,10 +228,12 @@ public class View_Table extends JFrame {
         String[] labels = {"Nombres:", "Apellidos:", "Ocupación:", "Profesión:", 
                            "Fecha Nacimiento:", "Fecha Registro:", "Teléfonos:", 
                            "Género:", "Lugar Nacimiento:", "Edad:"};
-        JTextField[] textFields = {txt_nombres, txt_apellidos, txt_ocupacion, 
+        textFields = new  JTextField[]{txt_nombres, txt_apellidos, txt_ocupacion, 
                                    txt_profesion, txt_fNacimiento, txt_fRegistro, 
                                    txt_telefonos, txt_genero, txt_lugar, txt_edad};
 
+        labelArray = new JLabel[labels.length];
+        
         //Cambios de tamaño y fuente
         Font labelFont = new Font("Arial", Font.BOLD, 16); 
         Font textFieldFont = new Font("Arial", Font.PLAIN, 14);
@@ -232,7 +244,8 @@ public class View_Table extends JFrame {
             gbc.gridy = i;
 
             JLabel label = new JLabel(labels[i]);
-            label.setFont(labelFont); 
+            label.setFont(labelFont);
+            labelArray[i] = label;
             detailsPanel.add(label, gbc);
             
             gbc.gridx = 1;

@@ -10,7 +10,6 @@ public class Paciente {
 		// TODO Auto-generated constructor stub
 	}
 
-
 	private String ci;
 	private String nombres;
 	private String apellidos;
