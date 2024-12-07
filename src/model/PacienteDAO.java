@@ -22,6 +22,7 @@ public class PacienteDAO {
 	private ConnectionPostgres dbConn = new ConnectionPostgres("bd_consulta_medica");
 	private String query="";
 	private boolean result = false;
+	public boolean existente = false;
 	
 	public Paciente pacienteData(String ci) {
 		for(Paciente p:Logic_View_Home.pacientes) {
@@ -90,7 +91,7 @@ public class PacienteDAO {
 	}
 
 	private void sincronizarSecuencia(String antecedentes) throws SQLException {
-	    String queryMaxId = "SELECT MAX(id) FROM "+ antecedentes;
+	    String queryMaxId = "SELECT MAX(id) FROM " + antecedentes;
 	    int maxId = 0;
 
 	    try (Connection conn = dbConn.connect();
@@ -101,10 +102,9 @@ public class PacienteDAO {
 	        }
 	    }
 
-	    String querySecuencia = "ALTER SEQUENCE public."+antecedentes+"_id_seq RESTART WITH ?";
+	    String querySecuencia = "ALTER SEQUENCE public." + antecedentes + "_id_seq RESTART WITH " + (maxId + 1);
 	    try (Connection conn = dbConn.connect();
 	         PreparedStatement stmtSecuencia = conn.prepareStatement(querySecuencia)) {
-	        stmtSecuencia.setInt(1, maxId + 1);
 	        stmtSecuencia.executeUpdate();
 	        System.out.println("Secuencia sincronizada correctamente.");
 	    } catch (SQLException e) {
@@ -114,8 +114,29 @@ public class PacienteDAO {
 	    }
 	}
 
+	private boolean isCedulaExists(String cedula) {
+	    String query = "SELECT 1 FROM pacientes WHERE cedula = ?";
+	    try (Connection conn = dbConn.connect();
+	         PreparedStatement stmt = conn.prepareStatement(query)) {
 
+	        stmt.setString(1, cedula);
+	        try (ResultSet rs = stmt.executeQuery()) {
+	            return rs.next(); 
+	        }
+	    } catch (SQLException e) {
+	        System.err.println("Error al verificar la cédula.");
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+	
 	public boolean addPatient(Paciente p){
+		existente = false;
+		if (isCedulaExists(p.getCi())) {
+	        System.out.println("La cédula ya está registrada.");
+	        existente = true;
+	        return false;
+	    }
 		query = "INSERT INTO pacientes (cedula, nombres, apellidos, ocupacion, profesion, fecha_nacimiento, fecha_actual, telefonos, genero, lugar_nacimiento)"
 				+"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try (Connection conn = dbConn.connect();
@@ -133,15 +154,30 @@ public class PacienteDAO {
 			char genero = p.getGenero(); 
 			stmt.setString(9, String.valueOf(genero));
 			stmt.setString(10, p.getLugar_nacimiento());
-			int rowsAffected = stmt.executeUpdate();
-			System.out.println("Operación realizada con éxito." );
-			return rowsAffected > 0;
+			
+			try {
+	            int rowsAffected = stmt.executeUpdate();
+	            if (rowsAffected > 0) {
+	                System.out.println("Operación realizada con éxito.");
+	                return true;
+	            }
+	        } catch (SQLException e) {
+	            if (e.getSQLState().equals("23505")) { 
+	                System.err.println("Error: La cédula ya está registrada.");
+	                return false;
+	            } else {
+	                System.err.println("Error al ejecutar la operación.");
+	                e.printStackTrace();
+	                return false;
+	            }
+	        }
+	    } catch (SQLException e) {
+	        System.err.println("Error al establecer la conexión con la base de datos.");
+	        e.printStackTrace();
+	        return false;
+	    }
 
-		} catch (SQLException e) {
-			System.err.println("Error al ejecutar la operación.");
-			e.printStackTrace();
-			return false;
-		}		
+	    return false;
 	}
 
 	public boolean addAntPersonales(Paciente p) {

@@ -38,6 +38,11 @@ public class Logic_View_Patient implements ActionListener {
 		this.vp.btnListado.addActionListener(this);
 		this.vp.btnLista.addActionListener(this);
 		this.lvt = new Logic_View_Table();
+		Calendar calendar = Calendar.getInstance();
+		java.util.Date utilDate = calendar.getTime();
+        Date sqlDate = new Date(utilDate.getTime());
+		this.vp.date_actual.setText(sqlDate.toString());
+
 		setOpcionesCmb();
 	}
 
@@ -60,17 +65,15 @@ public class Logic_View_Patient implements ActionListener {
 		}else if(!ValidateByER.ValidateCi(vp.txt_ci.getText())){
 			vp.txt_ci.setText("");
 			return false;
-		}else if (!ValidateByER.validatePhone(vp.textArea_telefono.getText())){
-			vp.textArea_telefono.setText("");
-			return false;
-		}else if (!ValidateByER.validateText(vp.txt_ocupacion.getText())) {
+		}else if (vp.txt_ocupacion.getText().isBlank()) {
 			vp.txt_ocupacion.setText("");
 			return false;
-		}else if (!ValidateByER.validateText(vp.txt_profesion.getText())) {
+		}else if (vp.txt_profesion.getText().isBlank()) {
 			vp.txt_profesion.setText("");
 			return false;
 		}
-
+		if(vp.cmb_genero.getSelectedIndex()==2)
+			return false;
 		return true;
 	}
 
@@ -89,7 +92,7 @@ public class Logic_View_Patient implements ActionListener {
 		java.util.Date utilDate = calendar.getTime();
         Date sqlDate = new Date(utilDate.getTime());
 		vp.date_nacimiento.setDate(sqlDate);
-		vp.date_actual.setDate(sqlDate);
+		vp.date_actual.setText(sqlDate.toString());
 		vp.cmb_genero.setSelectedItem('-');
 	}
 	
@@ -130,7 +133,7 @@ public class Logic_View_Patient implements ActionListener {
 						vp.txt_ocupacion.getText(),
 						vp.txt_profesion.getText(),
 						Fecha(vp.date_nacimiento),
-						Fecha(vp.date_actual),
+						new java.sql.Date(new java.util.Date().getTime()),
 						telefonos(vp.textArea_telefono.getText()),
 						genero(),
 						vp.txt_lugar.getText(),
@@ -143,7 +146,8 @@ public class Logic_View_Patient implements ActionListener {
 				boolean tieneAntecedentesFamiliares = !vp.textArea_ant_familiares.getText().isBlank();
 				boolean tieneAntecedentesGinecoObst = !vp.textArea_ant_gineco_obs.getText().isBlank();
 				boolean ingresado = true;
-				if(pdao.addPatient(p)) 
+				boolean verificacion = pdao.addPatient(p);
+				if(verificacion) 
 				{
 					if(tieneAntecedentesFamiliares)
 						ingresado = ingresado && pdao.addAntFamiliares(p);
@@ -153,6 +157,8 @@ public class Logic_View_Patient implements ActionListener {
 						ingresado = ingresado && pdao.addAntPersonales(p);
 					if(ingresado)
 					{
+						Logic_View_Home.pacientes.add(p);
+						System.out.println(p.getAnt_familiares());
 						JOptionPane.showMessageDialog(vr, "Paciente agregado");
 					}
 					else
@@ -161,7 +167,13 @@ public class Logic_View_Patient implements ActionListener {
 					}
 					vaciar();
 				}else {
-					JOptionPane.showMessageDialog(vr, "Error al agregar paciente");
+					if(this.pdao.existente) {
+						JOptionPane.showMessageDialog(vr, "Ya existe un paciente con la cédula ingresada");
+						this.vp.txt_ci.setText("");
+					}
+					else
+						JOptionPane.showMessageDialog(vr, "Error al agregar paciente");
+					
 				}
 			}else {
 				JOptionPane.showMessageDialog(vr, "Corrija los campos indicados");
@@ -170,8 +182,12 @@ public class Logic_View_Patient implements ActionListener {
 	}
 
 	public Date Fecha(JDateChooser jd) {
+		java.util.Date currentDate = new java.util.Date();
 		java.util.Date utilDate = jd.getDate();
-		//Formato para base de datos
+		if (utilDate.after(currentDate)) {
+	        JOptionPane.showMessageDialog(null, "La fecha seleccionada no puede ser posterior a la fecha actual.");
+	        return null; 
+	    }
 		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 		return sqlDate;
 	}

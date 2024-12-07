@@ -48,7 +48,7 @@ public class View_Patient extends JFrame {
     public JTextField txt_edad;
     
     public JDateChooser date_nacimiento;
-    public JDateChooser date_actual;
+    public JTextField date_actual;
     
     public JTextArea textArea_ant_personales;
     public JTextArea textArea_ant_familiares;
@@ -250,7 +250,7 @@ public class View_Patient extends JFrame {
         fechaActualLabel.setFont(labelFont);
         detailsPanel.add(fechaActualLabel, gbc);
         gbc.gridx = 1;
-        date_actual = new JDateChooser(new Date());
+        date_actual =new JTextField();
         date_actual.setPreferredSize(new Dimension(250, 30));
         detailsPanel.add(date_actual, gbc);
 

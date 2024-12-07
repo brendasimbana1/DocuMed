@@ -38,6 +38,8 @@ public class Logic_View_Table implements ActionListener{
 	private Paciente p;
 	private String cedulaEscogida;
 	public Object[][] infoTable;
+	private List<String> errores = new ArrayList<String>();
+
 
 	public Logic_View_Table() {
 		super();
@@ -61,7 +63,7 @@ public class Logic_View_Table implements ActionListener{
 		this.vt.btn_guardar.addActionListener(this);
 		disableExtra();
 	}
-	
+
 	private void disableExtra()
 	{
 		this.vt.btnExamen.setEnabled(false);
@@ -82,10 +84,18 @@ public class Logic_View_Table implements ActionListener{
 	}
 
 	public void actualizarTabla(DefaultTableModel model, Object[][] data) {
+		 if (model == null) {
+		        System.err.println("El modelo de la tabla es nulo. No se puede actualizar.");
+		        return;
+		    }
 		model.setRowCount(0);
-		for (Object[] fila : data) {
-			model.addRow(fila);
-		}
+		if (data != null && data.length > 0) {
+	        for (Object[] row : data) {
+	            model.addRow(row);
+	        }
+	    } else {
+	        System.out.println("No hay datos disponibles para mostrar en la tabla.");
+	    }
 	}
 
 	public void setPacientes(JFrame ventanaActual) {
@@ -99,11 +109,12 @@ public class Logic_View_Table implements ActionListener{
 					Object[] fila = {
 							p.getCi(), p.getNombres(), p.getApellidos(), p.getOcupacion(), p.getProfesion(),
 							p.getFecha_nacimiento(), p.getEdad(), p.getTelefonos()[0], p.getGenero(), p.getLugar_nacimiento(),
-							p.getAnt_personales() == null ? "-" : p.getAnt_personales(),
-									p.getAnt_familiares() == null ? "-" : p.getAnt_familiares(),
-											p.getAnt_ginec_obs() == null ? "-" : p.getAnt_ginec_obs()
+							p.getAnt_personales()==null ? "-" : p.getAnt_personales(),
+									p.getAnt_familiares()==null ? "-" : p.getAnt_familiares(),
+											p.getAnt_ginec_obs()==null? "-" : p.getAnt_ginec_obs()
 					};
 					datos.add(fila);
+					
 				}
 				infoTable = datos.toArray(new Object[0][]);
 				return null;
@@ -123,7 +134,7 @@ public class Logic_View_Table implements ActionListener{
 		ventanaCarga.setVisible(true);
 	}
 
-	
+
 	private void enableEdicion()
 	{
 		this.vt.txt_nombres.setEditable(true);
@@ -141,7 +152,7 @@ public class Logic_View_Table implements ActionListener{
 		this.vt.txt_edad.setText(this.vt.txt_ci.getText());
 		this.vt.txt_nombres.requestFocusInWindow();
 	}
-	
+
 	private void disableEdicion()
 	{
 		this.vt.txt_nombres.setEditable(false);
@@ -158,7 +169,7 @@ public class Logic_View_Table implements ActionListener{
 		this.vt.txt_edad.setText("");
 		this.vt.txt_ci.requestFocusInWindow();
 	}
-	
+
 	private void vaciarCampos()
 	{
 		this.vt.txt_ci.setText("");
@@ -174,22 +185,32 @@ public class Logic_View_Table implements ActionListener{
 	}
 
 	public boolean validar() {
-		if(!ValidateByER.validateNames(vt.txt_nombres.getText())) {
-			return false;
-		}else if (!ValidateByER.validateNames(vt.txt_apellidos.getText())){
-			return false;
-		}else if(!ValidateByER.ValidateCi(vt.txt_ci.getText())){
-			return false;
-		}else if (!ValidateByER.validatePhone(vt.txt_telefonos.getText())){
-			return false;
-		}else if (!ValidateByER.validateText(vt.txt_ocupacion.getText())) {
-			return false;
-		}else if (!ValidateByER.validateText(vt.txt_profesion.getText())) {
-			return false;
+		if(!ValidateByER.validateNames(vt.txt_nombres.getText())) 
+		{
+			errores.add("nombres");
 		}
-		return true;
+		if (!ValidateByER.validateNames(vt.txt_apellidos.getText()))
+		{
+			errores.add("apellidos");
+		}
+		if(!ValidateByER.ValidateCi(vt.txt_ci.getText()))
+		{
+			errores.add("cédula");
+		}
+		if (!ValidateByER.validateText(vt.txt_ocupacion.getText())) 
+		{
+			errores.add("ocupación");
+		}
+		if (!ValidateByER.validateText(vt.txt_profesion.getText())) 
+		{
+			errores.add("profesión");
+		}
+		if(errores.isEmpty())
+			return true;
+		else
+			return false;
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -254,7 +275,7 @@ public class Logic_View_Table implements ActionListener{
 			this.vt.labelArray[9].setText("Nueva Cédula: ");
 			this.vt.btn_editar.setVisible(false);
 			this.vt.btn_guardar.setVisible(true);
-			
+
 		}
 		else if(e.getSource() == this.vt.btn_guardar)
 		{

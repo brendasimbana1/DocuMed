@@ -112,7 +112,7 @@ public class View_Table_Patients extends JFrame {
         String[] labels = {"Cédula", "Nombres", "Apellidos", "Ocupación", "Profesión", 
                            "Fecha de Nacimiento", "Edad", "Teléfonos", "Género", 
                            "Lugar de Nacimiento", "Ant. Personales", "Ant. Familiares", "Ant.Gineco-Obst"};
-        model = new DefaultTableModel(null, labels) {
+        this.model = new DefaultTableModel(null, labels) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
