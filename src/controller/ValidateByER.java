@@ -31,7 +31,7 @@ public class ValidateByER {
 		return email.matches("^[a-zA-Z0-9_.-]+[@][a-z]+(.com)$");
 	}
 	public static boolean validatePhone (String phone) {
-		return phone.matches("^([0-9]+){8,10}$");
+		return phone.matches("^([0-9]+){9,10,7}$");
 	}
 	public static boolean validateText(String text) {
 		return text.matches("^[A-ZÁ-Úa-zá-ú]+$");

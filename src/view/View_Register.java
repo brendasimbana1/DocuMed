@@ -367,6 +367,7 @@ public class View_Register extends JFrame {
 		spn_peso = new JSpinner(modelPeso);
 		spn_peso.setFont(textFieldFont);
 		spn_peso.setPreferredSize(textFieldDimension);
+		spn_peso.setMinimumSize(new Dimension(90, 30));
 		detailsPanel.add(spn_peso, gbc);
 
 		gbc.gridx = 0;
@@ -378,6 +379,7 @@ public class View_Register extends JFrame {
 		spn_altura = new JSpinner(modelAltura);
 		spn_altura.setFont(textFieldFont);
 		spn_altura.setPreferredSize(textFieldDimension);
+		spn_altura.setMinimumSize(new Dimension(90, 30));
 		detailsPanel.add(spn_altura, gbc);
 
 		gbc.gridx = 0;
@@ -389,6 +391,7 @@ public class View_Register extends JFrame {
 		spn_temp = new JSpinner(modelTemperatura);
 		spn_temp.setFont(textFieldFont);
 		spn_temp.setPreferredSize(textFieldDimension);
+		spn_temp.setMinimumSize(new Dimension(90, 30));
 		detailsPanel.add(spn_temp, gbc);
 
 		gbc.gridx = 0;
