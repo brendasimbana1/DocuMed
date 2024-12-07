@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.util.Calendar;
 
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import model.Paciente;
 import model.Registros;
@@ -26,6 +27,7 @@ public class Logic_View_Register implements ActionListener{
 	private View_Login vl;
 	private Logic_View_Table lvt;
 	
+	
 	private RegistrosDAO rdao = new RegistrosDAO();
 	
 	public Logic_View_Register(View_Register vr) 
@@ -38,8 +40,8 @@ public class Logic_View_Register implements ActionListener{
 		this.vr.btn_buscar.addActionListener(this);
 		this.vr.btnListado.addActionListener(this);
 		this.vr.btnLista.addActionListener(this);
-		this.vr.panel_info.setVisible(false);
-		this.vr.panel_content.setVisible(false);
+		this.vr.infoPanel.setVisible(false);
+		this.vr.detailsPanel.setVisible(false);
 		this.lvt = new Logic_View_Table();
 	}
 
@@ -124,15 +126,15 @@ public class Logic_View_Register implements ActionListener{
 		Paciente p = busquedaPaciente(cedula);
 		if(p != null)
 		{
-			this.vr.panel_info.setVisible(true);
-			this.vr.panel_content.setVisible(true);
+			this.vr.infoPanel.setVisible(true);
+			this.vr.detailsPanel.setVisible(true);
 			setLabelsInfo(p);
 			this.vr.txt_ci.setEditable(false);
 		}
 		else
 		{
 			JOptionPane.showMessageDialog(vr, "No se ha encontrado al paciente!");
-
+			this.vr.txt_ci.setText("");
 		}
 	}
 	

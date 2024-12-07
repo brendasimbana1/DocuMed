@@ -238,7 +238,6 @@ public class View_Table extends JFrame {
             gbc.gridx = 1;
             textFields[i] = new JTextField(20);
             textFields[i].setEditable(false);
-            //Aplicación de fuente y tamaño
             textFields[i].setFont(textFieldFont); 
             textFields[i].setPreferredSize(textFieldDimension);
             detailsPanel.add(textFields[i], gbc);
