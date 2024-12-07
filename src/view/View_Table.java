@@ -41,6 +41,7 @@ public class View_Table extends JFrame {
     public JButton btn_editar;
     public JButton btnLista;
     public JButton btnExamen;
+    public JButton btnExamen1;
     public JButton btn_guardar;
     
     public JTextField txt_nombres;
@@ -174,9 +175,13 @@ public class View_Table extends JFrame {
         searchPanel.add(btn_guardar, searchGbc);
 
         searchGbc.gridx = 5;
-        btnExamen = new JButton("Añadir Exámen");
+        btnExamen = new JButton("Añadir Examen");
         btnExamen.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 13));
         searchPanel.add(btnExamen, searchGbc);
+        searchGbc.gridx = 6;
+        btnExamen1 = new JButton("Descargar Examen");
+        btnExamen1.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 13));
+        searchPanel.add(btnExamen1, searchGbc);
 
         gbc.gridx = 0;
         gbc.gridy = 0;

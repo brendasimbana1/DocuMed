@@ -3,16 +3,21 @@ package controller;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 import model.Paciente;
@@ -58,13 +63,15 @@ public class Logic_View_Table implements ActionListener{
 		this.vt.btn_editar.addActionListener(this);
 		this.vt.btnLista.addActionListener(this);
 		this.vt.btnExamen.addActionListener(this);
+		this.vt.btnExamen1.addActionListener(this);
 		this.vt.btn_guardar.addActionListener(this);
 		disableExtra();
 	}
-	
+
 	private void disableExtra()
 	{
 		this.vt.btnExamen.setEnabled(false);
+		this.vt.btnExamen1.setEnabled(false);
 		this.vt.btn_editar.setEnabled(false);
 		this.vt.btn_registros.setEnabled(false);
 	}
@@ -123,7 +130,7 @@ public class Logic_View_Table implements ActionListener{
 		ventanaCarga.setVisible(true);
 	}
 
-	
+
 	private void enableEdicion()
 	{
 		this.vt.txt_nombres.setEditable(true);
@@ -141,7 +148,7 @@ public class Logic_View_Table implements ActionListener{
 		this.vt.txt_edad.setText(this.vt.txt_ci.getText());
 		this.vt.txt_nombres.requestFocusInWindow();
 	}
-	
+
 	private void disableEdicion()
 	{
 		this.vt.txt_nombres.setEditable(false);
@@ -158,7 +165,7 @@ public class Logic_View_Table implements ActionListener{
 		this.vt.txt_edad.setText("");
 		this.vt.txt_ci.requestFocusInWindow();
 	}
-	
+
 	private void vaciarCampos()
 	{
 		this.vt.txt_ci.setText("");
@@ -189,7 +196,7 @@ public class Logic_View_Table implements ActionListener{
 		}
 		return true;
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -233,6 +240,7 @@ public class Logic_View_Table implements ActionListener{
 				this.vt.textArea_ant_gineco_obs.setText(p.getAnt_ginec_obs());
 				this.vt.btn_registros.setEnabled(true);
 				this.vt.btnExamen.setEnabled(true);
+				this.vt.btnExamen1.setEnabled(true);
 				this.vt.btn_editar.setEnabled(true);
 			}else {
 				JOptionPane.showMessageDialog(vl, "Error. No se ha encontrado el paciente.");
@@ -254,7 +262,31 @@ public class Logic_View_Table implements ActionListener{
 			this.vt.labelArray[9].setText("Nueva Cédula: ");
 			this.vt.btn_editar.setVisible(false);
 			this.vt.btn_guardar.setVisible(true);
-			
+
+		}else if (e.getSource() == this.vt.btnExamen) {
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setFileFilter(new FileNameExtensionFilter("PDF Files", "pdf"));
+
+			int result = fileChooser.showOpenDialog(null);
+
+			if (result == JFileChooser.APPROVE_OPTION) {
+				File selectedFile = fileChooser.getSelectedFile();
+				boolean success = new PacienteDAO().addPdfFile(p, selectedFile);
+
+				if (success) {
+					JOptionPane.showMessageDialog(null, "Archivo PDF cargado exitosamente.");
+				} else {
+					JOptionPane.showMessageDialog(null, "Hubo un error al cargar el archivo.");
+				}
+			}
+		}else if (e.getSource() == this.vt.btnExamen1) {
+		    boolean fileDownloaded = pdao.consultarFile(p);
+		    
+		    if (fileDownloaded) {
+		        JOptionPane.showMessageDialog(null, "Archivo descargado correctamente.");
+		    } else {
+		        JOptionPane.showMessageDialog(null, "Hubo un error al descargar el archivo.");
+		    }
 		}
 		else if(e.getSource() == this.vt.btn_guardar)
 		{

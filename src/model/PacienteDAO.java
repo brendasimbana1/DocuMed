@@ -13,6 +13,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.JFileChooser;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.IOException;
+
+
 import org.postgresql.util.PSQLException;
 
 import controller.Logic_View_Home;
@@ -22,7 +31,7 @@ public class PacienteDAO {
 	private ConnectionPostgres dbConn = new ConnectionPostgres("bd_consulta_medica");
 	private String query="";
 	private boolean result = false;
-	
+
 	public Paciente pacienteData(String ci) {
 		for(Paciente p:Logic_View_Home.pacientes) {
 			if(p.getCi().equals(ci)) {
@@ -31,6 +40,69 @@ public class PacienteDAO {
 		}
 		return null;
 	}
+
+
+	public boolean addPdfFile(Paciente p, File pdfFile) {
+		String query = "INSERT INTO examenes (cedula, examenes) VALUES (?, ?)";
+		try (Connection conn = dbConn.connect();
+				PreparedStatement stmt = conn.prepareStatement(query)) {
+
+			stmt.setString(1, p.getCi());
+			System.out.println(p.getCi());
+
+			try (FileInputStream fis = new FileInputStream(pdfFile)) {
+				stmt.setBinaryStream(2, fis, (int) pdfFile.length());
+				int rowsAffected = stmt.executeUpdate();
+				System.out.println("Operación realizada con éxito.");
+				return rowsAffected > 0;
+			}
+
+		} catch (SQLException | IOException e) {
+			System.err.println("Error al ejecutar la operación.");
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public boolean consultarFile(Paciente p) {
+		String sql = "SELECT fecha, examenes FROM examenes WHERE cedula = '"+ p.getCi()+"';";
+		ResultSet rs;
+		rs = dbConn.executeQuery(sql);
+
+		try {
+			while (rs != null && rs.next()) {
+				String nombreArchivo = String.valueOf(rs.getDate(1));
+				byte[] contenido = rs.getBytes(2);
+
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setDialogTitle("Selecciona el lugar para guardar el archivo");
+				fileChooser.setSelectedFile(new File(p.getCi()+"_"+nombreArchivo + ".pdf"));
+				fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+				int userSelection = fileChooser.showSaveDialog(null);
+				if (userSelection == JFileChooser.APPROVE_OPTION) {
+					File fileToSave = fileChooser.getSelectedFile();
+
+					if (!fileToSave.getName().endsWith(".pdf")) {
+						fileToSave = new File(fileToSave.getAbsolutePath() + ".pdf");
+					}
+
+					try (FileOutputStream fos = new FileOutputStream(fileToSave)) {
+						fos.write(contenido);
+						System.out.println("Archivo PDF descargado correctamente.");
+						return true;
+					} catch (IOException ex) {
+						ex.printStackTrace();
+					}
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+
 
 	public List<Paciente> getPacientes()
 	{
@@ -90,29 +162,46 @@ public class PacienteDAO {
 	}
 
 	private void sincronizarSecuencia(String antecedentes) throws SQLException {
-	    String queryMaxId = "SELECT MAX(id) FROM "+ antecedentes;
-	    int maxId = 0;
+		String queryMaxId = "SELECT MAX(id) FROM " + antecedentes;
+		int maxId = 0;
 
-	    try (Connection conn = dbConn.connect();
-	         PreparedStatement stmtMax = conn.prepareStatement(queryMaxId);
-	         ResultSet rs = stmtMax.executeQuery()) {
-	        if (rs.next()) {
-	            maxId = rs.getInt(1);
-	        }
-	    }
+		try (Connection conn = dbConn.connect();
+				PreparedStatement stmtMax = conn.prepareStatement(queryMaxId);
+				ResultSet rs = stmtMax.executeQuery()) {
+			if (rs.next()) {
+				maxId = rs.getInt(1);
+			}
+		}
 
-	    String querySecuencia = "ALTER SEQUENCE public."+antecedentes+"_id_seq RESTART WITH ?";
-	    try (Connection conn = dbConn.connect();
-	         PreparedStatement stmtSecuencia = conn.prepareStatement(querySecuencia)) {
-	        stmtSecuencia.setInt(1, maxId + 1);
-	        stmtSecuencia.executeUpdate();
-	        System.out.println("Secuencia sincronizada correctamente.");
-	    } catch (SQLException e) {
-	        System.err.println("Error al sincronizar la secuencia.");
-	        e.printStackTrace();
-	        throw e;
-	    }
+		String querySecuenciaCheck = "SELECT EXISTS (SELECT 1 FROM pg_sequences WHERE schemaname = 'public' AND sequencename = ?)";
+		boolean secuenciaExiste = false;
+		try (Connection conn = dbConn.connect();
+				PreparedStatement stmtSecuenciaCheck = conn.prepareStatement(querySecuenciaCheck)) {
+			stmtSecuenciaCheck.setString(1, antecedentes + "_id_seq");
+			ResultSet rsSecuencia = stmtSecuenciaCheck.executeQuery();
+			if (rsSecuencia.next()) {
+				secuenciaExiste = rsSecuencia.getBoolean(1);
+			}
+		}
+
+		if (!secuenciaExiste) {
+			System.err.println("La secuencia no existe para la tabla: " + antecedentes);
+			return;
+		}
+
+		String querySecuencia = "ALTER SEQUENCE public." + antecedentes + "_id_seq RESTART WITH ?";
+		try (Connection conn = dbConn.connect();
+				PreparedStatement stmtSecuencia = conn.prepareStatement(querySecuencia)) {
+			stmtSecuencia.setInt(1, maxId + 1); 
+			stmtSecuencia.executeUpdate();
+			System.out.println("Secuencia sincronizada correctamente.");
+		} catch (SQLException e) {
+			System.err.println("Error al sincronizar la secuencia.");
+			e.printStackTrace();
+			throw e;
+		}
 	}
+
 
 
 	public boolean addPatient(Paciente p){
@@ -145,35 +234,35 @@ public class PacienteDAO {
 	}
 
 	public boolean addAntPersonales(Paciente p) {
-	    query = "INSERT INTO antecedentes_personales (cedula, antecedentes) VALUES (?, ?)";
-	    try (Connection conn = dbConn.connect();
-	         PreparedStatement stmt = conn.prepareStatement(query)) {
-	        
-	        stmt.setString(1, p.getCi());
-	        stmt.setString(2, p.getAnt_personales());
-	        
-	        int rowsAffected = stmt.executeUpdate();
-	        System.out.println("Operación realizada con éxito.");
+		query = "INSERT INTO antecedentes_personales (cedula, antecedentes) VALUES (?, ?)";
+		try (Connection conn = dbConn.connect();
+				PreparedStatement stmt = conn.prepareStatement(query)) {
 
-	        return rowsAffected > 0;
-	        
-	    } catch (PSQLException e) {
-	        try {
-	            sincronizarSecuencia("antecedentes_personales");
-	            return addAntPersonales(p);
-	        } catch (SQLException ex) {
-	            System.err.println("Error al sincronizar la secuencia.");
-	            ex.printStackTrace();
-	            return false;
-	        }
-	    } catch (SQLException e) {
-	        System.err.println("Error al ejecutar la operación.");
-	        e.printStackTrace();
-	        return false;
-	    }
+			stmt.setString(1, p.getCi());
+			stmt.setString(2, p.getAnt_personales());
+
+			int rowsAffected = stmt.executeUpdate();
+			System.out.println("Operación realizada con éxito.");
+
+			return rowsAffected > 0;
+
+		} catch (PSQLException e) {
+			try {
+				sincronizarSecuencia("antecedentes_personales");
+				return addAntPersonales(p);
+			} catch (SQLException ex) {
+				System.err.println("Error al sincronizar la secuencia.");
+				ex.printStackTrace();
+				return false;
+			}
+		} catch (SQLException e) {
+			System.err.println("Error al ejecutar la operación.");
+			e.printStackTrace();
+			return false;
+		}
 	}
 
-	
+
 	public boolean addAntGinecoObst(Paciente p) {
 		query = "INSERT INTO antecedentes_gineco_obst (cedula, antecedentes)"
 				+"VALUES (?, ?)";
@@ -186,20 +275,20 @@ public class PacienteDAO {
 			System.out.println("Operación realizada con éxito." );
 			return rowsAffected > 0;
 
-		 } catch (PSQLException e) {
-		        try {
-		            sincronizarSecuencia("antecedentes_gineco_obst");
-		            return addAntGinecoObst(p);
-		        } catch (SQLException ex) {
-		            System.err.println("Error al sincronizar la secuencia.");
-		            ex.printStackTrace();
-		            return false;
-		        }
-		    } catch (SQLException e) {
-		        System.err.println("Error al ejecutar la operación.");
-		        e.printStackTrace();
-		        return false;
-		    }
+		} catch (PSQLException e) {
+			try {
+				sincronizarSecuencia("antecedentes_gineco_obst");
+				return addAntGinecoObst(p);
+			} catch (SQLException ex) {
+				System.err.println("Error al sincronizar la secuencia.");
+				ex.printStackTrace();
+				return false;
+			}
+		} catch (SQLException e) {
+			System.err.println("Error al ejecutar la operación.");
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	public boolean addAntFamiliares(Paciente p) {
@@ -212,25 +301,25 @@ public class PacienteDAO {
 			stmt.setString(2, p.getAnt_familiares());
 			int rowsAffected = stmt.executeUpdate();
 			System.out.println("Operación realizada con éxito." );
-			
+
 			return rowsAffected > 0;
 
-		 } catch (PSQLException e) {
-		        try {
-		            sincronizarSecuencia("antecedentes_familiares");
-		            return addAntFamiliares(p);
-		        } catch (SQLException ex) {
-		            System.err.println("Error al sincronizar la secuencia.");
-		            ex.printStackTrace();
-		            return false;
-		        }
-		    } catch (SQLException e) {
-		        System.err.println("Error al ejecutar la operación.");
-		        e.printStackTrace();
-		        return false;
-		    }
+		} catch (PSQLException e) {
+			try {
+				sincronizarSecuencia("antecedentes_familiares");
+				return addAntFamiliares(p);
+			} catch (SQLException ex) {
+				System.err.println("Error al sincronizar la secuencia.");
+				ex.printStackTrace();
+				return false;
+			}
+		} catch (SQLException e) {
+			System.err.println("Error al ejecutar la operación.");
+			e.printStackTrace();
+			return false;
+		}
 	}
-	
+
 	public int calcularEdad(String ci) {
 		query = "SELECT p.fecha_nacimiento "+
 				"FROM pacientes p "+
@@ -243,10 +332,10 @@ public class PacienteDAO {
 			while (rs != null && rs.next()) 
 			{
 				Date fechaNacimientoSQL = rs.getDate("fecha_nacimiento");
-                LocalDate fechaNacimiento = fechaNacimientoSQL.toLocalDate();
-                LocalDate fechaActual = LocalDate.now();
-                Period periodo = Period.between(fechaNacimiento, fechaActual);
-                edad = periodo.getYears();
+				LocalDate fechaNacimiento = fechaNacimientoSQL.toLocalDate();
+				LocalDate fechaActual = LocalDate.now();
+				Period periodo = Period.between(fechaNacimiento, fechaActual);
+				edad = periodo.getYears();
 			}
 		}catch (Exception e) {
 			System.err.println("Error al calcular la edad");
@@ -254,7 +343,7 @@ public class PacienteDAO {
 		}
 		return edad;
 	}
-	
+
 	public boolean updateEdad(Paciente p) {
 		if(this.calcularEdad(p.getCi()) != p.getEdad())
 		{
@@ -263,35 +352,35 @@ public class PacienteDAO {
 					" WHERE cedula = "+"'"+p.getCi()+"';";
 			if (dbConn.executeUpdate(query)) {
 				p.setEdad(this.calcularEdad(p.getCi()));
-	            return true;
-	        } else {
-	            System.out.println("No se actualizó ninguna fila.");
-	        }
-	    }
-	    
-	    return false; 
+				return true;
+			} else {
+				System.out.println("No se actualizó ninguna fila.");
+			}
+		}
+
+		return false; 
 	}
-	
+
 	public boolean updatePaciente(Paciente p, String antigua_cedula) {
-			query = "UPDATE pacientes"+
-					"SET cedula = '"+p.getCi()+"', "+
-					"nombres = '"+p.getNombres()+"', "+
-					"apellidos = '"+p.getApellidos()+"', "+
-					"ocupacion = '"+p.getOcupacion()+"', "+
-					"profesion = '"+p.getProfesion()+"', "+
-					"fecha_nacimiento = "+new java.sql.Date(p.getFecha_nacimiento().getTime())+", "+
-					"telefonos = '"+p.getTelefonos()+"', "+
-					"genero = '"+p.getGenero()+"', "+
-					"lugar_nacimiento = '"+p.getLugar_nacimiento()+"', "+
-					"edad = '"+p.getEdad()+"', "+
-					"WHERE cedula='"+antigua_cedula+"';";
-			if (dbConn.executeUpdate(query)) {
-	            return true;
-	        } else {
-	            System.out.println("No se actualizó la información.");
-	        }
-	    
-	    return false; 
+		query = "UPDATE pacientes"+
+				"SET cedula = '"+p.getCi()+"', "+
+				"nombres = '"+p.getNombres()+"', "+
+				"apellidos = '"+p.getApellidos()+"', "+
+				"ocupacion = '"+p.getOcupacion()+"', "+
+				"profesion = '"+p.getProfesion()+"', "+
+				"fecha_nacimiento = "+new java.sql.Date(p.getFecha_nacimiento().getTime())+", "+
+				"telefonos = '"+p.getTelefonos()+"', "+
+				"genero = '"+p.getGenero()+"', "+
+				"lugar_nacimiento = '"+p.getLugar_nacimiento()+"', "+
+				"edad = '"+p.getEdad()+"', "+
+				"WHERE cedula='"+antigua_cedula+"';";
+		if (dbConn.executeUpdate(query)) {
+			return true;
+		} else {
+			System.out.println("No se actualizó la información.");
+		}
+
+		return false; 
 	}
 }
 
